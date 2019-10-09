@@ -1,7 +1,7 @@
 #ifndef GAMES_H_INCLUDED
 #define GAMES_H_INCLUDED
 
-#include "structs.h"
+#include "inputs.h"
 
 
 
