@@ -24,8 +24,8 @@ $RECYCLE.BIN/
 # =====================
 # Compiled binary files
 # =====================
-bin/Debug/parcial-1
-bin/Debug/parcial-1.exe
+bin/Debug/primer-parcial
+bin/Debug/primer-parcial.exe
 
 # Extensions
 *.o

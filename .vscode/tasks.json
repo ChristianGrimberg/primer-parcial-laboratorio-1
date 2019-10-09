@@ -6,16 +6,13 @@
             "type": "shell",
             "args": [
                 "-o",
-                "bin/Debug/parcial-1",
+                "bin/Debug/primer-parcial",
                 "main.c"
             ],
             "problemMatcher": [
                 "$gcc"
             ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
+            "group": "build"
         },
         {
             "label": "WINDOWS: Parcial 1",
@@ -23,10 +20,14 @@
             "type": "shell",
             "args": [
                 "-o",
-                "bin/Debug/parcial-1.exe",
+                "bin/Debug/primer-parcial.exe",
                 "main.c"
             ],
-            "problemMatcher": []
+            "problemMatcher": [],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         }
     ],
     "version": "2.0.0"
