@@ -1,0 +1,33 @@
+{
+    "tasks": [
+        {
+            "label": "UNIX: Parcial 1",
+            "command": "cc",
+            "type": "shell",
+            "args": [
+                "-o",
+                "bin/Debug/parcial-1",
+                "main.c"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "WINDOWS: Parcial 1",
+            "command": "C:/Program Files (x86)/CodeBlocks/MinGW/bin/mingw32-gcc.exe",
+            "type": "shell",
+            "args": [
+                "-o",
+                "bin/Debug/parcial-1.exe",
+                "main.c"
+            ],
+            "problemMatcher": []
+        }
+    ],
+    "version": "2.0.0"
+}
