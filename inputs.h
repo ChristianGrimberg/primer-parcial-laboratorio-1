@@ -54,6 +54,20 @@ int inputs_isNumber(char stringValue[]);
  */
 int inputs_isFloat(char stringValue[]);
 
+/** \brief Funcion ue evalua si una cadena ingresada por teclado
+ *  es un numero telefonico. Ejemplo: +54 11 4200-0000.
+ *      Acepta simbolos de:
+ *          + [Codigo de Pais].
+ *          - [Dividir areas].
+ *          Espacios [Dividir areas].
+ *      No acepta que se repitan simbolos de manera consecutiva.
+ *
+ * \param stringValue[] char Direccion de la cadena a evaluar.
+ * \return int
+ *      Si es un numero telefonico retorna [1] si no [0].
+ */
+int inputs_isPhone(char stringValue[]);
+
 /** \brief Solicita un numero flotante al usuario e indica su tipo.
  *
  * \param number float Numero con o sin decimales a evaluar.

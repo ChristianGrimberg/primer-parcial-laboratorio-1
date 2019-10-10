@@ -46,6 +46,7 @@ int inputs_isNumber(char stringValue[])
         if(i == 0 && (charAux == '-' || charAux == '+'))
         {
             i = 1;
+            continue;
         }
 
         if((int)charAux >= (int)'0' && (int)charAux <= (int)'9')
@@ -75,6 +76,7 @@ int inputs_isFloat(char stringValue[])
         || (int)stringValue[0] == (int)'+'))
         {
             i = 1;
+            continue;
         }
 
         if(stringValue[i] == '.')
@@ -93,6 +95,53 @@ int inputs_isFloat(char stringValue[])
                 returnValue = 0;
                 break;
             }
+        }
+        i++;
+    }
+
+    return returnValue;
+}
+
+int inputs_isPhone(char stringValue[])
+{
+    int returnValue = 0;   /**< Variable de retorno. >*/
+    int i = 0; /**< Variable contador de ciclos de cada caracter de la cadena. >*/
+
+    char charAux; /**< Variable para almacenar el caracter actual del ciclo. >*/
+    char charBefore; /**< Variable para almacenar el caracter anterior del ciclo. >*/
+
+    while(stringValue[i] != (int)EXIT_BUFFER)
+    {
+        charAux = stringValue[i];
+
+        if(i == 0 && (int)charAux == (int)'+')
+        {
+            i = 1;
+            continue;
+        }
+
+        if(i > 0)
+        {
+            charBefore = stringValue[i-1];
+
+            if(((int)charAux == (int)'-' && (int)charBefore == (int)'-')
+               || ((int)charAux == (int)' ' && (int)charBefore == (int)' '))
+            {
+                returnValue = 0;
+                break;
+            }
+        }
+
+        if(((int)charAux >= (int)'0' && (int)charAux <= (int)'9')
+           || (int)charAux == (int)'-' || (int)charAux == (int)' ')
+        {
+
+            returnValue = 1;
+        }
+        else
+        {
+            returnValue = 0;
+            break;
         }
         i++;
     }
@@ -365,10 +414,8 @@ int inputs_getPhone(char* input, char message[], char eMessage[], int lowLimit, 
     int returnValue = ERROR; /**< Variable de retorno. >*/
     int counter = 0; /**< Variable contador de ciclos de solicitudes al usuario. >*/
     int sizeScan = 0; /**< Variable para almacenar el tamano de la cadena ingresada. >*/
-    int i;
 
     char auxPhone[PHONE_MAX]; /**< Variable para almacenar la cadena ingresada por teclado. >*/
-    char charPhone[2] = "";
 
     if(message != NULL && eMessage != NULL
         && hiLimit >= lowLimit && hiLimit <= PHONE_MAX && lowLimit > 0)
@@ -394,38 +441,14 @@ int inputs_getPhone(char* input, char message[], char eMessage[], int lowLimit, 
             {
                 sizeScan = strlen(auxPhone);
             }
-            else
-            {
-                continue;
-            }
-        } while(sizeScan < lowLimit || sizeScan > hiLimit);
+        } while(sizeScan < lowLimit || sizeScan > hiLimit || !inputs_isPhone(auxPhone));
 
-        if(sizeScan >= lowLimit && sizeScan <= PHONE_MAX)
+        if(sizeScan >= lowLimit && sizeScan <= hiLimit
+           && sizeScan > 0 && sizeScan <= PHONE_MAX
+           && inputs_isPhone(auxPhone))
         {
-            /**< Se controla el uso de memoria agregando el caracter terminador. */
-            auxPhone[STRING_MAX-1] = EXIT_BUFFER;
-
+            strcpy(input, auxPhone);
             returnValue = OK;
-
-            i = 0;
-            while(auxPhone[i] != EXIT_BUFFER)
-            {
-                charPhone[0] = auxPhone[i];
-                charPhone[1] = '\0';
-                if(!inputs_isNumber(charPhone)
-                    && auxPhone[i] != '-'
-                    && auxPhone[i] != '+')
-                {
-                    returnValue = ERROR;
-                    break;
-                }
-                i++;
-            }
-
-            if(returnValue == OK)
-            {
-                strcpy(input, auxPhone);
-            }
         }
     }
 
