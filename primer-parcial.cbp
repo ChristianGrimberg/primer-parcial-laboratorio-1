@@ -23,6 +23,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="arrays.h" />
+		<Unit filename="categories.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="categories.h" />
 		<Unit filename="games.c">
 			<Option compilerVar="CC" />
 		</Unit>

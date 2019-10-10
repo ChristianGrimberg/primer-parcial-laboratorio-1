@@ -1,7 +1,7 @@
 #ifndef GAMES_H_INCLUDED
 #define GAMES_H_INCLUDED
 
-#include "inputs.h"
+#include "categories.h"
 
 #define GAME_NAME_MAX 51 /**< Longitud maxima de la descripcion de un juego. >*/
 
