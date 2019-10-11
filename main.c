@@ -1,4 +1,4 @@
-#include "customers.h"
+#include "rents.h"
 
 int main()
 {
