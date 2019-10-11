@@ -21,18 +21,18 @@ typedef struct
     int isEmpty; /**< Indicador de posicion llena o vacia. >*/
 } sCategory;
 
-int categories_compare(sCategory game1, sCategory game2);
-int categories_swap(sCategory* game1, sCategory* game2);
-int categories_init(sCategory gamesList[], int gamesLength);
-void categories_hardcode(sCategory gamesList[], int gamesLength);
-int categories_getIndex(sCategory gamesList[], int gamesLength);
-int categories_getId(sCategory gamesList[], int gamesLength);
-int categories_userSelection(sCategory gamesList[], int gamesLength);
-int categories_add(sCategory gamesList[], int gamesLength);
-int categories_modify(sCategory gamesList[], int gamesLength);
-int categories_delete(sCategory gamesList[], int gamesLength);
-int categories_sort(sCategory gamesList[], int gamesLength, int order);
-int categories_print(sCategory game);
-int categories_printList(sCategory gamesList[], int gamesLength);
+int categories_compare(sCategory category1, sCategory category2);
+int categories_swap(sCategory* category1, sCategory* category2);
+int categories_init(sCategory categoriesList[], int categoriesLength);
+void categories_hardcode(sCategory categoriesList[], int categoriesLength);
+int categories_getIndex(sCategory categoriesList[], int categoriesLength);
+int categories_getId(sCategory categoriesList[], int categoriesLength);
+int categories_userSelection(sCategory categoriesList[], int categoriesLength);
+int categories_add(sCategory categoriesList[], int categoriesLength);
+int categories_modify(sCategory categoriesList[], int categoriesLength);
+int categories_delete(sCategory categoriesList[], int categoriesLength);
+int categories_sort(sCategory categoriesList[], int categoriesLength, int order);
+int categories_print(sCategory category);
+int categories_printList(sCategory categoriesList[], int categoriesLength);
 
 #endif // CATEGORIES_H_INCLUDED
