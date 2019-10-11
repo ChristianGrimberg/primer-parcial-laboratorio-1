@@ -21,6 +21,16 @@ typedef struct
     int isEmpty; /**< Indicador de posicion llena o vacia. >*/
 } sCategory;
 
+/** \brief Funcion que compara dos estructuras de Categorias.
+ *
+ * \param category1 sCategory Primer estructura a comparar.
+ * \param category2 sCategory Segunda estructura a comparar.
+ * \return int
+ *          [-1] Si el ID de la estructura 1 es mayor al ID de la  estructura 2.
+ *          [1] Si el ID de la estructura 1 es menor al ID de la estructura 2.
+ *          [0] Si ambos ID son iguales.
+ *
+ */
 int categories_compare(sCategory category1, sCategory category2);
 int categories_swap(sCategory* category1, sCategory* category2);
 int categories_init(sCategory categoriesList[], int categoriesLength);

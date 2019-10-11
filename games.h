@@ -25,6 +25,16 @@ typedef struct
     int isEmpty; /**< Indicador de posicion llena o vacia. >*/
 } sGame;
 
+/** \brief Funcion que compara dos estructuras de Juegos.
+ *
+ * \param game1 sGame Primer estructura a comparar.
+ * \param game2 sGame Segunda estructura a comparar.
+ * \return int
+ *          [-1] Si el ID de la estructura 1 es mayor al ID de la  estructura 2.
+ *          [1] Si el ID de la estructura 1 es menor al ID de la estructura 2.
+ *          [0] Si ambos ID son iguales.
+ *
+ */
 int games_compare(sGame game1, sGame game2);
 int games_swap(sGame* game1, sGame* game2);
 int games_init(sGame gamesList[], int gamesLength);

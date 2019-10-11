@@ -27,6 +27,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="categories.h" />
+		<Unit filename="customers.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="customers.h" />
 		<Unit filename="games.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -38,6 +42,10 @@
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="rents.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="rents.h" />
 		<Unit filename="structs.c">
 			<Option compilerVar="CC" />
 		</Unit>
