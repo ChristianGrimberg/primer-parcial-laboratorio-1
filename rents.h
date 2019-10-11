@@ -19,7 +19,7 @@ typedef struct
 {
     int id; /**< Campo ID de la estructura. >*/
     int gameId; /**< Clave foranea del ID de Juegos. >*/
-    int CustomerId; /**< Clave foranea del ID de Clientes. >*/
+    int customerId; /**< Clave foranea del ID de Clientes. >*/
     sDate date; /**< Fecha de la estructura. >*/
     int isEmpty; /**< Indicador de posicion llena o vacia. >*/
 } sRental;

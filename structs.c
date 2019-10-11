@@ -1,5 +1,16 @@
 #include "structs.h"
 
+sDate structs_nullDate()
+{
+    sDate aux;
+
+    aux.day = DAY_31;
+    aux.month = MONTH_MAX;
+    aux.year = YEAR_MIN - 1;
+
+    return aux;
+}
+
 int structs_isDate(sDate date)
 {
     int returnValue = 0;

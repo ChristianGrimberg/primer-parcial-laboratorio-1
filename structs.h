@@ -38,6 +38,14 @@ typedef struct
     int year; /**< Valor del anio de la fecha. >*/
 } sDate;
 
+/** \brief Funcion que devuelve una estructura vacia.
+ *
+ * \param void No requiere parametros.
+ * \return sDate Devuelve una estructura con valores "nulos".
+ *
+ */
+sDate structs_nullDate(void);
+
 /** \brief Funcion que evalua si la fecha ingresada es válida
  *
  * \param date sDate Fecha a evaluar.

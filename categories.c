@@ -1,5 +1,13 @@
 #include "categories.h"
 
+/** \brief Funcion que devuelve una estructura vacia.
+ *
+ * \param void No requiere parametros.
+ * \return sCategory Devuelve una estructura con valores "nulos".
+ *
+ */
+static sCategory nullCategory(void);
+
 /** \brief Funcion que determina si la estructura es una Categoria.
  *
  * \param category sCategory Estructura a evaluar.
@@ -9,14 +17,6 @@
  *
  */
 static int isCategory(sCategory category);
-
-/** \brief Funcion que devuelve una estructura vacia.
- *
- * \param void No requiere parametros.
- * \return sCategory Devuelve una estructura con valores "nulos".
- *
- */
-static sCategory nullCategory(void);
 
 /** \brief Obtiene un nuevo ID autoincremental.
  *
@@ -68,7 +68,8 @@ static int isCategory(sCategory category)
 {
     int returnValue = 0;
 
-    if(category.id != EMPTY_ID && category.description != NULL && category.isEmpty == FALSE)
+    if(category.id != EMPTY_ID && category.description != NULL
+       && category.isEmpty == FALSE)
     {
         returnValue = 1;
     }
