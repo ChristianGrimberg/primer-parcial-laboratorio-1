@@ -3,15 +3,14 @@
 
 #include "inputs.h"
 
-#define CATEGORY_NAME_MAX 51 /**< Longitud maxima de la descripcion de un juego. >*/
+#define CATEGORY_NAME_MAX 51 /**< Longitud maxima de la descripcion de una Categoria. >*/
+#define ID_INIT_CATEGORY 100 /**< Numeracion inicial de una Categoria. >*/
 
 /*! \struct sCategory
- * \brief Tipo de dato de un Juego.
+ * \brief Tipo de dato de una Categoria.
  *
  * \field id int Campo ID de la estructura.
  * \field description[] char Descripcion de la estructura.
- * \field price float Importe de la estructura.
- * \field categoryId int Clave foranea del ID de Categoria.
  * \field isEmpty int Indicador de posicion llena o vacia..
  *
  */

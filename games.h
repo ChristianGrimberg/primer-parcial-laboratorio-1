@@ -3,7 +3,8 @@
 
 #include "categories.h"
 
-#define GAME_NAME_MAX 51 /**< Longitud maxima de la descripcion de un juego. >*/
+#define GAME_NAME_MAX 51 /**< Longitud maxima de la descripcion de un Juego. >*/
+#define ID_INIT_GAME 200 /**< Numeracion inicial de un Juego. >*/
 
 /*! \struct sGame
  * \brief Tipo de dato de un Juego.
