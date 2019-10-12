@@ -119,7 +119,8 @@ int structs_swapDate(sDate* date1, sDate* date2)
     *date1 = *date2;
     *date2 = aux1;
 
-    if(!structs_dateCompare(*date1, aux2) && !structs_dateCompare(*date2, aux1))
+    if(structs_dateCompare(*date1, aux2) == 0
+       && structs_dateCompare(*date2, aux1) == 0)
     {
         returnValue = OK;
     }

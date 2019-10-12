@@ -105,7 +105,6 @@ int inputs_getInt(int* input, char message[], char eMessage[], int lowLimit, int
  */
 int inputs_getFloat(float* input, char message[], char eMessage[], float lowLimit, float hiLimit);
 
-
 /** \brief Solicita un caracter al usuario y lo valida.
  *
  * \param input char* Se carga el caracter ingresado.

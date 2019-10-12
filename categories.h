@@ -5,6 +5,7 @@
 
 #define CATEGORY_NAME_MAX 51 /**< Longitud maxima de la descripcion de una Categoria. >*/
 #define ID_INIT_CATEGORY 100 /**< Numeracion inicial de una Categoria. >*/
+#define CATEGORIES_MAX 25 /**< Cantidad maxima de categorias en un arreglo. >*/
 
 /*! \struct sCategory
  * \brief Tipo de dato de una Categoria.
@@ -32,8 +33,34 @@ typedef struct
  *
  */
 int categories_compare(sCategory category1, sCategory category2);
+
+/** \brief Intercambio de estructuras.
+ *
+ * \param category1 sCategory* Direccion de memoria de la estructura 1.
+ * \param category2 sCategory* Direccion de memoria de la estructura 2.
+ * \return int
+ *          [-1] Si hubo un error en el intercambio.
+ *          [0] Si el intercambio fue exitoso.
+ *
+ */
 int categories_swap(sCategory* category1, sCategory* category2);
+
+/** \brief Inicializacion de arreglo de estructuras.
+ *
+ * \param categoriesList[] sCategory Arreglo de estrucutras.
+ * \param categoriesLength int Longitud del arreglo.
+ * \return int Cantidad de estructuras impresas.
+ *
+ */
 int categories_init(sCategory categoriesList[], int categoriesLength);
+
+/** \brief Harcodeo de estructuras de ejemplo.
+ *
+ * \param categoriesList[] sCategory Arreglo de estrucutras.
+ * \param categoriesLength int Longitud del arreglo.
+ * \return void No retorna valores.
+ *
+ */
 void categories_hardcode(sCategory categoriesList[], int categoriesLength);
 int categories_getIndex(sCategory categoriesList[], int categoriesLength);
 int categories_getId(sCategory categoriesList[], int categoriesLength);
@@ -42,7 +69,14 @@ int categories_add(sCategory categoriesList[], int categoriesLength);
 int categories_modify(sCategory categoriesList[], int categoriesLength);
 int categories_delete(sCategory categoriesList[], int categoriesLength);
 int categories_sort(sCategory categoriesList[], int categoriesLength, int order);
-int categories_print(sCategory category);
+
+/** \brief Impresion con formato tabla de una estructura.
+ *
+ * \param category sCategory Estructura a imprimir.
+ * \return void No retorna valores.
+ *
+ */
+void categories_print(sCategory category);
 int categories_printList(sCategory categoriesList[], int categoriesLength);
 
 #endif // CATEGORIES_H_INCLUDED

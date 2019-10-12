@@ -25,6 +25,15 @@ static int isGame(sGame game);
  *
  */
 static int getNewId(void);
+
+/** \brief Imprime en pantalla los valores de la estructura.
+ *
+ * \param game sGame Estructura a imprimir.
+ * \return int
+ *          [0] Si la estructura esta vacia.
+ *          [1] Si la estructura esta llena y pudo imprimirse.
+ *
+ */
 static int printGame(sGame game);
 
 int games_compare(sGame game1, sGame game2)
@@ -70,8 +79,10 @@ static int isGame(sGame game)
 {
     int returnValue = 0;
 
-    if(game.id != EMPTY_ID && game.description != NULL
-       && game.categoryId != EMPTY_ID && game.isEmpty == FALSE)
+    if(game.id != EMPTY_ID
+       && game.description != NULL
+       && game.categoryId != EMPTY_ID
+       && game.isEmpty == FALSE)
     {
         returnValue = 1;
     }

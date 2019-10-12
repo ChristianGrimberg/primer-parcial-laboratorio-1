@@ -35,7 +35,14 @@ int rents_add(sRental rentsList[], int rentsLength);
 int rents_modify(sRental rentsList[], int rentsLength);
 int rents_delete(sRental rentsList[], int rentsLength);
 int rents_sort(sRental rentsList[], int rentsLength, int order);
-int rents_print(sRental rental);
+
+/** \brief Impresion con formato tabla de una estructura.
+ *
+ * \param rental sRental Estructura a imprimir.
+ * \return void No retorna valores.
+ *
+ */
+void rents_print(sRental rental);
 int rents_printList(sRental rentsList[], int rentsLength);
 
 #endif // RENTS_H_INCLUDED

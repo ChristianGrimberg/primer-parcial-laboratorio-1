@@ -42,7 +42,14 @@ int customers_add(sCustomer customersList[], int customersLength);
 int customers_modify(sCustomer customersList[], int customersLength);
 int customers_delete(sCustomer customersList[], int customersLength);
 int customers_sort(sCustomer customersList[], int customersLength, int order);
-int customers_print(sCustomer customer);
+
+/** \brief Impresion con formato tabla de una estructura.
+ *
+ * \param customer sCustomer Estructura a imprimir.
+ * \return void No retorna valores.
+ *
+ */
+void customers_print(sCustomer customer);
 int customers_printList(sCustomer customersList[], int customersLength);
 
 #endif // CUSTOMERS_H_INCLUDED

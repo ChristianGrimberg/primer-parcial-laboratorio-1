@@ -25,6 +25,15 @@ static int isRental(sRental rental);
  *
  */
 static int getNewId(void);
+
+/** \brief Imprime en pantalla los valores de la estructura.
+ *
+ * \param rental sRental Estructura a imprimir.
+ * \return int
+ *          [0] Si la estructura esta vacia.
+ *          [1] Si la estructura esta llena y pudo imprimirse.
+ *
+ */
 static int printRental(sRental rental);
 
 int rents_compare(sRental rental1, sRental rental2)
@@ -70,8 +79,10 @@ static int isRental(sRental rental)
 {
     int returnValue = 0;
 
-    if(rental.id != EMPTY_ID && rental.gameId != EMPTY_ID
-       && rental.customerId != EMPTY_ID && rental.isEmpty == FALSE)
+    if(rental.id != EMPTY_ID
+       && rental.gameId != EMPTY_ID
+       && rental.customerId != EMPTY_ID
+       && rental.isEmpty == FALSE)
     {
         returnValue = 1;
     }

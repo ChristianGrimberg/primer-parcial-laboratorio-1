@@ -25,6 +25,15 @@ static int isCustomer(sCustomer customer);
  *
  */
 static int getNewId(void);
+
+/** \brief Imprime en pantalla los valores de la estructura.
+ *
+ * \param customer sCustomer Estructura a imprimir.
+ * \return int
+ *          [0] Si la estructura esta vacia.
+ *          [1] Si la estructura esta llena y pudo imprimirse.
+ *
+ */
 static int printCustomer(sCustomer customer);
 
 int customers_compare(sCustomer customer1, sCustomer customer2)
@@ -72,8 +81,11 @@ static int isCustomer(sCustomer customer)
 {
     int returnValue = 0;
 
-    if(customer.id != EMPTY_ID && customer.name != NULL && customer.lastName != NULL
-       && customer.phone != NULL && customer.isEmpty == FALSE)
+    if(customer.id != EMPTY_ID
+       && customer.name != NULL
+       && customer.lastName != NULL
+       && customer.phone != NULL
+       && customer.isEmpty == FALSE)
     {
         returnValue = 1;
     }

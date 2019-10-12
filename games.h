@@ -46,7 +46,14 @@ int games_add(sGame gamesList[], int gamesLength);
 int games_modify(sGame gamesList[], int gamesLength);
 int games_delete(sGame gamesList[], int gamesLength);
 int games_sort(sGame gamesList[], int gamesLength, int order);
-int games_print(sGame game);
+
+/** \brief Impresion con formato tabla de una estructura.
+ *
+ * \param game sGame Estructura a imprimir.
+ * \return void No retorna valores.
+ *
+ */
+void games_print(sGame game);
 int games_printList(sGame gamesList[], int gamesLength);
 
 
