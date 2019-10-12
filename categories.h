@@ -77,8 +77,8 @@ int categories_delete(sCategory categoriesList[], int categoriesLength);
  *          [ASC] Para orden ascendente.
  *          [DESC] Para orden descendente.
  * \return int
- *          [ERROR] Si hubo un error en el ordenamiento.
- *          [OK] Si el ordenamiento fue exitoso.
+ *          [ERROR] Si no se realizo ningun ordenamiento.
+ *          [OK] Si al menos hizo un minimo ordenamiento.
  *
  */
 int categories_sort(sCategory categoriesList[], int categoriesLength, int order);
