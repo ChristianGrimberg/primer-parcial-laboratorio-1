@@ -8,7 +8,8 @@ int main()
     {
         categories_hardcode(categories, CATEGORIES_MAX);
 
-        if(categories_printList(categories, CATEGORIES_MAX) == 0)
+        if(categories_sort(categories, CATEGORIES_MAX, DESC) == OK
+           && categories_printList(categories, CATEGORIES_MAX) == 0)
         {
             printf("No hay categorias definidas.\n");
         }

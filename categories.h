@@ -39,8 +39,8 @@ int categories_compare(sCategory category1, sCategory category2);
  * \param category1 sCategory* Direccion de memoria de la estructura 1.
  * \param category2 sCategory* Direccion de memoria de la estructura 2.
  * \return int
- *          [-1] Si hubo un error en el intercambio.
- *          [0] Si el intercambio fue exitoso.
+ *          [ERROR] Si hubo un error en el intercambio.
+ *          [OK] Si el intercambio fue exitoso.
  *
  */
 int categories_swap(sCategory* category1, sCategory* category2);
@@ -62,12 +62,25 @@ int categories_init(sCategory categoriesList[], int categoriesLength);
  *
  */
 void categories_hardcode(sCategory categoriesList[], int categoriesLength);
-int categories_getIndex(sCategory categoriesList[], int categoriesLength);
-int categories_getId(sCategory categoriesList[], int categoriesLength);
+int categories_getEmptyIndex(sCategory categoriesList[], int categoriesLength);
+int categories_getIndexById(sCategory categoriesList[], int categoriesLength, int id);
 int categories_userSelection(sCategory categoriesList[], int categoriesLength);
 int categories_add(sCategory categoriesList[], int categoriesLength);
 int categories_modify(sCategory categoriesList[], int categoriesLength);
 int categories_delete(sCategory categoriesList[], int categoriesLength);
+
+/** \brief Ordenamiento de un arreglo de estructuras.
+ *
+ * \param categoriesList[] sCategory Arreglo de estrucutras.
+ * \param categoriesLength int Longitud del arreglo.
+ * \param order int
+ *          [ASC] Para orden ascendente.
+ *          [DESC] Para orden descendente.
+ * \return int
+ *          [ERROR] Si hubo un error en el ordenamiento.
+ *          [OK] Si el ordenamiento fue exitoso.
+ *
+ */
 int categories_sort(sCategory categoriesList[], int categoriesLength, int order);
 
 /** \brief Impresion con formato tabla de una estructura.

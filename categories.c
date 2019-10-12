@@ -132,6 +132,41 @@ void categories_hardcode(sCategory categoriesList[], int categoriesLength)
     }
 }
 
+int categories_sort(sCategory categoriesList[], int categoriesLength, int order)
+{
+    int returnValue = ERROR;
+
+    if(categoriesList != NULL
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX
+       && (order == ASC || order == DESC))
+    {
+        for(int i= 0; i < categoriesLength-1 ; i++)
+        {
+            for(int j = i+1; j < categoriesLength; j++)
+            {
+                if(isCategory(categoriesList[i])
+                   && isCategory(categoriesList[j]))
+                {
+                    if((strcmp(arrays_stringToCamelCase(categoriesList[i].description, CATEGORY_NAME_MAX),
+                               arrays_stringToCamelCase(categoriesList[j].description, CATEGORY_NAME_MAX)) > 0
+                        && order == ASC)
+                        || (strcmp(arrays_stringToCamelCase(categoriesList[i].description, CATEGORY_NAME_MAX),
+                               arrays_stringToCamelCase(categoriesList[j].description, CATEGORY_NAME_MAX)) < 0
+                        && order == DESC))
+                    {
+                        if(categories_swap(&categoriesList[i], &categoriesList[j]) == OK)
+                        {
+                            returnValue = OK;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return returnValue;
+}
+
 void categories_print(sCategory category)
 {
     if(isCategory(category))
