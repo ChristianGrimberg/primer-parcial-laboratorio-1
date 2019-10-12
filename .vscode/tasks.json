@@ -21,6 +21,13 @@
             "args": [
                 "-o",
                 "bin/Debug/primer-parcial.exe",
+                "structs.c",
+                "arrays.c",
+                "inputs.c",
+                "categories.c",
+                "games.c",
+                "customers.c",
+                "rents.c",
                 "main.c"
             ],
             "problemMatcher": [],

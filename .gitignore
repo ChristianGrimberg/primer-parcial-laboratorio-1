@@ -30,6 +30,5 @@ bin/Debug/primer-parcial.exe
 # Extensions
 *.o
 *.a
-*.layout
 *.depend
 *.log
