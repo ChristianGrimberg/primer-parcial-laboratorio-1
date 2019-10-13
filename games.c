@@ -62,6 +62,82 @@ int games_compare(sGame game1, sGame game2)
     return compare;
 }
 
+int games_swap(sGame* game1, sGame* game2)
+{
+    int returnValue = ERROR;
+    sGame aux1;
+    sGame aux2;
+
+    aux1 = *game1;
+    aux2 = *game2;
+    *game1 = *game2;
+    *game2 = aux1;
+
+    if(games_compare(*game1, aux2) == 0
+       && games_compare(*game2, aux1) == 0)
+    {
+        returnValue = OK;
+    }
+
+    return returnValue;
+}
+
+int games_init(sGame gamesList[], int gamesLength)
+{
+    int returnValue = ERROR;
+    int i;
+
+    if(gamesList != NULL
+       && gamesLength > 0 && gamesLength <= GAMES_MAX)
+    {
+        for(i = 0 ; i < gamesLength; i++)
+        {
+            gamesList[i] = nullGame();
+        }
+
+        if(i == gamesLength)
+        {
+            returnValue = OK;
+        }
+    }
+
+    return returnValue;
+}
+
+void games_hardcode(sGame gamesList[], int gamesLength)
+{
+    int indexHardcodeMax = 9;
+
+    sGame gamesAux[] = {
+        {getNewId(), "monopoly", 1200.0, 101, FALSE},
+        {getNewId(), "quien es quien", 550.0, 101, FALSE},
+        {getNewId(), "age of empires", 3500.0, 103, FALSE},
+        {getNewId(), "truco", 150.0, 104, FALSE},
+        {getNewId(), "cartas de magia", 600.0, 105, FALSE},
+        {getNewId(), "ruleta", 4000.0, 102, FALSE},
+        {getNewId(), "bingo", 400.0, 102, FALSE},
+        {getNewId(), "uno", 450.0, 104, FALSE},
+        {getNewId(), "poker", 650.0, 104, FALSE},
+        {getNewId(), "set de magia", 5500.0, 105, FALSE},
+    };
+
+    if(gamesList != NULL
+       && gamesLength > 0 && gamesLength <= GAMES_MAX)
+    {
+        for (int i = 0; i < gamesLength; i++)
+        {
+            if(i <= indexHardcodeMax)
+            {
+                gamesList[i] = gamesAux[i];
+            }
+            else
+            {
+                gamesList[i] = nullGame();
+            }
+        }
+    }
+}
+
 static sGame nullGame()
 {
     sGame aux;

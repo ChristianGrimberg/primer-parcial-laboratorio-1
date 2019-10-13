@@ -3,10 +3,15 @@
 int main()
 {
     sCategory categories[CATEGORIES_MAX];
+    sGame games[GAMES_MAX];
 
     if(categories_init(categories, CATEGORIES_MAX) == OK)
     {
-        categories_hardcode(categories, CATEGORIES_MAX);
+        if(HARDCODE == TRUE)
+        {
+            categories_hardcode(categories, CATEGORIES_MAX);
+            games_hardcode(games, GAMES_MAX);
+        }
 
         if(categories_sort(categories, CATEGORIES_MAX, ASC) == ERROR)
         {

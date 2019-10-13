@@ -116,7 +116,8 @@ void categories_hardcode(sCategory categoriesList[], int categoriesLength)
         {getNewId(), "magia", FALSE}
     };
 
-    if(categoriesList != NULL && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
+    if(categoriesList != NULL
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
     {
         for (int i = 0; i < categoriesLength; i++)
         {

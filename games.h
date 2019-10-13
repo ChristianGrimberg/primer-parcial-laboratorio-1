@@ -5,6 +5,7 @@
 
 #define GAME_NAME_MAX 51 /**< Longitud maxima de la descripcion de un Juego. >*/
 #define ID_INIT_GAME 200 /**< Numeracion inicial de un Juego. >*/
+#define GAMES_MAX 100 /**< Cantidad maxima de categorias en un arreglo. >*/
 
 /*! \struct sGame
  * \brief Tipo de dato de un Juego.
@@ -36,8 +37,36 @@ typedef struct
  *
  */
 int games_compare(sGame game1, sGame game2);
+
+/** \brief Intercambio de estructuras.
+ *
+ * \param game1 sGame* Direccion de memoria de la estructura 1.
+ * \param game2 sGame* Direccion de memoria de la estructura 2.
+ * \return int
+ *          [ERROR] Si hubo un error en el intercambio.
+ *          [OK] Si el intercambio fue exitoso.
+ *
+ */
 int games_swap(sGame* game1, sGame* game2);
+
+/** \brief Inicializacion de arreglo de estructuras.
+ *
+ * \param gamesList[] sGame Arreglo de estrucutras.
+ * \param gamesLength int Longitud del arreglo.
+ * \return int
+ *          [ERROR] Si hubo un error al inicializar.
+ *          [OK] Si la inicializacion se realizo correctamente.
+ *
+ */
 int games_init(sGame gamesList[], int gamesLength);
+
+/** \brief Harcodeo de estructuras de ejemplo.
+ *
+ * \param gamesList[] sGame Arreglo de estrucutras.
+ * \param gamesLength int Longitud del arreglo.
+ * \return void No retorna valores.
+ *
+ */
 void games_hardcode(sGame gamesList[], int gamesLength);
 int games_getEmptyIndex(sGame gamesList[], int gamesLength);
 int games_getIndexId(sGame gamesList[], int gamesLength, int id);
