@@ -49,7 +49,9 @@ int categories_swap(sCategory* category1, sCategory* category2);
  *
  * \param categoriesList[] sCategory Arreglo de estrucutras.
  * \param categoriesLength int Longitud del arreglo.
- * \return int Cantidad de estructuras impresas.
+ * \return int
+ *          [ERROR] Si hubo un error al inicializar.
+ *          [OK] Si la inicializacion se realizo correctamente.
  *
  */
 int categories_init(sCategory categoriesList[], int categoriesLength);
@@ -62,7 +64,28 @@ int categories_init(sCategory categoriesList[], int categoriesLength);
  *
  */
 void categories_hardcode(sCategory categoriesList[], int categoriesLength);
+
+/** \brief Obtiene el primer indice vacio del arreglo
+ *
+ * \param categoriesList[] sCategory Arreglo de estrucutras.
+ * \param categoriesLength int Longitud del arreglo.
+ * \return int
+ *          Indice de la primera posicion vacia del arreglo.
+ *          [ERROR] Si no hay ninguna posicion vacia.
+ *
+ */
 int categories_getEmptyIndex(sCategory categoriesList[], int categoriesLength);
+
+/** \brief Obtiene el indice de la estructura buscada por el ID.
+ *
+ * \param categoriesList[] sCategory Arreglo de estrucutras.
+ * \param categoriesLength int Longitud del arreglo.
+ * \param id int ID a buscar.
+ * \return int
+ *          Indice del ID buscado.
+ *          [ERROR] Si el ID buscado no existe o esta inactivo.
+ *
+ */
 int categories_getIndexById(sCategory categoriesList[], int categoriesLength, int id);
 int categories_userSelection(sCategory categoriesList[], int categoriesLength);
 int categories_add(sCategory categoriesList[], int categoriesLength);
@@ -90,6 +113,14 @@ int categories_sort(sCategory categoriesList[], int categoriesLength, int order)
  *
  */
 void categories_print(sCategory category);
+
+/** \brief Impresion con formato tabla de un arreglo de estructuras.
+ *
+ * \param categoriesList[] sCategory Arreglo de estrucutras.
+ * \param categoriesLength int Longitud del arreglo.
+ * \return int Cantidad de estructuras impresas.
+ *
+ */
 int categories_printList(sCategory categoriesList[], int categoriesLength);
 
 #endif // CATEGORIES_H_INCLUDED

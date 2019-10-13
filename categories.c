@@ -132,6 +132,48 @@ void categories_hardcode(sCategory categoriesList[], int categoriesLength)
     }
 }
 
+int categories_getEmptyIndex(sCategory categoriesList[], int categoriesLength)
+{
+    int returnValue = ERROR;
+    int i;
+
+    if(categoriesList != NULL
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
+    {
+        for (i = 0; i < categoriesLength; i++)
+        {
+            if(categoriesList[i].isEmpty == TRUE)
+            {
+                returnValue = i;
+                break;
+            }
+        }
+    }
+
+    return returnValue;
+}
+
+int categories_getIndexById(sCategory categoriesList[], int categoriesLength, int id)
+{
+    int returnValue = ERROR;
+
+    if(categoriesList != NULL
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
+    {
+        for (int i = 0; i < categoriesLength; i++)
+        {
+            if(categoriesList[i].id == id
+               && categoriesList[i].isEmpty == FALSE)
+            {
+                returnValue = i;
+                break;
+            }
+        }
+    }
+
+    return returnValue;
+}
+
 int categories_sort(sCategory categoriesList[], int categoriesLength, int order)
 {
     int returnValue = ERROR;
