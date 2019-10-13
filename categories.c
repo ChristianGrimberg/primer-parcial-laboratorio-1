@@ -8,16 +8,6 @@
  */
 static sCategory nullCategory(void);
 
-/** \brief Funcion que determina si la estructura es una Categoria.
- *
- * \param category sCategory Estructura a evaluar.
- * \return int
- *          [0] Si no es una Categoria.
- *          [1] Si es una Categoria.
- *
- */
-static int isCategory(sCategory category);
-
 /** \brief Obtiene un nuevo ID autoincremental.
  *
  * \param void No requiere parametros.
@@ -36,11 +26,26 @@ static int getNewId(void);
  */
 static int printCategory(sCategory category);
 
+int categories_isCategory(sCategory category)
+{
+    int returnValue = 0;
+
+    if(category.id != EMPTY_ID
+       && category.description != NULL
+       && category.isEmpty == FALSE)
+    {
+        returnValue = 1;
+    }
+
+    return returnValue;
+}
+
 int categories_compare(sCategory category1, sCategory category2)
 {
     int compare = -2;
 
-    if(isCategory(category1) && isCategory(category2))
+    if(category1.isEmpty == FALSE
+       && category2.isEmpty == FALSE)
     {
         if(category1.id > category2.id)
         {
@@ -309,8 +314,8 @@ int categories_sort(sCategory categoriesList[], int categoriesLength, int order)
         {
             for(int j = i+1; j < categoriesLength; j++)
             {
-                if(isCategory(categoriesList[i])
-                   && isCategory(categoriesList[j]))
+                if(categories_isCategory(categoriesList[i])
+                   && categories_isCategory(categoriesList[j]))
                 {
                     if((strcmp(arrays_stringToCamelCase(categoriesList[i].description, CATEGORY_NAME_MAX),
                                arrays_stringToCamelCase(categoriesList[j].description, CATEGORY_NAME_MAX)) > 0
@@ -334,7 +339,7 @@ int categories_sort(sCategory categoriesList[], int categoriesLength, int order)
 
 void categories_print(sCategory category)
 {
-    if(isCategory(category))
+    if(categories_isCategory(category))
     {
         printf("+=======+======================+\n");
         printf("|   ID  |      DESCRIPCION     |\n");
@@ -352,11 +357,12 @@ int categories_printList(sCategory categoriesList[], int categoriesLength)
     int itemsCounter = 0;
     int flag = 0;
 
-    if(categoriesList != NULL && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
+    if(categoriesList != NULL
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
     {
         for (int i = 0; i < categoriesLength; i++)
         {
-            if(isCategory(categoriesList[i]))
+            if(categories_isCategory(categoriesList[i]))
             {
                 itemsCounter++;
 
@@ -367,7 +373,7 @@ int categories_printList(sCategory categoriesList[], int categoriesLength)
                     printf("+=======+======================+\n");
                 }
 
-                if(printCategory(categoriesList[i]))
+                if(printCategory(categoriesList[i]) == 1)
                 {
                     flag = 1;
                 }
@@ -399,20 +405,6 @@ static sCategory nullCategory()
     return aux;
 }
 
-static int isCategory(sCategory category)
-{
-    int returnValue = 0;
-
-    if(category.id != EMPTY_ID
-       && category.description != NULL
-       && category.isEmpty == FALSE)
-    {
-        returnValue = 1;
-    }
-
-    return returnValue;
-}
-
 static int getNewId()
 {
     static int categoryId = ID_INIT_CATEGORY;
@@ -424,7 +416,7 @@ static int printCategory(sCategory category)
 {
     int counter = 0;
 
-    if(isCategory(category))
+    if(categories_isCategory(category))
     {
         printf("| %5d | %20s |\n", category.id, arrays_stringToCamelCase(category.description, CATEGORY_NAME_MAX));
         counter = 1;

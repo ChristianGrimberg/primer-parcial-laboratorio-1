@@ -18,9 +18,10 @@ int main()
             printf("No se hizo ningun orden.\n");
         }
 
-        if(categories_printList(categories, CATEGORIES_MAX) == 0)
+        if(categories_printList(categories, CATEGORIES_MAX) == 0
+           || games_printList(games, GAMES_MAX, categories, CATEGORIES_MAX) == 0)
         {
-            printf("No hay categorias definidas.\n");
+            printf("No hay datos a imprimir.\n");
         }
     }
 

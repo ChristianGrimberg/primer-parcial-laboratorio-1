@@ -78,12 +78,14 @@ int games_sort(sGame gamesList[], int gamesLength, int order);
 
 /** \brief Impresion con formato tabla de una estructura.
  *
- * \param game sGame Estructura a imprimir.
+ * \param game sGame Estructura de Juego.
+ * \param categoriesList[] sCategory Arreglo de estrucutras de Categorias.
+ * \param categoriesLength int Longitud del arreglo de Categorias.
  * \return void No retorna valores.
  *
  */
-void games_print(sGame game);
-int games_printList(sGame gamesList[], int gamesLength);
+void games_print(sGame game, sCategory categoriesList[], int categoriesLength);
+int games_printList(sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
 
 
 #endif // GAMES_H_INCLUDED

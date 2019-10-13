@@ -22,6 +22,16 @@ typedef struct
     int isEmpty; /**< Indicador de posicion llena o vacia. >*/
 } sCategory;
 
+/** \brief Funcion que determina si la estructura es una Categoria.
+ *
+ * \param category sCategory Estructura a evaluar.
+ * \return int
+ *          [0] Si no es una Categoria.
+ *          [1] Si es una Categoria.
+ *
+ */
+int categories_isCategory(sCategory category);
+
 /** \brief Funcion que compara dos estructuras de Categorias.
  *
  * \param category1 sCategory Primer estructura a comparar.

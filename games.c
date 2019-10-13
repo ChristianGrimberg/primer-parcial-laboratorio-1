@@ -10,13 +10,14 @@ static sGame nullGame(void);
 
 /** \brief Funcion que determina si la estructura es un Juego.
  *
- * \param game sGame Estructura a evaluar.
+ * \param game sGame Estructura de Juego a evaluar.
+ * \param category sCategory Estructura de Categoria a evaluar.
  * \return int
  *          [0] Si no es un Juego.
  *          [1] Si es un Juego.
  *
  */
-static int isGame(sGame game);
+static int isGame(sGame game, sCategory category);
 
 /** \brief Obtiene un nuevo ID autoincremental.
  *
@@ -28,19 +29,21 @@ static int getNewId(void);
 
 /** \brief Imprime en pantalla los valores de la estructura.
  *
- * \param game sGame Estructura a imprimir.
+ * \param game sGame Estructura de Juego.
+ * \param category sCategory Estructura de Categoria.
  * \return int
- *          [0] Si la estructura esta vacia.
- *          [1] Si la estructura esta llena y pudo imprimirse.
+ *          [0] Si las estructuras estan vacias.
+ *          [1] Si la estructuras estan llenas y se imprimieron.
  *
  */
-static int printGame(sGame game);
+static int printGame(sGame game, sCategory category);
 
 int games_compare(sGame game1, sGame game2)
 {
     int compare = -2;
 
-    if(isGame(game1) && isGame(game2))
+    if(game1.isEmpty == FALSE
+       && game1.isEmpty == FALSE)
     {
         if(game1.id > game2.id)
         {
@@ -138,6 +141,74 @@ void games_hardcode(sGame gamesList[], int gamesLength)
     }
 }
 
+void games_print(sGame game, sCategory categoriesList[], int categoriesLength)
+{
+    int categoryIndex;
+
+    categoryIndex = categories_getIndexById(categoriesList, categoriesLength, game.categoryId);
+
+    if(categoryIndex != ERROR
+       && isGame(game, categoriesList[categoryIndex]))
+    {
+        printf("+=======+======================+===========+======================+\n");
+        printf("|   ID  |      DESCRIPCION     |   PRECIO  |       CATEGORIA      |\n");
+        printf("+=======+======================+===========+======================+\n");
+
+        if(printGame(game, categoriesList[categoryIndex]) == 0)
+        {
+            printf("Juego vacio.\n");
+        }
+        printf("+-------+----------------------+-----------+----------------------+\n");
+    }
+}
+
+int games_printList(sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
+{
+    int itemsCounter = 0;
+    int flag = 0;
+    int categoryIndex;
+
+    if(gamesList != NULL && categoriesList != NULL
+       && gamesLength >0 && gamesLength <= GAMES_MAX
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
+    {
+        for (int i = 0; i < gamesLength; i++)
+        {
+            categoryIndex = categories_getIndexById(categoriesList, categoriesLength, gamesList[i].categoryId);
+
+            if(categoryIndex != ERROR
+               && isGame(gamesList[i], categoriesList[categoryIndex]))
+            {
+                itemsCounter++;
+
+                if(itemsCounter == 1)
+                {
+                    printf("+=======+======================+===========+======================+\n");
+                    printf("|   ID  |      DESCRIPCION     |   PRECIO  |       CATEGORIA      |\n");
+                    printf("+=======+======================+===========+======================+\n");
+                }
+
+                if(printGame(gamesList[i], categoriesList[categoryIndex]) == 1)
+                {
+                    flag = 1;
+                }
+                else
+                {
+                    flag = 0;
+                    break;
+                }
+            }
+        }
+
+        if(flag == 1)
+        {
+            printf("+-------+----------------------+-----------+----------------------+\n");
+        }
+    }
+
+    return itemsCounter;
+}
+
 static sGame nullGame()
 {
     sGame aux;
@@ -151,14 +222,15 @@ static sGame nullGame()
     return aux;
 }
 
-static int isGame(sGame game)
+static int isGame(sGame game, sCategory category)
 {
     int returnValue = 0;
+    int categoryIndex;
 
     if(game.id != EMPTY_ID
        && game.description != NULL
-       && game.categoryId != EMPTY_ID
-       && game.isEmpty == FALSE)
+       && game.isEmpty == FALSE
+       && categories_isCategory(category))
     {
         returnValue = 1;
     }
@@ -171,4 +243,19 @@ static int getNewId(void)
     static int gameId = ID_INIT_GAME;
     gameId++;
     return gameId;
+}
+
+static int printGame(sGame game, sCategory category)
+{
+    int counter = 0;
+
+    if(isGame(game, category))
+    {
+        printf("| %5d | %20s | %9.2f | %20s |\n",
+               game.id, arrays_stringToCamelCase(game.description, GAMES_MAX)
+               ,game.price, arrays_stringToCamelCase(category.description, CATEGORIES_MAX));
+        counter = 1;
+    }
+
+    return counter;
 }
