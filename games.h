@@ -5,7 +5,7 @@
 
 #define GAME_NAME_MAX 51 /**< Longitud maxima de la descripcion de un Juego. >*/
 #define ID_INIT_GAME 200 /**< Numeracion inicial de un Juego. >*/
-#define GAMES_MAX 100 /**< Cantidad maxima de categorias en un arreglo. >*/
+#define GAMES_MAX 100 /**< Cantidad maxima de Juegos en un arreglo. >*/
 #define GAMES_PRICE_MAX 10000000 /** Precio maximo de un Juego. >*/
 
 /*! \struct sGame
@@ -61,7 +61,7 @@ int games_compare(sGame game1, sGame game2);
  */
 int games_swap(sGame* game1, sGame* game2);
 
-/** \brief Inicializacion de arreglo de estructuras.
+/** \brief Inicializacion del arreglo de estructuras.
  *
  * \param gamesList[] sGame Arreglo de estrucutras.
  * \param gamesLength int Longitud del arreglo.

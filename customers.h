@@ -7,6 +7,7 @@
 #define PHONE_MAX 21 /**< Se define la cantidad maxima de caracteres telefonicos. >*/
 #define CUSTOMER_ADDRESS_MAX 51 /**< Longitud maxima de la direccion de un Cliente. >*/
 #define ID_INIT_CUSTOMER 300 /**< Numeracion inicial de un Cliente. >*/
+#define CUSTOMERS_MAX 100 /**< Cantidad maxima de Clientes en un arreglo. >*/
 
 /*! \struct sCustomer
  * \brief Tipo de dato de un Cliente.
@@ -63,6 +64,16 @@ int customers_compare(sCustomer customer1, sCustomer customer2);
  *
  */
 int customers_swap(sCustomer* customer1, sCustomer* customer2);
+
+/** \brief Inicializacion del arreglo de estructuras.
+ *
+ * \param customersList[] sCustomer Arreglo de estrucutras.
+ * \param customersLength int Longitud del arreglo.
+ * \return int
+ *          [ERROR] Si hubo un error al inicializar.
+ *          [OK] Si la inicializacion se realizo correctamente.
+ *
+ */
 int customers_init(sCustomer customersList[], int customersLength);
 void customers_hardcode(sCustomer customersList[], int customersLength);
 int customers_getEmptyIndex(sCustomer customersList[], int customersLength);

@@ -89,6 +89,28 @@ int customers_swap(sCustomer* customer1, sCustomer* customer2)
     return returnValue;
 }
 
+int customers_init(sCustomer customersList[], int customersLength)
+{
+    int returnValue = ERROR;
+    int i;
+
+    if(customersList != NULL
+       && customersLength > 0 && customersLength <= CUSTOMERS_MAX)
+    {
+        for(i = 0 ; i < customersLength; i++)
+        {
+            customersList[i] = nullCustomer();
+        }
+
+        if(i == customersLength)
+        {
+            returnValue = OK;
+        }
+    }
+
+    return returnValue;
+}
+
 static sCustomer nullCustomer()
 {
     sCustomer aux;

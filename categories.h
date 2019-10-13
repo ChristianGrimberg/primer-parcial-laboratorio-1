@@ -5,7 +5,7 @@
 
 #define CATEGORY_NAME_MAX 51 /**< Longitud maxima de la descripcion de una Categoria. >*/
 #define ID_INIT_CATEGORY 100 /**< Numeracion inicial de una Categoria. >*/
-#define CATEGORIES_MAX 25 /**< Cantidad maxima de categorias en un arreglo. >*/
+#define CATEGORIES_MAX 25 /**< Cantidad maxima de Categorias en un arreglo. >*/
 
 /*! \struct sCategory
  * \brief Tipo de dato de una Categoria.
@@ -55,7 +55,7 @@ int categories_compare(sCategory category1, sCategory category2);
  */
 int categories_swap(sCategory* category1, sCategory* category2);
 
-/** \brief Inicializacion de arreglo de estructuras.
+/** \brief Inicializacion del arreglo de estructuras.
  *
  * \param categoriesList[] sCategory Arreglo de estrucutras.
  * \param categoriesLength int Longitud del arreglo.
