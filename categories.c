@@ -209,6 +209,29 @@ int categories_userSelection(char message[], char eMessage[], sCategory categori
     return returnValue;
 }
 
+int categories_add(sCategory categoriesList[], int categoriesLength)
+{
+    int returnValue = ERROR;
+    int indexAux;
+
+    if(categoriesList != NULL
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
+    {
+        indexAux = categories_getEmptyIndex(categoriesList, categoriesLength);
+
+        if(!inputs_getString(categoriesList[indexAux].description,
+                             "Ingrese la descripcion del juego: ", "Intente nuevamente: ",
+                             1, CATEGORY_NAME_MAX))
+        {
+            categoriesList[indexAux].id = getNewId();
+            categoriesList[indexAux].isEmpty = FALSE;
+            returnValue = OK;
+        }
+    }
+
+    return returnValue;
+}
+
 int categories_sort(sCategory categoriesList[], int categoriesLength, int order)
 {
     int returnValue = ERROR;

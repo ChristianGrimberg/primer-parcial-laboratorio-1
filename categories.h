@@ -100,6 +100,16 @@ int categories_getIndexById(sCategory categoriesList[], int categoriesLength, in
  *
  */
 int categories_userSelection(char message[], char eMessage[], sCategory categoriesList[], int categoriesLength);
+
+/** \brief Agregar una nueva estructura en una posicion vacia del arreglo.
+ *
+ * \param categoriesList[] sCategory Arreglo de estrucutras.
+ * \param categoriesLength int Longitud del arreglo.
+ * \return int
+ *          [ERROR] Si hubo un error al cargar la estructura.
+ *          [OK] Si pudo cargarse correctamente la estructura.
+ *
+ */
 int categories_add(sCategory categoriesList[], int categoriesLength);
 int categories_modify(sCategory categoriesList[], int categoriesLength);
 int categories_delete(sCategory categoriesList[], int categoriesLength);
