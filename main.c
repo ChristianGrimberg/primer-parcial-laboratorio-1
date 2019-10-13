@@ -13,7 +13,8 @@ int main()
             games_hardcode(games, GAMES_MAX);
         }
 
-        if(categories_sort(categories, CATEGORIES_MAX, ASC) == ERROR)
+        if(categories_sort(categories, CATEGORIES_MAX, ASC) == ERROR
+           || games_sort(games, GAMES_MAX, categories, CATEGORIES_MAX, DESC) == ERROR)
         {
             printf("No se hizo ningun orden.\n");
         }

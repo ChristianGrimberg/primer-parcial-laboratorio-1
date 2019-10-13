@@ -109,7 +109,22 @@ int games_userSelection(char message[], char eMessage[], sGame gamesList[], int 
 int games_add(sGame gamesList[], int gamesLength);
 int games_modify(sGame gamesList[], int gamesLength);
 int games_delete(sGame gamesList[], int gamesLength);
-int games_sort(sGame gamesList[], int gamesLength, int order);
+
+/** \brief Ordenamiento de un arreglo de estructuras.
+ *
+ * \param gamesList[] sGame Arreglo de estrucutras de Juegos.
+ * \param gamesLength int Longitud del arreglo de Juegos.
+ * \param categoriesList[] sCategory Arreglo de estrucutras de Categorias.
+ * \param categoriesLength int Longitud del arreglo de Categorias.
+ * \param order int
+ *          [ASC] Para orden ascendente.
+ *          [DESC] Para orden descendente.
+ * \return int
+ *          [ERROR] Si no se realizo ningun ordenamiento.
+ *          [OK] Si al menos hizo un minimo ordenamiento.
+ *
+ */
+int games_sort(sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, int order);
 
 /** \brief Impresion con formato tabla de una estructura.
  *

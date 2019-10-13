@@ -219,6 +219,46 @@ int games_userSelection(char message[], char eMessage[], sGame gamesList[], int 
     return returnValue;
 }
 
+int games_sort(sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, int order)
+{
+    int returnValue = ERROR;
+    int categoryIndex1;
+    int categoryIndex2;
+
+    if(gamesList != NULL && categoriesList != NULL
+       && gamesLength > 0 && gamesLength <= GAMES_MAX
+       && (order == ASC || order == DESC))
+    {
+        for(int i= 0; i < gamesLength-1 ; i++)
+        {
+            for(int j = i+1; j < gamesLength; j++)
+            {
+                categoryIndex1 = categories_getIndexById(categoriesList, categoriesLength, gamesList[i].categoryId);
+                categoryIndex2 = categories_getIndexById(categoriesList, categoriesLength, gamesList[j].categoryId);
+
+                if(isGame(gamesList[i], categoriesList[categoryIndex1])
+                   && isGame(gamesList[j], categoriesList[categoryIndex2]))
+                {
+                    if((strcmp(arrays_stringToCamelCase(gamesList[i].description, GAME_NAME_MAX),
+                               arrays_stringToCamelCase(gamesList[j].description, GAME_NAME_MAX)) > 0
+                        && order == ASC)
+                        || (strcmp(arrays_stringToCamelCase(gamesList[i].description, GAME_NAME_MAX),
+                               arrays_stringToCamelCase(gamesList[j].description, GAME_NAME_MAX)) < 0
+                        && order == DESC))
+                    {
+                        if(games_swap(&gamesList[i], &gamesList[j]) == OK)
+                        {
+                            returnValue = OK;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return returnValue;
+}
+
 void games_print(sGame game, sCategory categoriesList[], int categoriesLength)
 {
     int categoryIndex;
