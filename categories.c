@@ -192,7 +192,7 @@ int categories_userSelection(char message[], char eMessage[], sCategory categori
     {
         if (categories_printList(categoriesList, categoriesLength) == 0)
         {
-            printf("No hay categorias activas.\n");
+            printf("No hay Categorias activas.\n");
         }
         else
         {
@@ -206,7 +206,7 @@ int categories_userSelection(char message[], char eMessage[], sCategory categori
                 }
                 else
                 {
-                    printf("No se encuentra la categoria ingresada.\n");
+                    printf("No se encuentra la Categoria ingresada.\n");
                 }
             }
         }

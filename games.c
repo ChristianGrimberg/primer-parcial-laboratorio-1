@@ -162,12 +162,12 @@ int games_getEmptyIndex(sGame gamesList[], int gamesLength)
     return returnValue;
 }
 
-int games_getIndexId(sGame gamesList[], int gamesLength, int id)
+int games_getIndexById(sGame gamesList[], int gamesLength, int id)
 {
     int returnValue = ERROR;
 
     if(gamesList != NULL
-       && gamesLength > 0 && gamesLength <= CATEGORIES_MAX)
+       && gamesLength > 0 && gamesLength <= GAMES_MAX)
     {
         for (int i = 0; i < gamesLength; i++)
         {
@@ -176,6 +176,42 @@ int games_getIndexId(sGame gamesList[], int gamesLength, int id)
             {
                 returnValue = i;
                 break;
+            }
+        }
+    }
+
+    return returnValue;
+}
+
+int games_userSelection(char message[], char eMessage[], sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
+{
+    int returnValue = ERROR;
+    int auxId = 0;
+    int auxIndex = 0;
+
+    if(message != NULL && eMessage != NULL
+       && gamesList != NULL && categoriesList != NULL
+       && gamesLength > 0 && gamesLength <= GAMES_MAX
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
+    {
+        if (games_printList(gamesList, gamesLength, categoriesList, categoriesLength) == 0)
+        {
+            printf("No hay Juegos activos.\n");
+        }
+        else
+        {
+            if(!inputs_getInt(&auxId, message, eMessage, ID_INIT_GAME+1, ID_INIT_GAME+GAMES_MAX))
+            {
+                auxIndex = games_getIndexById(gamesList, gamesLength, auxId);
+
+                if(auxIndex != ERROR)
+                {
+                    returnValue = auxId;
+                }
+                else
+                {
+                    printf("No se encuentra el Juego ingresado.\n");
+                }
             }
         }
     }
