@@ -174,6 +174,41 @@ int categories_getIndexById(sCategory categoriesList[], int categoriesLength, in
     return returnValue;
 }
 
+int categories_userSelection(char message[], char eMessage[], sCategory categoriesList[], int categoriesLength)
+{
+    int returnValue = ERROR;
+    int auxId = 0;
+    int auxIndex = 0;
+
+    if(message != NULL && eMessage != NULL
+       && categoriesList != NULL
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
+    {
+        if (categories_printList(categoriesList, categoriesLength) == 0)
+        {
+            printf("No hay categorias activas.\n");
+        }
+        else
+        {
+            if(!inputs_getInt(&auxId, message, eMessage, ID_INIT_CATEGORY+1, ID_INIT_CATEGORY+CATEGORIES_MAX))
+            {
+                auxIndex = categories_getIndexById(categoriesList, categoriesLength, auxId);
+
+                if(auxIndex != ERROR)
+                {
+                    returnValue = auxId;
+                }
+                else
+                {
+                    printf("No se encuentra la categoria ingresada.\n");
+                }
+            }
+        }
+    }
+
+    return returnValue;
+}
+
 int categories_sort(sCategory categoriesList[], int categoriesLength, int order)
 {
     int returnValue = ERROR;

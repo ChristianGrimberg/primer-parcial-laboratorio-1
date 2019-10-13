@@ -87,7 +87,19 @@ int categories_getEmptyIndex(sCategory categoriesList[], int categoriesLength);
  *
  */
 int categories_getIndexById(sCategory categoriesList[], int categoriesLength, int id);
-int categories_userSelection(sCategory categoriesList[], int categoriesLength);
+
+/** \brief Seleccion de una estructura consultando por pantalla al usuario.
+ *
+ * \param message[] char Mensaje de solicitud al usuario.
+ * \param eMessage[] char Mensaje ante error del valor ingresado por el usuario.
+ * \param categoriesList[] sCategory Arreglo de estrucutras.
+ * \param categoriesLength int Longitud del arreglo.
+ * \return int
+ *          ID de la estructura elegida por el usuario.
+ *          [ERROR] Si la estructura elegida no se encuentra.
+ *
+ */
+int categories_userSelection(char message[], char eMessage[], sCategory categoriesList[], int categoriesLength);
 int categories_add(sCategory categoriesList[], int categoriesLength);
 int categories_modify(sCategory categoriesList[], int categoriesLength);
 int categories_delete(sCategory categoriesList[], int categoriesLength);
