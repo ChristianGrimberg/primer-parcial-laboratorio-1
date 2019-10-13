@@ -68,7 +68,28 @@ int games_init(sGame gamesList[], int gamesLength);
  *
  */
 void games_hardcode(sGame gamesList[], int gamesLength);
+
+/** \brief Obtiene el primer indice vacio del arreglo
+ *
+ * \param categoriesList[] sCategory Arreglo de estrucutras.
+ * \param categoriesLength int Longitud del arreglo.
+ * \return int
+ *          Indice de la primera posicion vacia del arreglo.
+ *          [ERROR] Si no hay ninguna posicion vacia.
+ *
+ */
 int games_getEmptyIndex(sGame gamesList[], int gamesLength);
+
+/** \brief Obtiene el indice de la estructura buscada por el ID.
+ *
+ * \param categoriesList[] sCategory Arreglo de estrucutras.
+ * \param categoriesLength int Longitud del arreglo.
+ * \param id int ID a buscar.
+ * \return int
+ *          Indice del ID buscado.
+ *          [ERROR] Si el ID buscado no existe o esta inactivo.
+ *
+ */
 int games_getIndexId(sGame gamesList[], int gamesLength, int id);
 int games_userSelection(sGame gamesList[], int gamesLength);
 int games_add(sGame gamesList[], int gamesLength);

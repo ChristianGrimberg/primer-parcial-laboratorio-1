@@ -7,12 +7,22 @@
             "args": [
                 "-o",
                 "bin/Debug/primer-parcial",
+                "structs.c",
+                "arrays.c",
+                "inputs.c",
+                "categories.c",
+                "games.c",
+                "customers.c",
+                "rents.c",
                 "main.c"
             ],
             "problemMatcher": [
                 "$gcc"
             ],
-            "group": "build"
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         },
         {
             "label": "WINDOWS: Parcial 1",
@@ -31,10 +41,7 @@
                 "main.c"
             ],
             "problemMatcher": [],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
+            "group": "build"
         }
     ],
     "version": "2.0.0"

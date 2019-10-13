@@ -141,6 +141,48 @@ void games_hardcode(sGame gamesList[], int gamesLength)
     }
 }
 
+int games_getEmptyIndex(sGame gamesList[], int gamesLength)
+{
+    int returnValue = ERROR;
+    int i;
+
+    if(gamesList != NULL
+       && gamesLength > 0 && gamesLength <= GAMES_MAX)
+    {
+        for (i = 0; i < gamesLength; i++)
+        {
+            if(gamesList[i].isEmpty == TRUE)
+            {
+                returnValue = i;
+                break;
+            }
+        }
+    }
+
+    return returnValue;
+}
+
+int games_getIndexId(sGame gamesList[], int gamesLength, int id)
+{
+    int returnValue = ERROR;
+
+    if(gamesList != NULL
+       && gamesLength > 0 && gamesLength <= CATEGORIES_MAX)
+    {
+        for (int i = 0; i < gamesLength; i++)
+        {
+            if(gamesList[i].id == id
+               && gamesList[i].isEmpty == FALSE)
+            {
+                returnValue = i;
+                break;
+            }
+        }
+    }
+
+    return returnValue;
+}
+
 void games_print(sGame game, sCategory categoriesList[], int categoriesLength)
 {
     int categoryIndex;
