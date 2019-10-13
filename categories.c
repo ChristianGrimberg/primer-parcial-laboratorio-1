@@ -232,6 +232,36 @@ int categories_add(sCategory categoriesList[], int categoriesLength)
     return returnValue;
 }
 
+int categories_modify(sCategory categoriesList[], int categoriesLength)
+{
+    int returnValue = ERROR;
+    int id;
+    int index;
+    char descriptionAux[CATEGORY_NAME_MAX];
+
+    if(categoriesList != NULL
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
+    {
+        id = categories_userSelection("Ingrese el ID de la Categoria a modificar: ",
+            ERROR_MESSAGE, categoriesList, categoriesLength);
+
+        if(id != ERROR)
+        {
+            index = categories_getIndexById(categoriesList, categoriesLength, id);
+
+            if(index != ERROR
+               && !inputs_getString(descriptionAux, "Ingrese la nueva descripcion: ",
+                                    ERROR_MESSAGE, 1, CATEGORY_NAME_MAX))
+            {
+                strcpy(categoriesList[index].description, descriptionAux);
+                returnValue = OK;
+            }
+        }
+    }
+
+    return returnValue;
+}
+
 int categories_delete(sCategory categoriesList[], int categoriesLength)
 {
     int returnValue = ERROR;

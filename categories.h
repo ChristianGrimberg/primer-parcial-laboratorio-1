@@ -111,6 +111,16 @@ int categories_userSelection(char message[], char eMessage[], sCategory categori
  *
  */
 int categories_add(sCategory categoriesList[], int categoriesLength);
+
+/** \brief Modificacion de la descripcion de la estructura.
+ *
+ * \param categoriesList[] sCategory Arreglo de estrucutras.
+ * \param categoriesLength int Longitud del arreglo.
+ * \return int
+ *          [ERROR] Si hubo un error al modificar la estructura.
+ *          [OK] Si pudo modificarse correctamente la estructura.
+ *
+ */
 int categories_modify(sCategory categoriesList[], int categoriesLength);
 
 /** \brief Inactivacion de una estructura dentro de un arreglo.
