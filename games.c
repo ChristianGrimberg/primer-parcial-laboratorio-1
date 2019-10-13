@@ -333,6 +333,41 @@ int games_modify(sGame gamesList[], int gamesLength, sCategory categoriesList[],
     return returnValue;
 }
 
+int games_delete(sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
+{
+    int returnValue = ERROR;
+    int id;
+    int index;
+
+    if(gamesList != NULL && categoriesList != NULL
+       && gamesLength > 0 && gamesLength <= GAMES_MAX
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
+    {
+        id = games_userSelection("Ingrese el ID del Juego a dar de baja: ",
+            ERROR_MESSAGE, gamesList, gamesLength, categoriesList, categoriesLength);
+
+        if(id != ERROR)
+        {
+            index = games_getIndexById(gamesList, gamesLength, id);
+
+            if(index != ERROR)
+            {
+                inputs_clearScreen();
+                printf("ATENCION! ESTA A PUNTO DE DAR DE BAJA EL SIGUIENTE JUEGO:\n");
+                games_print(gamesList[index], categoriesList, categoriesLength);
+
+                if(inputs_userResponse("ESTA DE ACUERDO? [S] [N]: "))
+                {
+                    gamesList[index].isEmpty = TRUE;
+                    returnValue = OK;
+                }
+            }
+        }
+    }
+
+    return returnValue;
+}
+
 int games_sort(sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, int order)
 {
     int returnValue = ERROR;

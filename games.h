@@ -133,7 +133,19 @@ int games_add(sGame gamesList[], int gamesLength, sCategory categoriesList[], in
  *
  */
 int games_modify(sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
-int games_delete(sGame gamesList[], int gamesLength);
+
+/** \brief Inactivacion de una estructura dentro de un arreglo.
+ *
+ * \param gamesList[] sGame Arreglo de estrucutras de Juegos.
+ * \param gamesLength int Longitud del arreglo de Juegos.
+ * \param categoriesList[] sCategory Arreglo de estrucutras de Categorias.
+ * \param categoriesLength int Longitud del arreglo de Categorias.
+ * \return int
+ *          [ERROR] Si hubo un error al inactivar la estructura.
+ *          [OK] Si pudo inactivarse correctamente la estructura.
+ *
+ */
+int games_delete(sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
 
 /** \brief Ordenamiento de un arreglo de estructuras.
  *
