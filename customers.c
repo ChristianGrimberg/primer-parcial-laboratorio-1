@@ -164,3 +164,20 @@ static int getNewId(void)
     customerId++;
     return customerId;
 }
+
+static int printCustomer(sCustomer customer)
+{
+    int counter = 0;
+
+    if(customers_isCustomer(customer))
+    {
+        printf("| %5d | %20s | %20s |   %c  | %20s | %20s |\n",
+               customer.id, arrays_stringToCamelCase(customer.name, CUSTOMER_NAME_MAX),
+               arrays_stringToCamelCase(customer.lastName, CUSTOMER_NAME_MAX),
+               toupper((char)customer.sex), customer.phone,
+               arrays_stringToCamelCase(customer.address, CUSTOMER_ADDRESS_MAX));
+        counter = 1;
+    }
+
+    return counter;
+}
