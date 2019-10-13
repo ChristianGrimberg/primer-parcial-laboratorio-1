@@ -69,6 +69,26 @@ int customers_compare(sCustomer customer1, sCustomer customer2)
     return compare;
 }
 
+int customers_swap(sCustomer* customer1, sCustomer* customer2)
+{
+    int returnValue = ERROR;
+    sCustomer aux1;
+    sCustomer aux2;
+
+    aux1 = *customer1;
+    aux2 = *customer2;
+    *customer1 = *customer2;
+    *customer2 = aux1;
+
+    if(customers_compare(*customer1, aux2) == 0
+       && customers_compare(*customer2, aux1) == 0)
+    {
+        returnValue = OK;
+    }
+
+    return returnValue;
+}
+
 static sCustomer nullCustomer()
 {
     sCustomer aux;

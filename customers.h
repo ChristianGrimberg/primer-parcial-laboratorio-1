@@ -40,7 +40,28 @@ typedef struct
  *
  */
 int customers_isCustomer(sCustomer customer);
+
+/** \brief Funcion que compara dos estructuras de Juegos.
+ *
+ * \param customer1 sCustomer Primer estructura a comparar.
+ * \param customer2 sCustomer Segunda estructura a comparar.
+ * \return int
+ *          [-1] Si el ID de la estructura 1 es mayor al ID de la  estructura 2.
+ *          [1] Si el ID de la estructura 1 es menor al ID de la estructura 2.
+ *          [0] Si ambos ID son iguales.
+ *
+ */
 int customers_compare(sCustomer customer1, sCustomer customer2);
+
+/** \brief Intercambio de estructuras.
+ *
+ * \param customer1 sCustomer* Direccion de memoria de la estructura 1.
+ * \param customer2 sCustomer* Direccion de memoria de la estructura 2.
+ * \return int
+ *          [ERROR] Si hubo un error en el intercambio.
+ *          [OK] Si el intercambio fue exitoso.
+ *
+ */
 int customers_swap(sCustomer* customer1, sCustomer* customer2);
 int customers_init(sCustomer customersList[], int customersLength);
 void customers_hardcode(sCustomer customersList[], int customersLength);
