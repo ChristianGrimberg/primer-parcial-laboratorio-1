@@ -224,6 +224,8 @@ int games_add(sGame gamesList[], int gamesLength, sCategory categoriesList[], in
     int returnValue = ERROR;
     int indexGameAux;
     int idCategoryAux;
+    float priceAux;
+    char descriptionAux[CATEGORY_NAME_MAX];
 
     if(gamesList != NULL && categoriesList != NULL
        && gamesLength > 0 && gamesLength <= GAMES_MAX
@@ -232,9 +234,9 @@ int games_add(sGame gamesList[], int gamesLength, sCategory categoriesList[], in
         indexGameAux = games_getEmptyIndex(gamesList, gamesLength);
 
         if(indexGameAux != ERROR
-           && !inputs_getString(gamesList[indexGameAux].description,
+           && !inputs_getString(descriptionAux,
                                 "Ingrese la descripcion del Juego: ", ERROR_MESSAGE, 1, GAME_NAME_MAX)
-           && !inputs_getFloat(&gamesList[indexGameAux].price,
+           && !inputs_getFloat(&priceAux,
                                "Ingrese el precio: ", ERROR_MESSAGE, 0, GAMES_PRICE_MAX))
         {
             idCategoryAux = categories_userSelection("Seleccione un Categoria: ", ERROR_MESSAGE, categoriesList, categoriesLength);
@@ -242,9 +244,88 @@ int games_add(sGame gamesList[], int gamesLength, sCategory categoriesList[], in
             if(idCategoryAux != ERROR)
             {
                 gamesList[indexGameAux].id = getNewId();
+                strcpy(gamesList[indexGameAux].description, descriptionAux);
+                gamesList[indexGameAux].price = priceAux;
                 gamesList[indexGameAux].categoryId = idCategoryAux;
                 gamesList[indexGameAux].isEmpty = FALSE;
                 returnValue = OK;
+            }
+        }
+    }
+
+    return returnValue;
+}
+
+int games_modify(sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
+{
+    int returnValue = ERROR;
+    int id;
+    int index;
+    int option;
+    int categoryIdAux;
+    float priceAux;
+    char descriptionAux[CATEGORY_NAME_MAX];
+
+    if(gamesList != NULL && categoriesList != NULL
+       && gamesLength > 0 && gamesLength <= GAMES_MAX
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
+    {
+        id = games_userSelection("Ingrese el ID del Juego a modificar: ",
+            ERROR_MESSAGE, gamesList, gamesLength, categoriesList, categoriesLength);
+
+        if(id != ERROR)
+        {
+            index = games_getIndexById(gamesList, gamesLength, id);
+
+            if(index != ERROR)
+            {
+                inputs_clearScreen();
+
+                printf("=======================================================\n");
+                printf("                MODIFICAR JUEGO\n");
+                printf("=======================================================\n");
+                printf("    1 - Modificar la Descripcion\n");
+                printf("    2 - Modificar el Precio\n");
+                printf("    3 - Modificar la Categoria\n");
+                printf("    4 - Volver al menu principal\n");
+                printf("=======================================================\n");
+
+                if(!inputs_getInt(&option, "Ingrese la opcion deseada: ", ERROR_MESSAGE, 1, 4))
+                {
+                    switch(option)
+                    {
+                        case 1:
+                            if(!inputs_getString(descriptionAux, "Ingrese una nueva descripcion: ", ERROR_MESSAGE, 1, GAME_NAME_MAX))
+                            {
+                                strcpy(gamesList[index].description, descriptionAux);
+                                printf("Descripcion modificada con exito.\n");
+                                returnValue = OK;
+                            }
+                            break;
+                        case 2:
+                            if(!inputs_getFloat(&priceAux, "Ingrese el nuevo precio: ", ERROR_MESSAGE, 0, GAMES_PRICE_MAX))
+                            {
+                                gamesList[index].price = priceAux;
+                                printf("Precio modificado con exito.\n");
+                                returnValue = OK;
+                            }
+                            break;
+                        case 3:
+                            categoryIdAux = categories_userSelection("Elija una nueva Categoria: ", ERROR_MESSAGE, categoriesList, categoriesLength);
+
+                            if(categoryIdAux != ERROR)
+                            {
+                                gamesList[index].categoryId = categoryIdAux;
+                                printf("Categoria modificada con exito.\n");
+                                returnValue = OK;
+                            }
+                            break;
+                        case 4:
+                            printf("Operacion cancelada.\n");
+                            returnValue = OK;
+                            break;
+                    }
+                }
             }
         }
     }
@@ -376,7 +457,6 @@ static sGame nullGame()
 static int isGame(sGame game, sCategory category)
 {
     int returnValue = 0;
-    int categoryIndex;
 
     if(game.id != EMPTY_ID
        && game.description != NULL

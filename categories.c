@@ -219,6 +219,7 @@ int categories_add(sCategory categoriesList[], int categoriesLength)
 {
     int returnValue = ERROR;
     int indexAux;
+    char descriptionAux[CATEGORY_NAME_MAX];
 
     if(categoriesList != NULL
        && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
@@ -226,11 +227,12 @@ int categories_add(sCategory categoriesList[], int categoriesLength)
         indexAux = categories_getEmptyIndex(categoriesList, categoriesLength);
 
         if(indexAux != ERROR
-           && !inputs_getString(categoriesList[indexAux].description,
+           && !inputs_getString(descriptionAux,
                              "Ingrese la descripcion de la Categoria: ", ERROR_MESSAGE,
                              1, CATEGORY_NAME_MAX))
         {
             categoriesList[indexAux].id = getNewId();
+            strcpy(categoriesList[indexAux].description, descriptionAux);
             categoriesList[indexAux].isEmpty = FALSE;
             returnValue = OK;
         }

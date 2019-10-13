@@ -9,6 +9,10 @@
 #define YES 'S' /**< Respuesta SI por teclado. >*/
 #define NO 'N' /**< Respuesta NO por teclado. >*/
 #define ERROR_MESSAGE "Intente nuevamente: " /**< Mensaje de solicitud de error al usuario. >*/
+/**< Mensaje en pantalla para presionar la tecla Enter y continuar. >*/
+#define CONTINUE_MESSAGE "Presione la tecla Enter para continuar..."
+/**< Mensaje en pantalla para presionar la tecla Enter y salir del programa. >*/
+#define QUIT_MESSAGE "Presione la tecla Enter para salir del programa..."
 
 /** \brief Funcion que limpia el buffer de entrada a posterior del ingreso por teclado.
  *
