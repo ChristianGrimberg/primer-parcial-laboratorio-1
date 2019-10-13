@@ -75,6 +75,14 @@ int customers_swap(sCustomer* customer1, sCustomer* customer2);
  *
  */
 int customers_init(sCustomer customersList[], int customersLength);
+
+/** \brief Harcodeo de estructuras de ejemplo.
+ *
+ * \param customersList[] sCustomer Arreglo de estrucutras.
+ * \param customersLength int Longitud del arreglo.
+ * \return void No retorna valores.
+ *
+ */
 void customers_hardcode(sCustomer customersList[], int customersLength);
 int customers_getEmptyIndex(sCustomer customersList[], int customersLength);
 int customers_getIndexById(sCustomer customersList[], int customersLength, int id);

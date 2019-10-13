@@ -111,6 +111,38 @@ int customers_init(sCustomer customersList[], int customersLength)
     return returnValue;
 }
 
+void customers_hardcode(sCustomer customersList[], int customersLength)
+{
+    int indexHardcodeMax = 7;
+
+    sCustomer customersAux[] = {
+        {getNewId(), "marcelo", "tinelli", 'm', "+54 11 2000-3000", "carlos calvo 2820", FALSE},
+        {getNewId(), "susana", "gimenez", 'f', "+54 11 1000-9000", "cordoba 1560", FALSE},
+        {getNewId(), "ricardo", "darin", 'm', "+54 11 5000-7000", "corrientes 960", FALSE},
+        {getNewId(), "moria", "casan", 'f', "+54 11 3000-1000", "tilcara 150", FALSE},
+        {getNewId(), "marley", "wieber", 'm', "+54 11 8000-5000", "junin 58220", FALSE},
+        {getNewId(), "mirtha", "legrand", 'f', "+54 11 4000-2000", "mitre 1200", FALSE},
+        {getNewId(), "veronica", "lozano", 'f', "+54 11 6000-4000", "santa fe 2820", FALSE},
+        {getNewId(), "sebastian", "yatra", 'm', "+54 11 7000-6000", "san juan 70",  FALSE}
+    };
+
+    if(customersList != NULL
+       && customersLength > 0 && customersLength <= CUSTOMERS_MAX)
+    {
+        for (int i = 0; i < customersLength; i++)
+        {
+            if(i <= indexHardcodeMax)
+            {
+                customersList[i] = customersAux[i];
+            }
+            else
+            {
+                customersList[i] = nullCustomer();
+            }
+        }
+    }
+}
+
 static sCustomer nullCustomer()
 {
     sCustomer aux;
