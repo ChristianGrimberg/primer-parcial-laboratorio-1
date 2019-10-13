@@ -8,6 +8,7 @@
 #define ENTER_CHARACTER '\n' /**< Caracter de tecla enter por teclado. >*/
 #define YES 'S' /**< Respuesta SI por teclado. >*/
 #define NO 'N' /**< Respuesta NO por teclado. >*/
+#define ERROR_MESSAGE "Intente nuevamente: " /**< Mensaje de solicitud de error al usuario. >*/
 
 /** \brief Funcion que limpia el buffer de entrada a posterior del ingreso por teclado.
  *

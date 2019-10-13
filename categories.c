@@ -220,12 +220,46 @@ int categories_add(sCategory categoriesList[], int categoriesLength)
         indexAux = categories_getEmptyIndex(categoriesList, categoriesLength);
 
         if(!inputs_getString(categoriesList[indexAux].description,
-                             "Ingrese la descripcion del juego: ", "Intente nuevamente: ",
+                             "Ingrese la descripcion del juego: ", ERROR_MESSAGE,
                              1, CATEGORY_NAME_MAX))
         {
             categoriesList[indexAux].id = getNewId();
             categoriesList[indexAux].isEmpty = FALSE;
             returnValue = OK;
+        }
+    }
+
+    return returnValue;
+}
+
+int categories_delete(sCategory categoriesList[], int categoriesLength)
+{
+    int returnValue = ERROR;
+    int id;
+    int index;
+
+    if(categoriesList != NULL
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
+    {
+        id = categories_userSelection("Ingrese el ID de la Categoria a dar de baja: ",
+            ERROR_MESSAGE, categoriesList, categoriesLength);
+
+        if(id != ERROR)
+        {
+            index = categories_getIndexById(categoriesList, categoriesLength, id);
+
+            if(index != ERROR)
+            {
+                inputs_clearScreen();
+                printf("ATENCION! ESTA A PUNTO DE DAR DE BAJA A LA SIGUIENTE CATEGORIA:\n");
+                categories_print(categoriesList[index]);
+
+                if(inputs_userResponse("ESTA DE ACUERDO? [S] [N]: "))
+                {
+                    categoriesList[index].isEmpty = TRUE;
+                    returnValue = OK;
+                }
+            }
         }
     }
 
