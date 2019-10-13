@@ -219,6 +219,39 @@ int games_userSelection(char message[], char eMessage[], sGame gamesList[], int 
     return returnValue;
 }
 
+int games_add(sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
+{
+    int returnValue = ERROR;
+    int indexGameAux;
+    int idCategoryAux;
+
+    if(gamesList != NULL && categoriesList != NULL
+       && gamesLength > 0 && gamesLength <= GAMES_MAX
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
+    {
+        indexGameAux = games_getEmptyIndex(gamesList, gamesLength);
+
+        if(indexGameAux != ERROR
+           && !inputs_getString(gamesList[indexGameAux].description,
+                                "Ingrese la descripcion del Juego: ", ERROR_MESSAGE, 1, GAME_NAME_MAX)
+           && !inputs_getFloat(&gamesList[indexGameAux].price,
+                               "Ingrese el precio: ", ERROR_MESSAGE, 0, GAMES_PRICE_MAX))
+        {
+            idCategoryAux = categories_userSelection("Seleccione un Categoria: ", ERROR_MESSAGE, categoriesList, categoriesLength);
+
+            if(idCategoryAux != ERROR)
+            {
+                gamesList[indexGameAux].id = getNewId();
+                gamesList[indexGameAux].categoryId = idCategoryAux;
+                gamesList[indexGameAux].isEmpty = FALSE;
+                returnValue = OK;
+            }
+        }
+    }
+
+    return returnValue;
+}
+
 int games_sort(sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, int order)
 {
     int returnValue = ERROR;

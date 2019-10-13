@@ -6,6 +6,7 @@
 #define GAME_NAME_MAX 51 /**< Longitud maxima de la descripcion de un Juego. >*/
 #define ID_INIT_GAME 200 /**< Numeracion inicial de un Juego. >*/
 #define GAMES_MAX 100 /**< Cantidad maxima de categorias en un arreglo. >*/
+#define GAMES_PRICE_MAX 10000000 /** Precio maximo de un Juego. >*/
 
 /*! \struct sGame
  * \brief Tipo de dato de un Juego.
@@ -106,7 +107,19 @@ int games_getIndexById(sGame gamesList[], int gamesLength, int id);
  *
  */
 int games_userSelection(char message[], char eMessage[], sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
-int games_add(sGame gamesList[], int gamesLength);
+
+/** \brief Agregar una nueva estructura en una posicion vacia del arreglo.
+ *
+ * \param gamesList[] sGame Arreglo de estrucutras de Juegos.
+ * \param gamesLength int Longitud del arreglo de Juegos.
+ * \param categoriesList[] sCategory Arreglo de estrucutras de Categorias.
+ * \param categoriesLength int Longitud del arreglo de Categorias.
+ * \return int
+ *          [ERROR] Si hubo un error al cargar la estructura.
+ *          [OK] Si pudo cargarse correctamente la estructura.
+ *
+ */
+int games_add(sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
 int games_modify(sGame gamesList[], int gamesLength);
 int games_delete(sGame gamesList[], int gamesLength);
 
