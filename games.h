@@ -27,6 +27,17 @@ typedef struct
     int isEmpty; /**< Indicador de posicion llena o vacia. >*/
 } sGame;
 
+/** \brief Funcion que determina si la estructura es un Juego.
+ *
+ * \param game sGame Estructura de Juego a evaluar.
+ * \param category sCategory Estructura de Categoria a evaluar.
+ * \return int
+ *          [0] Si no es un Juego.
+ *          [1] Si es un Juego.
+ *
+ */
+int games_isGame(sGame game, sCategory category);
+
 /** \brief Funcion que compara dos estructuras de Juegos.
  *
  * \param game1 sGame Primer estructura a comparar.

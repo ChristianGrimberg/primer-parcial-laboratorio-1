@@ -8,16 +8,6 @@
  */
 static sRental nullRental(void);
 
-/** \brief Funcion que determina si la estructura es un Alquiler.
- *
- * \param rental sRental Estructura a evaluar.
- * \return int
- *          [0] Si no es un Alquiler.
- *          [1] Si es un Alquiler.
- *
- */
-static int isRental(sRental rental);
-
 /** \brief Obtiene un nuevo ID autoincremental.
  *
  * \param void No requiere parametros.
@@ -36,11 +26,27 @@ static int getNewId(void);
  */
 static int printRental(sRental rental);
 
+int rents_isRental(sRental rental)
+{
+    int returnValue = 0;
+
+    if(rental.id != EMPTY_ID
+       && rental.gameId != EMPTY_ID
+       && rental.customerId != EMPTY_ID
+       && rental.isEmpty == FALSE)
+    {
+        returnValue = 1;
+    }
+
+    return returnValue;
+}
+
 int rents_compare(sRental rental1, sRental rental2)
 {
     int compare = -2;
 
-    if(isRental(rental1) && isRental(rental2))
+    if(rents_isRental(rental1)
+       && rents_isRental(rental2))
     {
         if(rental1.id > rental2.id)
         {
@@ -73,21 +79,6 @@ static sRental nullRental()
     aux.isEmpty = TRUE;
 
     return aux;
-}
-
-static int isRental(sRental rental)
-{
-    int returnValue = 0;
-
-    if(rental.id != EMPTY_ID
-       && rental.gameId != EMPTY_ID
-       && rental.customerId != EMPTY_ID
-       && rental.isEmpty == FALSE)
-    {
-        returnValue = 1;
-    }
-
-    return returnValue;
 }
 
 static int getNewId(void)

@@ -8,16 +8,6 @@
  */
 static sCustomer nullCustomer(void);
 
-/** \brief Funcion que determina si la estructura es un Cliente.
- *
- * \param customer sCustomer Estructura a evaluar.
- * \return int
- *          [0] Si no es un Cliente.
- *          [1] Si es un Cliente.
- *
- */
-static int isCustomer(sCustomer customer);
-
 /** \brief Obtiene un nuevo ID autoincremental.
  *
  * \param void No requiere parametros.
@@ -36,11 +26,28 @@ static int getNewId(void);
  */
 static int printCustomer(sCustomer customer);
 
+int customers_isCustomer(sCustomer customer)
+{
+    int returnValue = 0;
+
+    if(customer.id != EMPTY_ID
+       && customer.name != NULL
+       && customer.lastName != NULL
+       && customer.phone != NULL
+       && customer.isEmpty == FALSE)
+    {
+        returnValue = 1;
+    }
+
+    return returnValue;
+}
+
 int customers_compare(sCustomer customer1, sCustomer customer2)
 {
     int compare = -2;
 
-    if(isCustomer(customer1) && isCustomer(customer2))
+    if(customers_isCustomer(customer1)
+       && customers_isCustomer(customer2))
     {
         if(customer1.id > customer2.id)
         {
@@ -75,22 +82,6 @@ static sCustomer nullCustomer()
     aux.isEmpty = TRUE;
 
     return aux;
-}
-
-static int isCustomer(sCustomer customer)
-{
-    int returnValue = 0;
-
-    if(customer.id != EMPTY_ID
-       && customer.name != NULL
-       && customer.lastName != NULL
-       && customer.phone != NULL
-       && customer.isEmpty == FALSE)
-    {
-        returnValue = 1;
-    }
-
-    return returnValue;
 }
 
 static int getNewId(void)

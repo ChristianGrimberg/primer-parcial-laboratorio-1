@@ -24,6 +24,15 @@ typedef struct
     int isEmpty; /**< Indicador de posicion llena o vacia. >*/
 } sRental;
 
+/** \brief Funcion que determina si la estructura es un Alquiler.
+ *
+ * \param rental sRental Estructura a evaluar.
+ * \return int
+ *          [0] Si no es un Alquiler.
+ *          [1] Si es un Alquiler.
+ *
+ */
+int rents_isRental(sRental rental);
 int rents_compare(sRental rental1, sRental rental2);
 int rents_swap(sRental* rental1, sRental* rental2);
 int rents_init(sRental rentsList[], int rentsLength);

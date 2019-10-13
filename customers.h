@@ -31,6 +31,15 @@ typedef struct
     int isEmpty; /**< Indicador de posicion llena o vacia. >*/
 } sCustomer;
 
+/** \brief Funcion que determina si la estructura es un Cliente.
+ *
+ * \param customer sCustomer Estructura a evaluar.
+ * \return int
+ *          [0] Si no es un Cliente.
+ *          [1] Si es un Cliente.
+ *
+ */
+int customers_isCustomer(sCustomer customer);
 int customers_compare(sCustomer customer1, sCustomer customer2);
 int customers_swap(sCustomer* customer1, sCustomer* customer2);
 int customers_init(sCustomer customersList[], int customersLength);
