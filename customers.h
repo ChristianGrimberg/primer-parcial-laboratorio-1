@@ -4,7 +4,7 @@
 #include "games.h"
 
 #define CUSTOMER_NAME_MAX 51 /**< Longitud maxima de la descripcion de un Cliente. >*/
-#define PHONE_MAX 21 /**< Se define la cantidad maxima de caracteres telefonicos. >*/
+#define CUSTOMER_PHONE_MAX 21 /**< Se define la cantidad maxima de caracteres telefonicos. >*/
 #define CUSTOMER_ADDRESS_MAX 51 /**< Longitud maxima de la direccion de un Cliente. >*/
 #define ID_INIT_CUSTOMER 300 /**< Numeracion inicial de un Cliente. >*/
 #define CUSTOMERS_MAX 100 /**< Cantidad maxima de Clientes en un arreglo. >*/
@@ -120,6 +120,16 @@ int customers_getIndexById(sCustomer customersList[], int customersLength, int i
  *
  */
 int customers_userSelection(char message[], char eMessage[], sCustomer customersList[], int customersLength);
+
+/** \brief Agregar una nueva estructura en una posicion vacia del arreglo.
+ *
+ * \param customersList[] sCustomer Arreglo de estrucutras.
+ * \param customersLength int Longitud del arreglo.
+ * \return int
+ *          [ERROR] Si hubo un error al cargar la estructura.
+ *          [OK] Si pudo cargarse correctamente la estructura.
+ *
+ */
 int customers_add(sCustomer customersList[], int customersLength);
 int customers_modify(sCustomer customersList[], int customersLength);
 int customers_delete(sCustomer customersList[], int customersLength);

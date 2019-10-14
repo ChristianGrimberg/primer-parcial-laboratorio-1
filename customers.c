@@ -220,6 +220,51 @@ int customers_userSelection(char message[], char eMessage[], sCustomer customers
     return returnValue;
 }
 
+int customers_add(sCustomer customersList[], int customersLength)
+{
+    int returnValue = ERROR;
+    int indexAux;
+    char nameAux[CUSTOMER_NAME_MAX];
+    char lastNameAux[CUSTOMER_NAME_MAX];
+    char sexAux;
+    char phoneAux[CUSTOMER_PHONE_MAX];
+    char addressAux[CUSTOMER_ADDRESS_MAX];
+
+    if(customersList != NULL
+       && customersLength > 0 && customersLength <= CUSTOMERS_MAX)
+    {
+        indexAux = customers_getEmptyIndex(customersList, customersLength);
+
+        if(indexAux != ERROR
+           && !inputs_getString(nameAux, "Ingrese el nombre: ", ERROR_MESSAGE, 1, CUSTOMER_NAME_MAX)
+           && !inputs_getString(lastNameAux, "Ingrese el apellido: ", ERROR_MESSAGE, 1, CUSTOMER_NAME_MAX))
+        {
+            do
+            {
+                if(!inputs_getChar(&sexAux, "Ingrese el sexo [F] o [M]: ", ERROR_MESSAGE, 1, 1))
+                {
+                    sexAux = toupper((char)sexAux);
+                }
+            }while(sexAux != 'F' && sexAux != 'M');
+
+            if(!inputs_getPhone(phoneAux, "Ingrese el telefono [Formato: +54 11 1111-1111]: ", ERROR_MESSAGE, 1, CUSTOMER_PHONE_MAX)
+               && !inputs_getString(addressAux, "Ingrese la direccion: ", ERROR_MESSAGE, 1, CUSTOMER_ADDRESS_MAX))
+            {
+                customersList[indexAux].id = getNewId();
+                strcpy(customersList[indexAux].name, nameAux);
+                strcpy(customersList[indexAux].lastName, lastNameAux);
+                customersList[indexAux].sex = sexAux;
+                strcpy(customersList[indexAux].phone, phoneAux);
+                strcpy(customersList[indexAux].address, addressAux);
+                customersList[indexAux].isEmpty = FALSE;
+                returnValue = OK;
+            }
+        }
+    }
+
+    return returnValue;
+}
+
 int customers_sort(sCustomer customersList[], int customersLength, int order)
 {
     int returnValue = ERROR;
