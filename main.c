@@ -18,7 +18,8 @@ int main()
         }
 
         if(categories_sort(categories, CATEGORIES_MAX, ASC) == ERROR
-           || games_sort(games, GAMES_MAX, categories, CATEGORIES_MAX, ASC) == ERROR)
+           || games_sort(games, GAMES_MAX, categories, CATEGORIES_MAX, ASC) == ERROR
+           || customers_sort(customers, CUSTOMERS_MAX, ASC) == ERROR)
         {
             printf("No se hizo ningun orden.\n");
         }

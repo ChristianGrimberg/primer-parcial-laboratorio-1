@@ -84,12 +84,35 @@ int customers_init(sCustomer customersList[], int customersLength);
  *
  */
 void customers_hardcode(sCustomer customersList[], int customersLength);
+
+/** \brief Obtiene el primer indice vacio del arreglo
+ *
+ * \param customersList[] sCustomer Arreglo de estrucutras.
+ * \param customersLength int Longitud del arreglo.
+ * \return int
+ *          Indice de la primera posicion vacia del arreglo.
+ *          [ERROR] Si no hay ninguna posicion vacia.
+ *
+ */
 int customers_getEmptyIndex(sCustomer customersList[], int customersLength);
 int customers_getIndexById(sCustomer customersList[], int customersLength, int id);
 int customers_userSelection(sCustomer customersList[], int customersLength);
 int customers_add(sCustomer customersList[], int customersLength);
 int customers_modify(sCustomer customersList[], int customersLength);
 int customers_delete(sCustomer customersList[], int customersLength);
+
+/** \brief Ordenamiento de un arreglo de estructuras.
+ *
+ * \param customersList[] sCustomer Arreglo de estrucutras.
+ * \param customersLength int Longitud del arreglo.
+ * \param order int
+ *          [ASC] Para orden ascendente.
+ *          [DESC] Para orden descendente.
+ * \return int
+ *          [ERROR] Si no se realizo ningun ordenamiento.
+ *          [OK] Si al menos hizo un minimo ordenamiento.
+ *
+ */
 int customers_sort(sCustomer customersList[], int customersLength, int order);
 
 /** \brief Impresion con formato tabla de una estructura.

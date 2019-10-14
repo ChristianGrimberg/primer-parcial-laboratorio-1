@@ -143,6 +143,62 @@ void customers_hardcode(sCustomer customersList[], int customersLength)
     }
 }
 
+int customers_getEmptyIndex(sCustomer customersList[], int customersLength)
+{
+    int returnValue = ERROR;
+    int i;
+
+    if(customersList != NULL
+       && customersLength > 0 && customersLength <= CUSTOMERS_MAX)
+    {
+        for (i = 0; i < customersLength; i++)
+        {
+            if(customersList[i].isEmpty == TRUE)
+            {
+                returnValue = i;
+                break;
+            }
+        }
+    }
+
+    return returnValue;
+}
+
+int customers_sort(sCustomer customersList[], int customersLength, int order)
+{
+    int returnValue = ERROR;
+
+    if(customersList != NULL
+       && customersLength > 0 && customersLength <= CUSTOMERS_MAX
+       && (order == ASC || order == DESC))
+    {
+        for(int i= 0; i < customersLength-1 ; i++)
+        {
+            for(int j = i+1; j < customersLength; j++)
+            {
+                if(customers_isCustomer(customersList[i])
+                   && customers_isCustomer(customersList[j]))
+                {
+                    if((strcmp(arrays_stringToCamelCase(customersList[i].lastName, CUSTOMER_NAME_MAX),
+                               arrays_stringToCamelCase(customersList[j].lastName, CUSTOMER_NAME_MAX)) > 0
+                        && order == ASC)
+                        || (strcmp(arrays_stringToCamelCase(customersList[i].lastName, CUSTOMER_NAME_MAX),
+                               arrays_stringToCamelCase(customersList[j].lastName, CUSTOMER_NAME_MAX)) < 0
+                        && order == DESC))
+                    {
+                        if(customers_swap(&customersList[i], &customersList[j]) == OK)
+                        {
+                            returnValue = OK;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return returnValue;
+}
+
 void customers_print(sCustomer customer)
 {
     if(customers_isCustomer(customer))
