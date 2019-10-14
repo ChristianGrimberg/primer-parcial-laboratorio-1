@@ -185,6 +185,41 @@ int customers_getIndexById(sCustomer customersList[], int customersLength, int i
     return returnValue;
 }
 
+int customers_userSelection(char message[], char eMessage[], sCustomer customersList[], int customersLength)
+{
+    int returnValue = ERROR;
+    int auxId = 0;
+    int auxIndex = 0;
+
+    if(message != NULL && eMessage != NULL
+       && customersList != NULL
+       && customersLength > 0 && customersLength <= CUSTOMERS_MAX)
+    {
+        if (customers_printList(customersList, customersLength) == 0)
+        {
+            printf("No hay Clientes activos.\n");
+        }
+        else
+        {
+            if(!inputs_getInt(&auxId, message, eMessage, ID_INIT_CUSTOMER+1, ID_INIT_CUSTOMER+CUSTOMERS_MAX))
+            {
+                auxIndex = customers_getIndexById(customersList, customersLength, auxId);
+
+                if(auxIndex != ERROR)
+                {
+                    returnValue = auxId;
+                }
+                else
+                {
+                    printf("No se encuentra el Cliente ingresado.\n");
+                }
+            }
+        }
+    }
+
+    return returnValue;
+}
+
 int customers_sort(sCustomer customersList[], int customersLength, int order)
 {
     int returnValue = ERROR;

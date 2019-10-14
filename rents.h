@@ -39,7 +39,7 @@ int rents_init(sRental rentsList[], int rentsLength);
 void rents_hardcode(sRental rentsList[], int rentsLength);
 int rents_getEmptyIndex(sRental rentsList[], int rentsLength);
 int rents_getIndexById(sRental rentsList[], int rentsLength, int id);
-int rents_userSelection(sRental rentsList[], int rentsLength);
+int rents_userSelection(char message[], char eMessage[], sRental rentsList[], int rentsLength);
 int rents_add(sRental rentsList[], int rentsLength);
 int rents_modify(sRental rentsList[], int rentsLength);
 int rents_delete(sRental rentsList[], int rentsLength);

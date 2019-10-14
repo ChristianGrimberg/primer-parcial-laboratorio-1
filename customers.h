@@ -107,7 +107,19 @@ int customers_getEmptyIndex(sCustomer customersList[], int customersLength);
  *
  */
 int customers_getIndexById(sCustomer customersList[], int customersLength, int id);
-int customers_userSelection(sCustomer customersList[], int customersLength);
+
+/** \brief Seleccion de una estructura consultando por pantalla al usuario.
+ *
+ * \param message[] char Mensaje de solicitud al usuario.
+ * \param eMessage[] char Mensaje ante error del valor ingresado por el usuario.
+ * \param customersList[] sCustomer Arreglo de estrucutras.
+ * \param customersLength int Longitud del arreglo.
+ * \return int
+ *          ID de la estructura elegida por el usuario.
+ *          [ERROR] Si la estructura elegida no se encuentra.
+ *
+ */
+int customers_userSelection(char message[], char eMessage[], sCustomer customersList[], int customersLength);
 int customers_add(sCustomer customersList[], int customersLength);
 int customers_modify(sCustomer customersList[], int customersLength);
 int customers_delete(sCustomer customersList[], int customersLength);
