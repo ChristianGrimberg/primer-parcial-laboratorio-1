@@ -143,6 +143,21 @@ void customers_hardcode(sCustomer customersList[], int customersLength)
     }
 }
 
+void customers_print(sCustomer customer)
+{
+    if(customers_isCustomer(customer))
+    {
+        printf("+=======+======================+======================+======+======================+======================+\n");
+        printf("|   ID  |        NOMBRE        |       APELLIDO       | SEXO |       TELEFONO       |       DIRECCION      |\n");
+        printf("+=======+======================+======================+======+======================+======================+\n");
+        if(printCustomer(customer) == 0)
+        {
+            printf("Categoria vacia.\n");
+        }
+        printf("+-------+----------------------+----------------------+------+----------------------+----------------------+\n");
+    }
+}
+
 static sCustomer nullCustomer()
 {
     sCustomer aux;
