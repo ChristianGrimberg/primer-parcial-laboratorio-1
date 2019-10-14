@@ -158,6 +158,48 @@ void customers_print(sCustomer customer)
     }
 }
 
+int customers_printList(sCustomer customersList[], int customersLength)
+{
+    int itemsCounter = 0;
+    int flag = 0;
+
+    if(customersList != NULL
+       && customersLength > 0 && customersLength <= CUSTOMERS_MAX)
+    {
+        for (int i = 0; i < customersLength; i++)
+        {
+            if(customers_isCustomer(customersList[i]))
+            {
+                itemsCounter++;
+
+                if(itemsCounter == 1)
+                {
+                    printf("+=======+======================+======================+======+======================+======================+\n");
+                    printf("|   ID  |        NOMBRE        |       APELLIDO       | SEXO |       TELEFONO       |       DIRECCION      |\n");
+                    printf("+=======+======================+======================+======+======================+======================+\n");
+                }
+
+                if(printCustomer(customersList[i]) == 1)
+                {
+                    flag = 1;
+                }
+                else
+                {
+                    flag = 0;
+                    break;
+                }
+            }
+        }
+
+        if(flag == 1)
+        {
+            printf("+-------+----------------------+----------------------+------+----------------------+----------------------+\n");
+        }
+    }
+
+    return itemsCounter;
+}
+
 static sCustomer nullCustomer()
 {
     sCustomer aux;

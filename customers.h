@@ -99,6 +99,14 @@ int customers_sort(sCustomer customersList[], int customersLength, int order);
  *
  */
 void customers_print(sCustomer customer);
+
+/** \brief Impresion con formato tabla de un arreglo de estructuras.
+ *
+ * \param customersList[] sCustomer Arreglo de estrucutras.
+ * \param customersLength int Longitud del arreglo.
+ * \return int Cantidad de estructuras impresas.
+ *
+ */
 int customers_printList(sCustomer customersList[], int customersLength);
 
 #endif // CUSTOMERS_H_INCLUDED
