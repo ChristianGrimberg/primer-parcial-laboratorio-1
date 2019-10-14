@@ -95,13 +95,24 @@ void customers_hardcode(sCustomer customersList[], int customersLength);
  *
  */
 int customers_getEmptyIndex(sCustomer customersList[], int customersLength);
+
+/** \brief Obtiene el indice de la estructura buscada por el ID.
+ *
+ * \param customersList[] sCustomer Arreglo de estrucutras.
+ * \param customersLength int Longitud del arreglo.
+ * \param id int ID a buscar.
+ * \return int
+ *          Indice del ID buscado.
+ *          [ERROR] Si el ID buscado no existe o esta inactivo.
+ *
+ */
 int customers_getIndexById(sCustomer customersList[], int customersLength, int id);
 int customers_userSelection(sCustomer customersList[], int customersLength);
 int customers_add(sCustomer customersList[], int customersLength);
 int customers_modify(sCustomer customersList[], int customersLength);
 int customers_delete(sCustomer customersList[], int customersLength);
 
-/** \brief Ordenamiento de un arreglo de estructuras.
+/** \brief Ordenamiento de un arreglo de estructuras por dos opciones.
  *
  * \param customersList[] sCustomer Arreglo de estrucutras.
  * \param customersLength int Longitud del arreglo.

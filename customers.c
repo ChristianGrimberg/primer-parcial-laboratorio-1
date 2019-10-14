@@ -164,6 +164,27 @@ int customers_getEmptyIndex(sCustomer customersList[], int customersLength)
     return returnValue;
 }
 
+int customers_getIndexById(sCustomer customersList[], int customersLength, int id)
+{
+    int returnValue = ERROR;
+
+    if(customersList != NULL
+       && customersLength > 0 && customersLength <= CUSTOMERS_MAX)
+    {
+        for (int i = 0; i < customersLength; i++)
+        {
+            if(customersList[i].id == id
+               && customersList[i].isEmpty == FALSE)
+            {
+                returnValue = i;
+                break;
+            }
+        }
+    }
+
+    return returnValue;
+}
+
 int customers_sort(sCustomer customersList[], int customersLength, int order)
 {
     int returnValue = ERROR;
@@ -179,16 +200,30 @@ int customers_sort(sCustomer customersList[], int customersLength, int order)
                 if(customers_isCustomer(customersList[i])
                    && customers_isCustomer(customersList[j]))
                 {
-                    if((strcmp(arrays_stringToCamelCase(customersList[i].lastName, CUSTOMER_NAME_MAX),
-                               arrays_stringToCamelCase(customersList[j].lastName, CUSTOMER_NAME_MAX)) > 0
-                        && order == ASC)
-                        || (strcmp(arrays_stringToCamelCase(customersList[i].lastName, CUSTOMER_NAME_MAX),
-                               arrays_stringToCamelCase(customersList[j].lastName, CUSTOMER_NAME_MAX)) < 0
-                        && order == DESC))
+                    if((customersList[i].sex > customersList[j].sex && order == ASC)
+                       || (customersList[i].sex < customersList[j].sex && order == DESC))
                     {
                         if(customers_swap(&customersList[i], &customersList[j]) == OK)
                         {
                             returnValue = OK;
+                        }
+                    }
+                    else
+                    {
+                        if(customersList[i].sex == customersList[j].sex)
+                        {
+                            if((strcmp(arrays_stringToCamelCase(customersList[i].lastName, CUSTOMER_NAME_MAX),
+                                       arrays_stringToCamelCase(customersList[j].lastName, CUSTOMER_NAME_MAX)) > 0
+                                && order == ASC)
+                                || (strcmp(arrays_stringToCamelCase(customersList[i].lastName, CUSTOMER_NAME_MAX),
+                                       arrays_stringToCamelCase(customersList[j].lastName, CUSTOMER_NAME_MAX)) < 0
+                                && order == DESC))
+                            {
+                                if(customers_swap(&customersList[i], &customersList[j]) == OK)
+                                {
+                                    returnValue = OK;
+                                }
+                            }
                         }
                     }
                 }
