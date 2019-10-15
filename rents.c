@@ -143,6 +143,27 @@ void rents_hardcode(sRental rentsList[], int rentsLength)
     }
 }
 
+int rents_getEmptyIndex(sRental rentsList[], int rentsLength)
+{
+    int returnValue = ERROR;
+    int i;
+
+    if(rentsList != NULL
+       && rentsLength > 0 && rentsLength <= RENTS_MAX)
+    {
+        for (i = 0; i < rentsLength; i++)
+        {
+            if(rentsList[i].isEmpty == TRUE)
+            {
+                returnValue = i;
+                break;
+            }
+        }
+    }
+
+    return returnValue;
+}
+
 int rents_sort(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, int order)
 {
     int returnValue = ERROR;

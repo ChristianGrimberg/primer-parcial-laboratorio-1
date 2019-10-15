@@ -80,12 +80,41 @@ int rents_init(sRental rentsList[], int rentsLength);
  *
  */
 void rents_hardcode(sRental rentsList[], int rentsLength);
+
+/** \brief Obtiene el primer indice vacio del arreglo
+ *
+ * \param rentsList[] sRental Arreglo de estructuras.
+ * \param rentsLength int Longitud del arreglo.
+ * \return int
+ *          Indice de la primera posicion vacia del arreglo.
+ *          [ERROR] Si no hay ninguna posicion vacia.
+ *
+ */
 int rents_getEmptyIndex(sRental rentsList[], int rentsLength);
 int rents_getIndexById(sRental rentsList[], int rentsLength, int id);
 int rents_userSelection(char message[], char eMessage[], sRental rentsList[], int rentsLength);
 int rents_add(sRental rentsList[], int rentsLength);
 int rents_modify(sRental rentsList[], int rentsLength);
 int rents_delete(sRental rentsList[], int rentsLength);
+
+/** \brief Ordenamiento de un arreglo de estructuras.
+ *
+ * \param rentsList[] sRental Arreglo de estructuras de Alquileres.
+ * \param rentsLength int Longitud del arreglo de Alquileres.
+ * \param customersList[] sCustomer Arreglo de estructuras de Clientes.
+ * \param customersLength int Longitud del arreglo de Clientes.
+ * \param gamesList[] sGame Arreglo de estructuras de Juegos.
+ * \param gamesLength int Longitud del arreglo de Juegos.
+ * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
+ * \param categoriesLength int Longitud del arreglo de Categorias.
+ * \param order int
+ *          [ASC] Para orden ascendente.
+ *          [DESC] Para orden descendente.
+ * \return int
+ *          [ERROR] Si no se realizo ningun ordenamiento.
+ *          [OK] Si al menos hizo un minimo ordenamiento.
+ *
+ */
 int rents_sort(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, int order);
 
 /** \brief Impresion con formato tabla de una estructura.
@@ -93,7 +122,7 @@ int rents_sort(sRental rentsList[], int rentsLength, sCustomer customersList[], 
  * \param rental sRental Estructura de Alquiler.
  * \param customersList[] sCustomer Arreglo de estructuras de Clientes.
  * \param customersLength int Longitud del arreglo de Clientes.
-  * \param gamesList[] sGame Arreglo de estructuras de Juegos.
+ * \param gamesList[] sGame Arreglo de estructuras de Juegos.
  * \param gamesLength int Longitud del arreglo de Juegos.
  * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
  * \param categoriesLength int Longitud del arreglo de Categorias.
@@ -101,6 +130,20 @@ int rents_sort(sRental rentsList[], int rentsLength, sCustomer customersList[], 
  *
  */
 void rents_print(sRental rental, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
+
+/** \brief Impresion con formato tabla de un arreglo de estructuras.
+ *
+ * \param rentsList[] sRental Arreglo de estructuras de Alquileres.
+ * \param rentsLength int Longitud del arreglo de Alquileres.
+ * \param customersList[] sCustomer Arreglo de estructuras de Clientes.
+ * \param customersLength int Longitud del arreglo de Clientes.
+ * \param gamesList[] sGame Arreglo de estructuras de Juegos.
+ * \param gamesLength int Longitud del arreglo de Juegos.
+ * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
+ * \param categoriesLength int Longitud del arreglo de Categorias.
+ * \return int Cantidad de estructuras impresas.
+ *
+ */
 int rents_printList(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
 
 #endif // RENTS_H_INCLUDED
