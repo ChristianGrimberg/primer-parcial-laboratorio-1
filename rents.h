@@ -71,6 +71,14 @@ int rents_swap(sRental* rental1, sRental* rental2);
  *
  */
 int rents_init(sRental rentsList[], int rentsLength);
+
+/** \brief Harcodeo de estructuras de ejemplo.
+ *
+ * \param rentsList[] sRental Arreglo de estructuras.
+ * \param rentsLength int Longitud del arreglo.
+ * \return void No retorna valores.
+ *
+ */
 void rents_hardcode(sRental rentsList[], int rentsLength);
 int rents_getEmptyIndex(sRental rentsList[], int rentsLength);
 int rents_getIndexById(sRental rentsList[], int rentsLength, int id);
@@ -78,7 +86,7 @@ int rents_userSelection(char message[], char eMessage[], sRental rentsList[], in
 int rents_add(sRental rentsList[], int rentsLength);
 int rents_modify(sRental rentsList[], int rentsLength);
 int rents_delete(sRental rentsList[], int rentsLength);
-int rents_sort(sRental rentsList[], int rentsLength, int order);
+int rents_sort(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, int order);
 
 /** \brief Impresion con formato tabla de una estructura.
  *

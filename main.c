@@ -22,7 +22,8 @@ int main()
 
         if(categories_sort(categories, CATEGORIES_MAX, ASC) == ERROR
            || games_sort(games, GAMES_MAX, categories, CATEGORIES_MAX, ASC) == ERROR
-           || customers_sort(customers, CUSTOMERS_MAX, ASC) == ERROR)
+           || customers_sort(customers, CUSTOMERS_MAX, ASC) == ERROR
+           || rents_sort(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX, ASC) == ERROR)
         {
             printf("No se realizo el ordenamiento.\n");
         }

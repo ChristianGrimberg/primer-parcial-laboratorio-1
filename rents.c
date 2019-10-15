@@ -143,6 +143,77 @@ void rents_hardcode(sRental rentsList[], int rentsLength)
     }
 }
 
+int rents_sort(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, int order)
+{
+    int returnValue = ERROR;
+    int customerIndex1;
+    int customerIndex2;
+    int gameIndex1;
+    int gameIndex2;
+    int categoryIndex1;
+    int categoryIndex2;
+
+    if(customersList != NULL && gamesList != NULL && categoriesList != NULL
+       && customersLength > 0 && customersLength <= CUSTOMERS_MAX
+       && gamesLength >0 && gamesLength <= GAMES_MAX
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX
+       && (order == ASC || order == DESC))
+    {
+        for(int i= 0; i < rentsLength-1 ; i++)
+        {
+            for(int j = i+1; j < rentsLength; j++)
+            {
+                customerIndex1 = customers_getIndexById(customersList, customersLength, rentsList[i].customerId);
+                customerIndex2 = customers_getIndexById(customersList, customersLength, rentsList[j].customerId);
+                gameIndex1 = games_getIndexById(gamesList, gamesLength, rentsList[i].gameId);
+                gameIndex2 = games_getIndexById(gamesList, gamesLength, rentsList[j].gameId);
+                categoryIndex1 = categories_getIndexById(categoriesList, categoriesLength, gamesList[gameIndex1].categoryId);
+                categoryIndex2 = categories_getIndexById(categoriesList, categoriesLength, gamesList[gameIndex2].categoryId);
+
+                if(customers_isCustomer(customersList[customerIndex1])
+                   && customers_isCustomer(customersList[customerIndex2])
+                   && games_isGame(gamesList[gameIndex1], categoriesList[categoryIndex1])
+                   && games_isGame(gamesList[gameIndex2], categoriesList[categoryIndex2])
+                   && categories_isCategory(categoriesList[categoryIndex1])
+                   && categories_isCategory(categoriesList[categoryIndex2])
+                   && rents_isRental(rentsList[i], customersList[customerIndex1], gamesList[gameIndex1], categoriesList[categoryIndex1])
+                   && rents_isRental(rentsList[j], customersList[customerIndex2], gamesList[gameIndex2], categoriesList[categoryIndex2]))
+                {
+                    if((strcmp(arrays_stringToCamelCase(categoriesList[categoryIndex1].description, CATEGORY_NAME_MAX),
+                               arrays_stringToCamelCase(categoriesList[categoryIndex2].description, CATEGORY_NAME_MAX)) > 0
+                        && order == ASC)
+                        || (strcmp(arrays_stringToCamelCase(categoriesList[categoryIndex1].description, CATEGORY_NAME_MAX),
+                               arrays_stringToCamelCase(categoriesList[categoryIndex2].description, CATEGORY_NAME_MAX)) < 0
+                        && order == DESC))
+                    {
+                        if(rents_swap(&rentsList[i], &rentsList[j]) == OK)
+                        {
+                            returnValue = OK;
+                        }
+                    }
+                    else
+                    {
+                        if(strcmp(arrays_stringToCamelCase(categoriesList[categoryIndex1].description, CATEGORY_NAME_MAX),
+                               arrays_stringToCamelCase(categoriesList[categoryIndex2].description, CATEGORY_NAME_MAX)) == 0)
+                        {
+                            if((gamesList[gameIndex1].price > gamesList[gameIndex2].price && order == ASC)
+                               || (gamesList[gameIndex1].price < gamesList[gameIndex2].price && order == DESC))
+                            {
+                                if(rents_swap(&rentsList[i], &rentsList[j]) == OK)
+                                {
+                                    returnValue = OK;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return returnValue;
+}
+
 void rents_print(sRental rental, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
 {
     int customerIndex;
