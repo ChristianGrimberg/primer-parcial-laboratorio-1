@@ -17,13 +17,14 @@ int main()
             categories_hardcode(categories, CATEGORIES_MAX);
             games_hardcode(games, GAMES_MAX);
             customers_hardcode(customers, CUSTOMERS_MAX);
+            rents_hardcode(rents, RENTS_MAX);
         }
 
         if(categories_sort(categories, CATEGORIES_MAX, ASC) == ERROR
            || games_sort(games, GAMES_MAX, categories, CATEGORIES_MAX, ASC) == ERROR
            || customers_sort(customers, CUSTOMERS_MAX, ASC) == ERROR)
         {
-            printf("No se hizo ningun orden.\n");
+            printf("No se realizo el ordenamiento.\n");
         }
 
         if(categories_printList(categories, CATEGORIES_MAX) == 0
@@ -31,12 +32,12 @@ int main()
            || customers_printList(customers, CUSTOMERS_MAX) == 0
            || rents_printList(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX) == 0)
         {
-            printf("No hay datos a imprimir.\n");
+            printf("No hay datos activos a imprimir.\n");
         }
     }
     else
     {
-        printf("Los datos no han podido inicializarse.\n");
+        printf("El listado no hay podido inicializarse.\n");
     }
 
     return 0;

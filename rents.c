@@ -114,6 +114,35 @@ int rents_init(sRental rentsList[], int rentsLength)
     return returnValue;
 }
 
+void rents_hardcode(sRental rentsList[], int rentsLength)
+{
+    int indexHardcodeMax = 4;
+
+    sRental rentsAux[] = {
+        {getNewId(), 201, 301, {1, 1, 2019}, FALSE},
+        {getNewId(), 205, 303, {12, 10, 2019}, FALSE},
+        {getNewId(), 202, 305, {21, 5, 2019}, FALSE},
+        {getNewId(), 203, 302, {5, 3, 2019}, FALSE},
+        {getNewId(), 204, 304, {8, 9, 2019}, FALSE},
+    };
+
+    if(rentsList != NULL
+       && rentsLength > 0 && rentsLength <= RENTS_MAX)
+    {
+        for (int i = 0; i < rentsLength; i++)
+        {
+            if(i <= indexHardcodeMax)
+            {
+                rentsList[i] = rentsAux[i];
+            }
+            else
+            {
+                rentsList[i] = nullRental();
+            }
+        }
+    }
+}
+
 void rents_print(sRental rental, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
 {
     int customerIndex;
