@@ -247,7 +247,7 @@ int customers_add(sCustomer customersList[], int customersLength)
                 }
             }while(sexAux != 'F' && sexAux != 'M');
 
-            if(sexAux == 'F' || sexAux == 'M'
+            if((sexAux == 'F' || sexAux == 'M')
                && !inputs_getPhone(phoneAux, "Ingrese el Telefono [Formato: +54 11 1111-1111]: ",
                                    ERROR_MESSAGE, 1, CUSTOMER_PHONE_MAX)
                && !inputs_getString(addressAux, "Ingrese la Direccion: ",
