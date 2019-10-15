@@ -34,7 +34,7 @@ int games_isGame(sGame game, sCategory category)
     if(game.id != EMPTY_ID
        && game.description != NULL
        && game.isEmpty == FALSE
-       && categories_isCategory(category))
+       && categories_isCategory(category) && category.id == game.categoryId)
     {
         returnValue = 1;
     }

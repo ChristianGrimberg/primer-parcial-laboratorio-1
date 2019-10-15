@@ -26,13 +26,14 @@ static int getNewId(void);
  */
 static int printRental(sRental rental);
 
-int rents_isRental(sRental rental)
+int rents_isRental(sRental rental, sCustomer customer, sGame game, sCategory category)
 {
     int returnValue = 0;
 
     if(rental.id != EMPTY_ID
-       && rental.gameId != EMPTY_ID
-       && rental.customerId != EMPTY_ID
+       && customers_isCustomer(customer) && rental.customerId == customer.id
+       && games_isGame(game, category) && rental.gameId == game.id
+       && categories_isCategory(category) && game.categoryId == category.id
        && rental.isEmpty == FALSE)
     {
         returnValue = 1;
@@ -45,8 +46,8 @@ int rents_compare(sRental rental1, sRental rental2)
 {
     int compare = -2;
 
-    if(rents_isRental(rental1)
-       && rents_isRental(rental2))
+    if(rental1.isEmpty == FALSE
+       && rental2.isEmpty == FALSE)
     {
         if(rental1.id > rental2.id)
         {
