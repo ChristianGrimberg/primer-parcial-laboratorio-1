@@ -7,7 +7,7 @@
 #define CUSTOMER_PHONE_MAX 21 /**< Se define la cantidad maxima de caracteres telefonicos. >*/
 #define CUSTOMER_ADDRESS_MAX 51 /**< Longitud maxima de la direccion de un Cliente. >*/
 #define ID_INIT_CUSTOMER 300 /**< Numeracion inicial de un Cliente. >*/
-#define CUSTOMERS_MAX 100 /**< Cantidad maxima de Clientes en un arreglo. >*/
+#define CUSTOMERS_MAX 99 /**< Cantidad maxima de Clientes en un arreglo. >*/
 
 /*! \struct sCustomer
  * \brief Tipo de dato de un Cliente.

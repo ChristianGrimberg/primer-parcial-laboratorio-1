@@ -4,7 +4,7 @@
 #include "customers.h"
 
 #define ID_INIT_RENTAL 300 /**< Numeracion inicial de un Alquiler. >*/
-#define RENTS_MAX 100 /**< Cantidad maxima de Alquileres en un arreglo. >*/
+#define RENTS_MAX 999 /**< Cantidad maxima de Alquileres en un arreglo. >*/
 
 /*! \struct sRental
  * \brief Tipo de dato de un Alquiler.
@@ -60,6 +60,16 @@ int rents_compare(sRental rental1, sRental rental2);
  *
  */
 int rents_swap(sRental* rental1, sRental* rental2);
+
+/** \brief Inicializacion del arreglo de estructuras.
+ *
+ * \param rentsList[] sRental Arreglo de estrucutras.
+ * \param rentsLength int Longitud del arreglo.
+ * \return int
+ *          [ERROR] Si hubo un error al inicializar.
+ *          [OK] Si la inicializacion se realizo correctamente.
+ *
+ */
 int rents_init(sRental rentsList[], int rentsLength);
 void rents_hardcode(sRental rentsList[], int rentsLength);
 int rents_getEmptyIndex(sRental rentsList[], int rentsLength);

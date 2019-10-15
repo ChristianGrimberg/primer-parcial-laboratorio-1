@@ -5,7 +5,7 @@
 
 #define GAME_NAME_MAX 51 /**< Longitud maxima de la descripcion de un Juego. >*/
 #define ID_INIT_GAME 200 /**< Numeracion inicial de un Juego. >*/
-#define GAMES_MAX 100 /**< Cantidad maxima de Juegos en un arreglo. >*/
+#define GAMES_MAX 99 /**< Cantidad maxima de Juegos en un arreglo. >*/
 #define GAMES_PRICE_MAX 10000000 /** Precio maximo de un Juego. >*/
 
 /*! \struct sGame

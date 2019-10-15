@@ -42,26 +42,6 @@ int rents_isRental(sRental rental, sCustomer customer, sGame game, sCategory cat
     return returnValue;
 }
 
-int rents_swap(sRental* rental1, sRental* rental2)
-{
-    int returnValue = ERROR;
-    sRental aux1;
-    sRental aux2;
-
-    aux1 = *rental1;
-    aux2 = *rental2;
-    *rental1 = *rental2;
-    *rental2 = aux1;
-
-    if(rents_compare(*rental1, aux2) == 0
-       && rents_compare(*rental2, aux1) == 0)
-    {
-        returnValue = OK;
-    }
-
-    return returnValue;
-}
-
 int rents_compare(sRental rental1, sRental rental2)
 {
     int compare = -2;
@@ -87,6 +67,48 @@ int rents_compare(sRental rental1, sRental rental2)
     }
 
     return compare;
+}
+
+int rents_swap(sRental* rental1, sRental* rental2)
+{
+    int returnValue = ERROR;
+    sRental aux1;
+    sRental aux2;
+
+    aux1 = *rental1;
+    aux2 = *rental2;
+    *rental1 = *rental2;
+    *rental2 = aux1;
+
+    if(rents_compare(*rental1, aux2) == 0
+       && rents_compare(*rental2, aux1) == 0)
+    {
+        returnValue = OK;
+    }
+
+    return returnValue;
+}
+
+int rents_init(sRental rentsList[], int rentsLength)
+{
+    int returnValue = ERROR;
+    int i;
+
+    if(rentsList != NULL
+       && rentsLength > 0 && rentsLength <= RENTS_MAX)
+    {
+        for(i = 0 ; i < rentsLength; i++)
+        {
+            rentsList[i] = nullRental();
+        }
+
+        if(i == rentsLength)
+        {
+            returnValue = OK;
+        }
+    }
+
+    return returnValue;
 }
 
 static sRental nullRental()
