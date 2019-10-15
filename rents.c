@@ -18,13 +18,16 @@ static int getNewId(void);
 
 /** \brief Imprime en pantalla los valores de la estructura.
  *
- * \param rental sRental Estructura a imprimir.
+ * \param rental sRental Estructura de Alquiler a imprimir.
+ * \param customer sCustomer Estructura de Cliente a imprimir.
+ * \param game sGame Estructura de Juego a imprimir.
+ * \param category sCategory Estructura de Categoria a imprimir.
  * \return int
  *          [0] Si la estructura esta vacia.
  *          [1] Si la estructura esta llena y pudo imprimirse.
  *
  */
-static int printRental(sRental rental);
+static int printRental(sRental rental, sCustomer customer, sGame game, sCategory category);
 
 int rents_isRental(sRental rental, sCustomer customer, sGame game, sCategory category)
 {
@@ -111,6 +114,95 @@ int rents_init(sRental rentsList[], int rentsLength)
     return returnValue;
 }
 
+void rents_print(sRental rental, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
+{
+    int customerIndex;
+    int gameIndex;
+    int categoryIndex;
+
+    if(customersList != NULL && gamesList != NULL && categoriesList != NULL
+       && customersLength > 0 && customersLength <= CUSTOMERS_MAX
+       && gamesLength >0 && gamesLength <= GAMES_MAX
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
+    {
+        customerIndex = customers_getIndexById(customersList, customersLength, rental.customerId);
+        gameIndex = games_getIndexById(gamesList, gamesLength, rental.gameId);
+        categoryIndex = categories_getIndexById(categoriesList, categoriesLength, gamesList[gameIndex].categoryId);
+
+        if(customers_isCustomer(customersList[customerIndex])
+           && games_isGame(gamesList[gameIndex], categoriesList[categoryIndex])
+           && categories_isCategory(categoriesList[categoryIndex])
+           && rents_isRental(rental, customersList[customerIndex], gamesList[gameIndex], categoriesList[categoryIndex]))
+        {
+            printf("+=======+======================+======================+===========+======================+======================+\n");
+            printf("|   ID  |         JUEGO        |       CATEGORIA      |   PRECIO  | APELLIDO DEL CLIENTE |  NOMBRE DEL CLIENTE  |\n");
+            printf("+=======+======================+======================+===========+======================+======================+\n");
+
+            if(printRental(rental, customersList[customerIndex], gamesList[gameIndex], categoriesList[categoryIndex]) == 0)
+            {
+                printf("Alquiler vacio.\n");
+            }
+            printf("+-------+----------------------+----------------------+-----------+----------------------+----------------------+\n");
+        }
+    }
+}
+
+int rents_printList(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
+{
+    int itemsCounter = 0;
+    int flag = 0;
+    int customerIndex;
+    int gameIndex;
+    int categoryIndex;
+
+    if(rentsList != NULL && customersList != NULL
+       && gamesList != NULL && categoriesList != NULL
+       && rentsLength > 0 && rentsLength <= RENTS_MAX
+       && customersLength > 0 && customersLength <= CUSTOMERS_MAX
+       && gamesLength >0 && gamesLength <= GAMES_MAX
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
+    {
+        for (int i = 0; i < rentsLength; i++)
+        {
+            customerIndex = customers_getIndexById(customersList, customersLength, rentsList[i].customerId);
+            gameIndex = games_getIndexById(gamesList, gamesLength, rentsList[i].gameId);
+            categoryIndex = categories_getIndexById(categoriesList, categoriesLength, gamesList[gameIndex].categoryId);
+
+            if(customers_isCustomer(customersList[customerIndex])
+               && games_isGame(gamesList[gameIndex], categoriesList[categoryIndex])
+               && categories_isCategory(categoriesList[categoryIndex])
+               && rents_isRental(rentsList[i], customersList[customerIndex], gamesList[gameIndex], categoriesList[categoryIndex]))
+            {
+                itemsCounter++;
+
+                if(itemsCounter == 1)
+                {
+                    printf("+=======+======================+======================+===========+======================+======================+\n");
+                    printf("|   ID  |         JUEGO        |       CATEGORIA      |   PRECIO  | APELLIDO DEL CLIENTE |  NOMBRE DEL CLIENTE  |\n");
+                    printf("+=======+======================+======================+===========+======================+======================+\n");
+                }
+
+                if(printRental(rentsList[i], customersList[customerIndex], gamesList[gameIndex], categoriesList[categoryIndex]) == 1)
+                {
+                    flag = 1;
+                }
+                else
+                {
+                    flag = 0;
+                    break;
+                }
+            }
+        }
+
+        if(flag == 1)
+        {
+            printf("+-------+----------------------+----------------------+-----------+----------------------+----------------------+\n");
+        }
+    }
+
+    return itemsCounter;
+}
+
 static sRental nullRental()
 {
     sRental aux;
@@ -129,4 +221,21 @@ static int getNewId(void)
     static int rentalId = ID_INIT_RENTAL;
     rentalId++;
     return rentalId;
+}
+
+static int printRental(sRental rental, sCustomer customer, sGame game, sCategory category)
+{
+    int counter = 0;
+
+    if(rents_isRental(rental, customer, game, category))
+    {
+        printf("| %5d | %20s | %20s | %9.2f | %20s | %20s |\n",
+               rental.id, arrays_stringToCamelCase(game.description, GAME_NAME_MAX),
+               arrays_stringToCamelCase(category.description, CATEGORIES_MAX), game.price,
+               arrays_stringToCamelCase(customer.lastName, CUSTOMER_NAME_MAX),
+               arrays_stringToCamelCase(customer.name, CUSTOMER_NAME_MAX));
+        counter = 1;
+    }
+
+    return counter;
 }

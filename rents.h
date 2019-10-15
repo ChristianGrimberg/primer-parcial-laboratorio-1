@@ -63,7 +63,7 @@ int rents_swap(sRental* rental1, sRental* rental2);
 
 /** \brief Inicializacion del arreglo de estructuras.
  *
- * \param rentsList[] sRental Arreglo de estrucutras.
+ * \param rentsList[] sRental Arreglo de estructuras.
  * \param rentsLength int Longitud del arreglo.
  * \return int
  *          [ERROR] Si hubo un error al inicializar.
@@ -82,11 +82,17 @@ int rents_sort(sRental rentsList[], int rentsLength, int order);
 
 /** \brief Impresion con formato tabla de una estructura.
  *
- * \param rental sRental Estructura a imprimir.
+ * \param rental sRental Estructura de Alquiler.
+ * \param customersList[] sCustomer Arreglo de estructuras de Clientes.
+ * \param customersLength int Longitud del arreglo de Clientes.
+  * \param gamesList[] sGame Arreglo de estructuras de Juegos.
+ * \param gamesLength int Longitud del arreglo de Juegos.
+ * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
+ * \param categoriesLength int Longitud del arreglo de Categorias.
  * \return void No retorna valores.
  *
  */
-void rents_print(sRental rental);
-int rents_printList(sRental rentsList[], int rentsLength);
+void rents_print(sRental rental, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
+int rents_printList(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
 
 #endif // RENTS_H_INCLUDED

@@ -67,7 +67,7 @@ int customers_swap(sCustomer* customer1, sCustomer* customer2);
 
 /** \brief Inicializacion del arreglo de estructuras.
  *
- * \param customersList[] sCustomer Arreglo de estrucutras.
+ * \param customersList[] sCustomer Arreglo de estructuras.
  * \param customersLength int Longitud del arreglo.
  * \return int
  *          [ERROR] Si hubo un error al inicializar.
@@ -78,7 +78,7 @@ int customers_init(sCustomer customersList[], int customersLength);
 
 /** \brief Harcodeo de estructuras de ejemplo.
  *
- * \param customersList[] sCustomer Arreglo de estrucutras.
+ * \param customersList[] sCustomer Arreglo de estructuras.
  * \param customersLength int Longitud del arreglo.
  * \return void No retorna valores.
  *
@@ -87,7 +87,7 @@ void customers_hardcode(sCustomer customersList[], int customersLength);
 
 /** \brief Obtiene el primer indice vacio del arreglo
  *
- * \param customersList[] sCustomer Arreglo de estrucutras.
+ * \param customersList[] sCustomer Arreglo de estructuras.
  * \param customersLength int Longitud del arreglo.
  * \return int
  *          Indice de la primera posicion vacia del arreglo.
@@ -98,7 +98,7 @@ int customers_getEmptyIndex(sCustomer customersList[], int customersLength);
 
 /** \brief Obtiene el indice de la estructura buscada por el ID.
  *
- * \param customersList[] sCustomer Arreglo de estrucutras.
+ * \param customersList[] sCustomer Arreglo de estructuras.
  * \param customersLength int Longitud del arreglo.
  * \param id int ID a buscar.
  * \return int
@@ -112,7 +112,7 @@ int customers_getIndexById(sCustomer customersList[], int customersLength, int i
  *
  * \param message[] char Mensaje de solicitud al usuario.
  * \param eMessage[] char Mensaje ante error del valor ingresado por el usuario.
- * \param customersList[] sCustomer Arreglo de estrucutras.
+ * \param customersList[] sCustomer Arreglo de estructuras.
  * \param customersLength int Longitud del arreglo.
  * \return int
  *          ID de la estructura elegida por el usuario.
@@ -123,7 +123,7 @@ int customers_userSelection(char message[], char eMessage[], sCustomer customers
 
 /** \brief Agregar una nueva estructura en una posicion vacia del arreglo.
  *
- * \param customersList[] sCustomer Arreglo de estrucutras.
+ * \param customersList[] sCustomer Arreglo de estructuras.
  * \param customersLength int Longitud del arreglo.
  * \return int
  *          [ERROR] Si hubo un error al cargar la estructura.
@@ -134,7 +134,7 @@ int customers_add(sCustomer customersList[], int customersLength);
 
 /** \brief Modificacion de la descripcion de la estructura.
  *
- * \param customersList[] sCustomer Arreglo de estrucutras.
+ * \param customersList[] sCustomer Arreglo de estructuras.
  * \param customersLength int Longitud del arreglo.
  * \return int
  *          [ERROR] Si hubo un error al modificar la estructura.
@@ -145,7 +145,7 @@ int customers_modify(sCustomer customersList[], int customersLength);
 
 /** \brief Inactivacion de una estructura dentro de un arreglo.
  *
- * \param customersList[] sCustomer Arreglo de estrucutras.
+ * \param customersList[] sCustomer Arreglo de estructuras.
  * \param customersLength int Longitud del arreglo.
  * \return int
  *          [ERROR] Si hubo un error al inactivar la estructura.
@@ -156,7 +156,7 @@ int customers_delete(sCustomer customersList[], int customersLength);
 
 /** \brief Ordenamiento de un arreglo de estructuras por dos opciones.
  *
- * \param customersList[] sCustomer Arreglo de estrucutras.
+ * \param customersList[] sCustomer Arreglo de estructuras.
  * \param customersLength int Longitud del arreglo.
  * \param order int
  *          [ASC] Para orden ascendente.
@@ -178,7 +178,7 @@ void customers_print(sCustomer customer);
 
 /** \brief Impresion con formato tabla de un arreglo de estructuras.
  *
- * \param customersList[] sCustomer Arreglo de estrucutras.
+ * \param customersList[] sCustomer Arreglo de estructuras.
  * \param customersLength int Longitud del arreglo.
  * \return int Cantidad de estructuras impresas.
  *

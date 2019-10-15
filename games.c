@@ -418,8 +418,8 @@ void games_print(sGame game, sCategory categoriesList[], int categoriesLength)
 
     categoryIndex = categories_getIndexById(categoriesList, categoriesLength, game.categoryId);
 
-    if(categoryIndex != ERROR
-       && games_isGame(game, categoriesList[categoryIndex]))
+    if(games_isGame(game, categoriesList[categoryIndex])
+       && categories_isCategory(categoriesList[categoryIndex]))
     {
         printf("+=======+======================+===========+======================+\n");
         printf("|   ID  |      DESCRIPCION     |   PRECIO  |       CATEGORIA      |\n");
@@ -507,8 +507,8 @@ static int printGame(sGame game, sCategory category)
     if(games_isGame(game, category))
     {
         printf("| %5d | %20s | %9.2f | %20s |\n",
-               game.id, arrays_stringToCamelCase(game.description, GAMES_MAX)
-               ,game.price, arrays_stringToCamelCase(category.description, CATEGORIES_MAX));
+               game.id, arrays_stringToCamelCase(game.description, GAME_NAME_MAX)
+               ,game.price, arrays_stringToCamelCase(category.description, CATEGORY_NAME_MAX));
         counter = 1;
     }
 

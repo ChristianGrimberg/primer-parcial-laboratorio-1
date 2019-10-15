@@ -57,7 +57,7 @@ int categories_swap(sCategory* category1, sCategory* category2);
 
 /** \brief Inicializacion del arreglo de estructuras.
  *
- * \param categoriesList[] sCategory Arreglo de estrucutras.
+ * \param categoriesList[] sCategory Arreglo de estructuras.
  * \param categoriesLength int Longitud del arreglo.
  * \return int
  *          [ERROR] Si hubo un error al inicializar.
@@ -68,7 +68,7 @@ int categories_init(sCategory categoriesList[], int categoriesLength);
 
 /** \brief Harcodeo de estructuras de ejemplo.
  *
- * \param categoriesList[] sCategory Arreglo de estrucutras.
+ * \param categoriesList[] sCategory Arreglo de estructuras.
  * \param categoriesLength int Longitud del arreglo.
  * \return void No retorna valores.
  *
@@ -77,7 +77,7 @@ void categories_hardcode(sCategory categoriesList[], int categoriesLength);
 
 /** \brief Obtiene el primer indice vacio del arreglo
  *
- * \param categoriesList[] sCategory Arreglo de estrucutras.
+ * \param categoriesList[] sCategory Arreglo de estructuras.
  * \param categoriesLength int Longitud del arreglo.
  * \return int
  *          Indice de la primera posicion vacia del arreglo.
@@ -88,7 +88,7 @@ int categories_getEmptyIndex(sCategory categoriesList[], int categoriesLength);
 
 /** \brief Obtiene el indice de la estructura buscada por el ID.
  *
- * \param categoriesList[] sCategory Arreglo de estrucutras.
+ * \param categoriesList[] sCategory Arreglo de estructuras.
  * \param categoriesLength int Longitud del arreglo.
  * \param id int ID a buscar.
  * \return int
@@ -102,7 +102,7 @@ int categories_getIndexById(sCategory categoriesList[], int categoriesLength, in
  *
  * \param message[] char Mensaje de solicitud al usuario.
  * \param eMessage[] char Mensaje ante error del valor ingresado por el usuario.
- * \param categoriesList[] sCategory Arreglo de estrucutras.
+ * \param categoriesList[] sCategory Arreglo de estructuras.
  * \param categoriesLength int Longitud del arreglo.
  * \return int
  *          ID de la estructura elegida por el usuario.
@@ -113,7 +113,7 @@ int categories_userSelection(char message[], char eMessage[], sCategory categori
 
 /** \brief Agregar una nueva estructura en una posicion vacia del arreglo.
  *
- * \param categoriesList[] sCategory Arreglo de estrucutras.
+ * \param categoriesList[] sCategory Arreglo de estructuras.
  * \param categoriesLength int Longitud del arreglo.
  * \return int
  *          [ERROR] Si hubo un error al cargar la estructura.
@@ -124,7 +124,7 @@ int categories_add(sCategory categoriesList[], int categoriesLength);
 
 /** \brief Modificacion de la descripcion de la estructura.
  *
- * \param categoriesList[] sCategory Arreglo de estrucutras.
+ * \param categoriesList[] sCategory Arreglo de estructuras.
  * \param categoriesLength int Longitud del arreglo.
  * \return int
  *          [ERROR] Si hubo un error al modificar la estructura.
@@ -135,7 +135,7 @@ int categories_modify(sCategory categoriesList[], int categoriesLength);
 
 /** \brief Inactivacion de una estructura dentro de un arreglo.
  *
- * \param categoriesList[] sCategory Arreglo de estrucutras.
+ * \param categoriesList[] sCategory Arreglo de estructuras.
  * \param categoriesLength int Longitud del arreglo.
  * \return int
  *          [ERROR] Si hubo un error al inactivar la estructura.
@@ -146,7 +146,7 @@ int categories_delete(sCategory categoriesList[], int categoriesLength);
 
 /** \brief Ordenamiento de un arreglo de estructuras.
  *
- * \param categoriesList[] sCategory Arreglo de estrucutras.
+ * \param categoriesList[] sCategory Arreglo de estructuras.
  * \param categoriesLength int Longitud del arreglo.
  * \param order int
  *          [ASC] Para orden ascendente.
@@ -168,7 +168,7 @@ void categories_print(sCategory category);
 
 /** \brief Impresion con formato tabla de un arreglo de estructuras.
  *
- * \param categoriesList[] sCategory Arreglo de estrucutras.
+ * \param categoriesList[] sCategory Arreglo de estructuras.
  * \param categoriesLength int Longitud del arreglo.
  * \return int Cantidad de estructuras impresas.
  *

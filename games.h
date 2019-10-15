@@ -63,7 +63,7 @@ int games_swap(sGame* game1, sGame* game2);
 
 /** \brief Inicializacion del arreglo de estructuras.
  *
- * \param gamesList[] sGame Arreglo de estrucutras.
+ * \param gamesList[] sGame Arreglo de estructuras.
  * \param gamesLength int Longitud del arreglo.
  * \return int
  *          [ERROR] Si hubo un error al inicializar.
@@ -74,7 +74,7 @@ int games_init(sGame gamesList[], int gamesLength);
 
 /** \brief Harcodeo de estructuras de ejemplo.
  *
- * \param gamesList[] sGame Arreglo de estrucutras.
+ * \param gamesList[] sGame Arreglo de estructuras.
  * \param gamesLength int Longitud del arreglo.
  * \return void No retorna valores.
  *
@@ -83,7 +83,7 @@ void games_hardcode(sGame gamesList[], int gamesLength);
 
 /** \brief Obtiene el primer indice vacio del arreglo
  *
- * \param gamesList[] sGame Arreglo de estrucutras.
+ * \param gamesList[] sGame Arreglo de estructuras.
  * \param gamesLength int Longitud del arreglo.
  * \return int
  *          Indice de la primera posicion vacia del arreglo.
@@ -94,7 +94,7 @@ int games_getEmptyIndex(sGame gamesList[], int gamesLength);
 
 /** \brief Obtiene el indice de la estructura buscada por el ID.
  *
- * \param gamesList[] sGame Arreglo de estrucutras.
+ * \param gamesList[] sGame Arreglo de estructuras.
  * \param gamesLength int Longitud del arreglo.
  * \param id int ID a buscar.
  * \return int
@@ -108,9 +108,9 @@ int games_getIndexById(sGame gamesList[], int gamesLength, int id);
  *
  * \param message[] char Mensaje de solicitud al usuario.
  * \param eMessage[] char Mensaje ante error del valor ingresado por el usuario.
- * \param gamesList[] sGame Arreglo de estrucutras de Juegos.
+ * \param gamesList[] sGame Arreglo de estructuras de Juegos.
  * \param gamesLength int Longitud del arreglo de Juegos.
- * \param categoriesList[] sCategory Arreglo de estrucutras de Categorias.
+ * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
  * \param categoriesLength int Longitud del arreglo de Categorias.
  * \return int
  *          ID de la estructura elegida por el usuario.
@@ -121,9 +121,9 @@ int games_userSelection(char message[], char eMessage[], sGame gamesList[], int 
 
 /** \brief Agregar una nueva estructura en una posicion vacia del arreglo.
  *
- * \param gamesList[] sGame Arreglo de estrucutras de Juegos.
+ * \param gamesList[] sGame Arreglo de estructuras de Juegos.
  * \param gamesLength int Longitud del arreglo de Juegos.
- * \param categoriesList[] sCategory Arreglo de estrucutras de Categorias.
+ * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
  * \param categoriesLength int Longitud del arreglo de Categorias.
  * \return int
  *          [ERROR] Si hubo un error al cargar la estructura.
@@ -134,9 +134,9 @@ int games_add(sGame gamesList[], int gamesLength, sCategory categoriesList[], in
 
 /** \brief Modificacion de una estructura.
  *
- * \param gamesList[] sGame Arreglo de estrucutras de Juegos.
+ * \param gamesList[] sGame Arreglo de estructuras de Juegos.
  * \param gamesLength int Longitud del arreglo de Juegos.
- * \param categoriesList[] sCategory Arreglo de estrucutras de Categorias.
+ * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
  * \param categoriesLength int Longitud del arreglo de Categorias.
  * \return int
  *          [ERROR] Si hubo un error al modificar la estructura.
@@ -147,9 +147,9 @@ int games_modify(sGame gamesList[], int gamesLength, sCategory categoriesList[],
 
 /** \brief Inactivacion de una estructura dentro de un arreglo.
  *
- * \param gamesList[] sGame Arreglo de estrucutras de Juegos.
+ * \param gamesList[] sGame Arreglo de estructuras de Juegos.
  * \param gamesLength int Longitud del arreglo de Juegos.
- * \param categoriesList[] sCategory Arreglo de estrucutras de Categorias.
+ * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
  * \param categoriesLength int Longitud del arreglo de Categorias.
  * \return int
  *          [ERROR] Si hubo un error al inactivar la estructura.
@@ -160,9 +160,9 @@ int games_delete(sGame gamesList[], int gamesLength, sCategory categoriesList[],
 
 /** \brief Ordenamiento de un arreglo de estructuras.
  *
- * \param gamesList[] sGame Arreglo de estrucutras de Juegos.
+ * \param gamesList[] sGame Arreglo de estructuras de Juegos.
  * \param gamesLength int Longitud del arreglo de Juegos.
- * \param categoriesList[] sCategory Arreglo de estrucutras de Categorias.
+ * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
  * \param categoriesLength int Longitud del arreglo de Categorias.
  * \param order int
  *          [ASC] Para orden ascendente.
@@ -177,7 +177,7 @@ int games_sort(sGame gamesList[], int gamesLength, sCategory categoriesList[], i
 /** \brief Impresion con formato tabla de una estructura.
  *
  * \param game sGame Estructura de Juego.
- * \param categoriesList[] sCategory Arreglo de estrucutras de Categorias.
+ * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
  * \param categoriesLength int Longitud del arreglo de Categorias.
  * \return void No retorna valores.
  *
@@ -186,9 +186,9 @@ void games_print(sGame game, sCategory categoriesList[], int categoriesLength);
 
 /** \brief Impresion con formato tabla de un arreglo de estructuras.
  *
- * \param gamesList[] sGame Arreglo de estrucutras de Juegos.
+ * \param gamesList[] sGame Arreglo de estructuras de Juegos.
  * \param gamesLength int Longitud del arreglo de Juegos.
- * \param categoriesList[] sCategory Arreglo de estrucutras de Categorias.
+ * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
  * \param categoriesLength int Longitud del arreglo de Categorias.
  * \return int Cantidad de estructuras impresas.
  *
