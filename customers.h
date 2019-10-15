@@ -142,6 +142,16 @@ int customers_add(sCustomer customersList[], int customersLength);
  *
  */
 int customers_modify(sCustomer customersList[], int customersLength);
+
+/** \brief Inactivacion de una estructura dentro de un arreglo.
+ *
+ * \param customersList[] sCustomer Arreglo de estrucutras.
+ * \param customersLength int Longitud del arreglo.
+ * \return int
+ *          [ERROR] Si hubo un error al inactivar la estructura.
+ *          [OK] Si pudo inactivarse correctamente la estructura.
+ *
+ */
 int customers_delete(sCustomer customersList[], int customersLength);
 
 /** \brief Ordenamiento de un arreglo de estructuras por dos opciones.

@@ -376,6 +376,40 @@ int customers_modify(sCustomer customersList[], int customersLength)
     return returnValue;
 }
 
+int customers_delete(sCustomer customersList[], int customersLength)
+{
+    int returnValue = ERROR;
+    int id;
+    int index;
+
+    if(customersList != NULL
+       && customersLength > 0 && customersLength <= CUSTOMERS_MAX)
+    {
+        id = customers_userSelection("Ingrese el ID del Cliente a dar de baja: ",
+            ERROR_MESSAGE, customersList, customersLength);
+
+        if(id != ERROR)
+        {
+            index = customers_getIndexById(customersList, customersLength, id);
+
+            if(index != ERROR)
+            {
+                inputs_clearScreen();
+                printf("ATENCION! ESTA A PUNTO DE DAR DE BAJA AL SIGUIENTE CLIENTE:\n");
+                customers_print(customersList[index]);
+
+                if(inputs_userResponse("ESTA DE ACUERDO? [S] [N]: "))
+                {
+                    customersList[index].isEmpty = TRUE;
+                    returnValue = OK;
+                }
+            }
+        }
+    }
+
+    return returnValue;
+}
+
 int customers_sort(sCustomer customersList[], int customersLength, int order)
 {
     int returnValue = ERROR;
