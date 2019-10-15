@@ -236,19 +236,22 @@ int customers_add(sCustomer customersList[], int customersLength)
         indexAux = customers_getEmptyIndex(customersList, customersLength);
 
         if(indexAux != ERROR
-           && !inputs_getString(nameAux, "Ingrese el nombre: ", ERROR_MESSAGE, 1, CUSTOMER_NAME_MAX)
-           && !inputs_getString(lastNameAux, "Ingrese el apellido: ", ERROR_MESSAGE, 1, CUSTOMER_NAME_MAX))
+           && !inputs_getString(nameAux, "Ingrese el Nombre: ", ERROR_MESSAGE, 1, CUSTOMER_NAME_MAX)
+           && !inputs_getString(lastNameAux, "Ingrese el Apellido: ", ERROR_MESSAGE, 1, CUSTOMER_NAME_MAX))
         {
             do
             {
-                if(!inputs_getChar(&sexAux, "Ingrese el sexo [F] o [M]: ", ERROR_MESSAGE, 1, 1))
+                if(!inputs_getChar(&sexAux, "Ingrese el Sexo [F] o [M]: ", ERROR_MESSAGE, 'a', 'Z'))
                 {
                     sexAux = toupper((char)sexAux);
                 }
             }while(sexAux != 'F' && sexAux != 'M');
 
-            if(!inputs_getPhone(phoneAux, "Ingrese el telefono [Formato: +54 11 1111-1111]: ", ERROR_MESSAGE, 1, CUSTOMER_PHONE_MAX)
-               && !inputs_getString(addressAux, "Ingrese la direccion: ", ERROR_MESSAGE, 1, CUSTOMER_ADDRESS_MAX))
+            if(sexAux == 'F' || sexAux == 'M'
+               && !inputs_getPhone(phoneAux, "Ingrese el Telefono [Formato: +54 11 1111-1111]: ",
+                                   ERROR_MESSAGE, 1, CUSTOMER_PHONE_MAX)
+               && !inputs_getString(addressAux, "Ingrese la Direccion: ",
+                                   ERROR_MESSAGE, 1, CUSTOMER_ADDRESS_MAX))
             {
                 customersList[indexAux].id = getNewId();
                 strcpy(customersList[indexAux].name, nameAux);
@@ -258,6 +261,114 @@ int customers_add(sCustomer customersList[], int customersLength)
                 strcpy(customersList[indexAux].address, addressAux);
                 customersList[indexAux].isEmpty = FALSE;
                 returnValue = OK;
+            }
+        }
+    }
+
+    return returnValue;
+}
+
+int customers_modify(sCustomer customersList[], int customersLength)
+{
+    int returnValue = ERROR;
+    int idAux;
+    int indexAux;
+    int option;
+    char nameAux[CUSTOMER_NAME_MAX];
+    char lastNameAux[CUSTOMER_NAME_MAX];
+    char sexAux;
+    char phoneAux[CUSTOMER_PHONE_MAX];
+    char addressAux[CUSTOMER_ADDRESS_MAX];
+
+    if(customersList != NULL
+       && customersLength > 0 && customersLength <= CUSTOMERS_MAX)
+    {
+        idAux = customers_userSelection("Ingrese el ID del Cliente a modificar: ",
+            ERROR_MESSAGE, customersList, customersLength);
+
+        if(idAux != ERROR)
+        {
+            indexAux = customers_getIndexById(customersList, customersLength, idAux);
+
+            if(indexAux!= ERROR)
+            {
+                inputs_clearScreen();
+
+                printf("=======================================================\n");
+                printf("                MODIFICAR CLIENTE\n");
+                printf("=======================================================\n");
+                printf("    1 - Modificar el Nombre\n");
+                printf("    2 - Modificar el Apellido\n");
+                printf("    3 - Modificar el Sexo\n");
+                printf("    4 - Modificar el Telefono\n");
+                printf("    5 - Modificar la Direccion\n");
+                printf("    6 - Volver al menu principal\n");
+                printf("=======================================================\n");
+
+                if(!inputs_getInt(&option, "Ingrese la opcion deseada: ", ERROR_MESSAGE, 1, 6))
+                {
+                    switch(option)
+                    {
+                        case 1:
+                            if(!inputs_getString(nameAux, "Ingrese el nuevo Nombre: ",
+                                                 ERROR_MESSAGE, 1, CUSTOMER_NAME_MAX))
+                            {
+                                strcpy(customersList[indexAux].name, nameAux);
+                                printf("Nombre modificado con exito.\n");
+                                returnValue = OK;
+                            }
+                            break;
+                        case 2:
+                            if(!inputs_getString(lastNameAux, "Ingrese el nuevo Apellido: ",
+                                                 ERROR_MESSAGE, 1, CUSTOMER_NAME_MAX))
+                            {
+                                strcpy(customersList[indexAux].lastName, lastNameAux);
+                                printf("Apellido modificado con exito.\n");
+                                returnValue = OK;
+                            }
+                            break;
+                        case 3:
+                            do
+                            {
+                                if(!inputs_getChar(&sexAux, "Ingrese el nuevo Sexo [F] o [M]: ",
+                                                   ERROR_MESSAGE, 'a', 'Z'))
+                                {
+                                    sexAux = toupper((char)sexAux);
+                                }
+                            }while(sexAux != 'F' && sexAux != 'M');
+
+                            if(sexAux == 'F' || sexAux == 'M')
+                            {
+                                customersList[indexAux].sex = sexAux;
+                                printf("Sexo modificado con exito.\n");
+                                returnValue = OK;
+                            }
+                            break;
+                        case 4:
+                            if(!inputs_getString(phoneAux,
+                                                 "Ingrese el nuevo Telefono [Formato: +54 11 1111-1111]: ",
+                                                 ERROR_MESSAGE, 1, CUSTOMER_PHONE_MAX))
+                            {
+                                strcpy(customersList[indexAux].phone, phoneAux);
+                                printf("Telefono modificado con exito.\n");
+                                returnValue = OK;
+                            }
+                            break;
+                        case 5:
+                            if(!inputs_getString(addressAux, "Ingrese la nueva Direccion: ",
+                                                 ERROR_MESSAGE, 1, CUSTOMER_ADDRESS_MAX))
+                            {
+                                strcpy(customersList[indexAux].address, addressAux);
+                                printf("Direccion modificada con exito.\n");
+                                returnValue = OK;
+                            }
+                            break;
+                        case 6:
+                            printf("Operacion cancelada.\n");
+                            returnValue = OK;
+                            break;
+                    }
+                }
             }
         }
     }

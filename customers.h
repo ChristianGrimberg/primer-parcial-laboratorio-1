@@ -131,6 +131,16 @@ int customers_userSelection(char message[], char eMessage[], sCustomer customers
  *
  */
 int customers_add(sCustomer customersList[], int customersLength);
+
+/** \brief Modificacion de la descripcion de la estructura.
+ *
+ * \param customersList[] sCustomer Arreglo de estrucutras.
+ * \param customersLength int Longitud del arreglo.
+ * \return int
+ *          [ERROR] Si hubo un error al modificar la estructura.
+ *          [OK] Si pudo modificarse correctamente la estructura.
+ *
+ */
 int customers_modify(sCustomer customersList[], int customersLength);
 int customers_delete(sCustomer customersList[], int customersLength);
 
