@@ -42,6 +42,26 @@ int rents_isRental(sRental rental, sCustomer customer, sGame game, sCategory cat
     return returnValue;
 }
 
+int rents_swap(sRental* rental1, sRental* rental2)
+{
+    int returnValue = ERROR;
+    sRental aux1;
+    sRental aux2;
+
+    aux1 = *rental1;
+    aux2 = *rental2;
+    *rental1 = *rental2;
+    *rental2 = aux1;
+
+    if(rents_compare(*rental1, aux2) == 0
+       && rents_compare(*rental2, aux1) == 0)
+    {
+        returnValue = OK;
+    }
+
+    return returnValue;
+}
+
 int rents_compare(sRental rental1, sRental rental2)
 {
     int compare = -2;

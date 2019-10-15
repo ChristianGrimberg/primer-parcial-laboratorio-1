@@ -37,7 +37,28 @@ typedef struct
  *
  */
 int rents_isRental(sRental rental, sCustomer customer, sGame game, sCategory category);
+
+/** \brief Funcion que compara dos estructuras de Juegos.
+ *
+ * \param rental1 sRental Primer estructura a comparar.
+ * \param rental2 SRental Segunda estructura a comparar.
+ * \return int
+ *          [-1] Si el ID de la estructura 1 es mayor al ID de la  estructura 2.
+ *          [1] Si el ID de la estructura 1 es menor al ID de la estructura 2.
+ *          [0] Si ambos ID son iguales.
+ *
+ */
 int rents_compare(sRental rental1, sRental rental2);
+
+/** \brief Intercambio de estructuras.
+ *
+ * \param rental1 sRental* Direccion de memoria de la estructura 1.
+ * \param rental2 SRental* Direccion de memoria de la estructura 2.
+ * \return int
+ *          [ERROR] Si hubo un error en el intercambio.
+ *          [OK] Si el intercambio fue exitoso.
+ *
+ */
 int rents_swap(sRental* rental1, sRental* rental2);
 int rents_init(sRental rentsList[], int rentsLength);
 void rents_hardcode(sRental rentsList[], int rentsLength);
