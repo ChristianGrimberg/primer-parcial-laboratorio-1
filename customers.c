@@ -449,6 +449,25 @@ int customers_sort(sCustomer customersList[], int customersLength, int order)
                                     returnValue = OK;
                                 }
                             }
+                            else
+                            {
+                                if(strcmp(arrays_stringToCamelCase(customersList[i].lastName, CUSTOMER_NAME_MAX),
+                                       arrays_stringToCamelCase(customersList[j].lastName, CUSTOMER_NAME_MAX)) == 0)
+                                {
+                                    if((strcmp(arrays_stringToCamelCase(customersList[i].name, CUSTOMER_NAME_MAX),
+                                               arrays_stringToCamelCase(customersList[j].name, CUSTOMER_NAME_MAX)) > 0
+                                        && order == ASC)
+                                        || (strcmp(arrays_stringToCamelCase(customersList[i].name, CUSTOMER_NAME_MAX),
+                                               arrays_stringToCamelCase(customersList[j].name, CUSTOMER_NAME_MAX)) < 0
+                                        && order == DESC))
+                                    {
+                                        if(customers_swap(&customersList[i], &customersList[j]) == OK)
+                                        {
+                                            returnValue = OK;
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
                 }
