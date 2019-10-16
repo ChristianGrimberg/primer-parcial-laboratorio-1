@@ -4,6 +4,7 @@ int main()
 {
     int lifeCycle; /**< Indicador del ciclo de vida de cada menu. >*/
     int optionMenu; /**< Opcion elegida por el usuario del menu principal. >*/
+    int quantity; /**< Cantidad retornada en una funcion. >*/
     sCategory categories[CATEGORIES_MAX]; /**< Arreglo de Categorias. >*/
     sGame games[GAMES_MAX];/**< Arreglo de Juegos. >*/
     sCustomer customers[CUSTOMERS_MAX]; /**< Arreglo de Clientes. >*/
@@ -28,13 +29,35 @@ int main()
 
             switch(optionMenu)
             {
-            case 1:
+            case 1: /**< Menu ABM de Categorias. >*/
                 do
                 {
                     lifeCycle = menu_category(&optionMenu);
 
                     switch(optionMenu)
                     {
+                    case 1: /**< Agregar nueva Categoria. >*/
+                        if(categories_add(categories, CATEGORIES_MAX) == OK)
+                        {
+                            printf("Categoria agregada con exito.\n");
+                        }
+                        break;
+                    case 4: /**< Listado ordenado por descripcion de Categorias. >*/
+                        if(categories_sort(categories, CATEGORIES_MAX, ASC) == OK)
+                        {
+                            inputs_clearScreen();
+
+                            quantity = categories_printList(categories, CATEGORIES_MAX);
+                            if(quantity > 0)
+                            {
+                                printf("Se encontraron %d Categorias en el sistema.\n", quantity);
+                            }
+                            else
+                            {
+                                printf("No hay Categorias cargadas en el sistema.\n");
+                            }
+                        }
+                        break;
                     }
 
                     if(optionMenu == MENU_CATEGORY_MAX || optionMenu == ERROR)
