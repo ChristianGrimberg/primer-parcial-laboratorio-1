@@ -168,8 +168,8 @@ int games_delete(sGame gamesList[], int gamesLength, sCategory categoriesList[],
  *          [ASC] Para orden ascendente.
  *          [DESC] Para orden descendente.
  * \return int
- *          [ERROR] Si no se realizo ningun ordenamiento.
- *          [OK] Si al menos hizo un minimo ordenamiento.
+ *          [ORDERED] Si no se realizo ningun ordenamiento.
+ *          [DISORDERED] Si al menos hizo un minimo ordenamiento.
  *
  */
 int games_sort(sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, int order);

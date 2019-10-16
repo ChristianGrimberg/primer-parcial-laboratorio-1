@@ -42,20 +42,37 @@ int main()
                             printf("Categoria agregada con exito.\n");
                         }
                         break;
-                    case 4: /**< Listado ordenado por descripcion de Categorias. >*/
-                        if(categories_sort(categories, CATEGORIES_MAX, ASC) == OK)
-                        {
-                            inputs_clearScreen();
+                    case 2: /**< Baja de una Categoria. >*/
+                        inputs_clearScreen();
 
-                            quantity = categories_printList(categories, CATEGORIES_MAX);
-                            if(quantity > 0)
-                            {
-                                printf("Se encontraron %d Categorias en el sistema.\n", quantity);
-                            }
-                            else
-                            {
-                                printf("No hay Categorias cargadas en el sistema.\n");
-                            }
+                        if(categories_delete(categories, CATEGORIES_MAX) == OK)
+                        {
+                            printf("Categoria eliminada correctamente.\n");
+                        }
+                        break;
+                    case 3: /**< Modificar una Categoria. >*/
+                        inputs_clearScreen();
+
+                        if(categories_modify(categories, CATEGORIES_MAX) == OK)
+                        {
+                            printf("Categoria modificada con exito.\n");
+                        }
+                        break;
+                    case 4: /**< Listado ordenado por descripcion de Categorias. >*/
+                        inputs_clearScreen();
+                        if(categories_sort(categories, CATEGORIES_MAX, ASC) == DISORDERED)
+                        {
+                            printf("Se ordeno la lista de Categorias por Descripcion.\n");
+                        }
+
+                        quantity = categories_printList(categories, CATEGORIES_MAX);
+                        if(quantity > 0)
+                        {
+                            printf("Se encontraron %d Categorias en el sistema.\n", quantity);
+                        }
+                        else
+                        {
+                            printf("No hay Categorias cargadas en el sistema.\n");
                         }
                         break;
                     }

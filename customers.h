@@ -162,8 +162,8 @@ int customers_delete(sCustomer customersList[], int customersLength);
  *          [ASC] Para orden ascendente.
  *          [DESC] Para orden descendente.
  * \return int
- *          [ERROR] Si no se realizo ningun ordenamiento.
- *          [OK] Si al menos hizo un minimo ordenamiento.
+ *          [ORDERED] Si no se realizo ningun ordenamiento.
+ *          [DISORDERED] Si al menos hizo un minimo ordenamiento.
  *
  */
 int customers_sort(sCustomer customersList[], int customersLength, int order);

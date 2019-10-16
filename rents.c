@@ -390,7 +390,7 @@ int rents_delete(sRental rentsList[], int rentsLength, sCustomer customersList[]
 
 int rents_sort(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, int order)
 {
-    int returnValue = ERROR;
+    int returnValue = ORDERED;
     int customerIndex1;
     int customerIndex2;
     int gameIndex1;
@@ -435,7 +435,7 @@ int rents_sort(sRental rentsList[], int rentsLength, sCustomer customersList[], 
                     {
                         if(rents_swap(&rentsList[i], &rentsList[j]) == OK)
                         {
-                            returnValue = OK;
+                            returnValue = DISORDERED;
                         }
                     }
                     else
@@ -448,7 +448,7 @@ int rents_sort(sRental rentsList[], int rentsLength, sCustomer customersList[], 
                             {
                                 if(rents_swap(&rentsList[i], &rentsList[j]) == OK)
                                 {
-                                    returnValue = OK;
+                                    returnValue = DISORDERED;
                                 }
                             }
                         }

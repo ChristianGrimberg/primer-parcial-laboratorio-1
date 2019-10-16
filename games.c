@@ -374,7 +374,7 @@ int games_delete(sGame gamesList[], int gamesLength, sCategory categoriesList[],
 
 int games_sort(sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, int order)
 {
-    int returnValue = ERROR;
+    int returnValue = ORDERED;
     int categoryIndex1;
     int categoryIndex2;
 
@@ -401,7 +401,7 @@ int games_sort(sGame gamesList[], int gamesLength, sCategory categoriesList[], i
                     {
                         if(games_swap(&gamesList[i], &gamesList[j]) == OK)
                         {
-                            returnValue = OK;
+                            returnValue = DISORDERED;
                         }
                     }
                 }

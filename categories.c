@@ -260,7 +260,7 @@ int categories_modify(sCategory categoriesList[], int categoriesLength)
 
             if(index != ERROR
                && !inputs_getString(descriptionAux, "Ingrese la nueva descripcion: ",
-                                    ERROR_MESSAGE, 1, CATEGORY_NAME_MAX))
+                    ERROR_MESSAGE, 1, CATEGORY_NAME_MAX))
             {
                 strcpy(categoriesList[index].description, descriptionAux);
                 returnValue = OK;
@@ -307,7 +307,7 @@ int categories_delete(sCategory categoriesList[], int categoriesLength)
 
 int categories_sort(sCategory categoriesList[], int categoriesLength, int order)
 {
-    int returnValue = ERROR;
+    int returnValue = ORDERED;
 
     if(categoriesList != NULL
        && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX
@@ -329,7 +329,7 @@ int categories_sort(sCategory categoriesList[], int categoriesLength, int order)
                     {
                         if(categories_swap(&categoriesList[i], &categoriesList[j]) == OK)
                         {
-                            returnValue = OK;
+                            returnValue = DISORDERED;
                         }
                     }
                 }

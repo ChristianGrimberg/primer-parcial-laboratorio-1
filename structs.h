@@ -7,9 +7,11 @@
 
 #define TRUE 1 /**< Valor booleano de verdadero. >*/
 #define FALSE 0 /**< Valor booleano de falso. >*/
-#define ERROR -1 /**< Opcion de retorno de error. >*/
+#define OK 0 /**< Valor de retorno OK. >*/
+#define ERROR -1 /**< Valor de retorno de error. >*/
+#define ORDERED 1 /**< Valor de retorno de lista ordenada. >*/
+#define DISORDERED 0 /**< Valor de retorno de lista desordenada. */
 #define EMPTY_ID -1 /**< ID sin asignar. >*/
-#define OK 0 /**< Opcion de retorno OK. >*/
 #define DAY_MIN 1 /**< Dia minimo de cada mes. >*/
 #define DAY_28 28 /**< Dia maximo de febrero de anio no bisiesto. >*/
 #define DAY_29 29 /**< Dia maximo de febrero de anio bisiesto. >*/

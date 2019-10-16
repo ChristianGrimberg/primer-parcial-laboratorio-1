@@ -412,7 +412,7 @@ int customers_delete(sCustomer customersList[], int customersLength)
 
 int customers_sort(sCustomer customersList[], int customersLength, int order)
 {
-    int returnValue = ERROR;
+    int returnValue = ORDERED;
 
     if(customersList != NULL
        && customersLength > 0 && customersLength <= CUSTOMERS_MAX
@@ -430,7 +430,7 @@ int customers_sort(sCustomer customersList[], int customersLength, int order)
                     {
                         if(customers_swap(&customersList[i], &customersList[j]) == OK)
                         {
-                            returnValue = OK;
+                            returnValue = DISORDERED;
                         }
                     }
                     else
@@ -446,7 +446,7 @@ int customers_sort(sCustomer customersList[], int customersLength, int order)
                             {
                                 if(customers_swap(&customersList[i], &customersList[j]) == OK)
                                 {
-                                    returnValue = OK;
+                                    returnValue = DISORDERED;
                                 }
                             }
                             else
@@ -463,7 +463,7 @@ int customers_sort(sCustomer customersList[], int customersLength, int order)
                                     {
                                         if(customers_swap(&customersList[i], &customersList[j]) == OK)
                                         {
-                                            returnValue = OK;
+                                            returnValue = DISORDERED;
                                         }
                                     }
                                 }
