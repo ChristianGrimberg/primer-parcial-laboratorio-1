@@ -268,6 +268,89 @@ int rents_add(sRental rentsList[], int rentsLength, sCustomer customersList[], i
     return returnValue;
 }
 
+int rents_modify(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
+{
+    int returnValue = ERROR;
+    int indexRentalAux;
+    int idRentalAux;
+    int idGameAux;
+    int idCustomerAux;
+    int option;
+    sDate dateAux;
+    sDate dateMin = {DAY_MIN, MONTH_MIN, YEAR_MIN};
+    sDate dateMax = {DAY_31, MONTH_MAX, YEAR_MAX};
+
+    if(rentsList != NULL && customersList != NULL
+       && gamesList != NULL && categoriesList != NULL
+       && rentsLength > 0 && rentsLength <= RENTS_MAX
+       && customersLength > 0 && customersLength <= CUSTOMERS_MAX
+       && gamesLength >0 && gamesLength <= GAMES_MAX
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
+    {
+        idRentalAux = rents_userSelection("Ingrese el ID del Alquiler a modificar: ", ERROR_MESSAGE, rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength);
+
+        if(idRentalAux != ERROR)
+        {
+            indexRentalAux = rents_getIndexById(rentsList, rentsLength, idRentalAux);
+
+            if(indexRentalAux != ERROR)
+            {
+                inputs_clearScreen();
+
+                printf("=======================================================\n");
+                printf("                MODIFICAR ALQUILER\n");
+                printf("=======================================================\n");
+                printf("    1 - Modificar el Juego\n");
+                printf("    2 - Modificar el Cliente\n");
+                printf("    3 - Modificar la Fecha\n");
+                printf("    4 - Volver al menu principal\n");
+                printf("=======================================================\n");
+
+                if(!inputs_getInt(&option, "Ingrese la opcion deseada: ", ERROR_MESSAGE, 1, 4))
+                {
+                    switch(option)
+                    {
+                        case 1:
+                            idGameAux = games_userSelection("Elija un nuevo Juego: ", ERROR_MESSAGE, gamesList, gamesLength, categoriesList, categoriesLength);
+
+                            if(idGameAux != ERROR)
+                            {
+                                rentsList[indexRentalAux].gameId = idGameAux;
+                                printf("Cambio de Juego exitoso.\n");
+                                returnValue = OK;
+                            }
+                            break;
+                        case 2:
+                            idCustomerAux = customers_userSelection("Elija un nuevo Cliente: ", ERROR_MESSAGE, customersList, customersLength);
+
+                            if(idCustomerAux != ERROR)
+                            {
+                                rentsList[indexRentalAux].customerId = idCustomerAux;
+                                printf("Cambio de Cliente exitoso.\n");
+                                returnValue = OK;
+                            }
+                            break;
+                        case 3:
+                            if(!inputs_getDate(&dateAux, "Ingrese una nueva Fecha: ", ERROR_MESSAGE, dateMin, dateMax))
+                            {
+                                rentsList[indexRentalAux].date = dateAux;
+                                printf("Fecha modificada con exito.\n");
+                                returnValue = OK;
+                            }
+                            break;
+                        case 4:
+                            printf("Operacion cancelada.\n");
+                            returnValue = OK;
+                            break;
+                    }
+                }
+            }
+        }
+    }
+
+    return returnValue;
+}
+
 int rents_sort(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, int order)
 {
     int returnValue = ERROR;
