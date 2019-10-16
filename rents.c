@@ -225,6 +225,49 @@ int rents_userSelection(char message[], char eMessage[], sRental rentsList[], in
     return returnValue;
 }
 
+int rents_add(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
+{
+    int returnValue = ERROR;
+    int indexRentalAux;
+    int idGameAux;
+    int idCustomerAux;
+    sDate dateAux;
+    sDate dateMin = {DAY_MIN, MONTH_MIN, YEAR_MIN};
+    sDate dateMax = {DAY_31, MONTH_MAX, YEAR_MAX};
+
+    if(rentsList != NULL && customersList != NULL
+       && gamesList != NULL && categoriesList != NULL
+       && rentsLength > 0 && rentsLength <= RENTS_MAX
+       && customersLength > 0 && customersLength <= CUSTOMERS_MAX
+       && gamesLength >0 && gamesLength <= GAMES_MAX
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
+    {
+        indexRentalAux = rents_getEmptyIndex(rentsList, rentsLength);
+
+        if(indexRentalAux != ERROR)
+        {
+            idGameAux = games_userSelection("Seleccione un Juego: ", ERROR_MESSAGE, gamesList, gamesLength, categoriesList, categoriesLength);
+
+            if(idGameAux != ERROR)
+            {
+                idCustomerAux = customers_userSelection("Seleccione un Cliente: ", ERROR_MESSAGE, customersList, customersLength);
+
+                if(idCustomerAux != ERROR
+                   && !inputs_getDate(&dateAux, "Ingrese una fecha: ", ERROR_MESSAGE, dateMin, dateMax))
+                {
+                    rentsList[indexRentalAux].id = getNewId();
+                    rentsList[indexRentalAux].gameId = idGameAux;
+                    rentsList[indexRentalAux].customerId = idCustomerAux;
+                    rentsList[indexRentalAux].isEmpty = FALSE;
+                    returnValue = OK;
+                }
+            }
+        }
+    }
+
+    return returnValue;
+}
+
 int rents_sort(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, int order)
 {
     int returnValue = ERROR;

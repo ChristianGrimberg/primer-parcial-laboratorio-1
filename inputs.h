@@ -142,11 +142,13 @@ int inputs_getString(char* input, char message[], char eMessage[], int lowLimit,
  * \param date sDate* Puntero para almacenar el tipo de dato de fecha.
  * \param message[] char Es el mensaje a ser mostrado.
  * \param eMessage[] char Es el mensaje a ser mostrado en caso de error.
+ * \param dateMin sDate Fecha minima a cubrir dentro del rango.
+ * \param dateMax sDate Fecha maxima a cibir dentro del rango.
  * \return
  *      Si obtuvo una fecha devuelve [0] si no [-1].
  *
  */
-int inputs_getDate(sDate* date, char message[], char eMessage[]);
+int inputs_getDate(sDate* date, char message[], char eMessage[], sDate dateMin, sDate dateMax);
 
 /** \brief Solicita una cadena de caracteres al usuario y lo valida
  *      como numero telefonico (Solo acepta numeros, guinones y el simbolo "+").

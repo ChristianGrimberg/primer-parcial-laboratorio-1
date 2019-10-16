@@ -367,13 +367,15 @@ int inputs_getString(char* input, char message[], char eMessage[], int lowLimit,
     return returnValue;
 }
 
-int inputs_getDate(sDate* date, char message[], char eMessage[])
+int inputs_getDate(sDate* date, char message[], char eMessage[], sDate dateMin, sDate dateMax)
 {
     int returnValue = ERROR;
     int counter = 0;
     sDate dateAux;
 
-    if(date != NULL && message != NULL && eMessage != NULL)
+    if(date != NULL && message != NULL && eMessage != NULL
+       && structs_dateCompare(dateMax, dateMin) < 0
+       && structs_isDate(dateMin) && structs_isDate(dateMax))
     {
         do
         {
@@ -394,9 +396,13 @@ int inputs_getDate(sDate* date, char message[], char eMessage[])
                 inputs_clearBufferAfter();
                 continue;
             }
-        } while (!structs_isDate(dateAux));
+        } while (!structs_isDate(dateAux)
+                 || structs_dateCompare(dateAux, dateMax) > 0
+                 || structs_dateCompare(dateAux, dateMin) < 0);
 
-        if(structs_isDate(dateAux))
+        if(structs_isDate(dateAux)
+           && structs_dateCompare(dateAux, dateMax) <= 0
+           && structs_dateCompare(dateAux, dateMin) >= 0)
         {
             date->day = dateAux.day;
             date->month = dateAux.month;
