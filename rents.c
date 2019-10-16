@@ -185,6 +185,46 @@ int rents_getIndexById(sRental rentsList[], int rentsLength, int id)
     return returnValue;
 }
 
+int rents_userSelection(char message[], char eMessage[], sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
+{
+    int returnValue = ERROR;
+    int auxId = 0;
+    int auxIndex = 0;
+
+    if(message != NULL && eMessage != NULL
+       && rentsList != NULL && customersList != NULL
+       && gamesList != NULL && categoriesList != NULL
+       && rentsLength > 0 && rentsLength <= RENTS_MAX
+       && customersLength > 0 && customersLength <= CUSTOMERS_MAX
+       && gamesLength >0 && gamesLength <= GAMES_MAX
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
+    {
+        if(rents_printList(rentsList, rentsLength, customersList, customersLength,
+                           gamesList, gamesLength, categoriesList, categoriesLength) == 0)
+        {
+            printf("No hay Alquileres activos.\n");
+        }
+        else
+        {
+            if(!inputs_getInt(&auxId, message, eMessage, ID_INIT_RENTAL+1, ID_INIT_RENTAL+RENTS_MAX))
+            {
+                auxIndex = rents_getIndexById(rentsList, rentsLength, auxId);
+
+                if(auxIndex != ERROR)
+                {
+                    returnValue = auxId;
+                }
+                else
+                {
+                    printf("No se encuentra el Alquiler ingresado.\n");
+                }
+            }
+        }
+    }
+
+    return returnValue;
+}
+
 int rents_sort(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, int order)
 {
     int returnValue = ERROR;
@@ -195,7 +235,9 @@ int rents_sort(sRental rentsList[], int rentsLength, sCustomer customersList[], 
     int categoryIndex1;
     int categoryIndex2;
 
-    if(customersList != NULL && gamesList != NULL && categoriesList != NULL
+    if(rentsList != NULL && customersList != NULL
+       && gamesList != NULL && categoriesList != NULL
+       && rentsLength > 0 && rentsLength <= RENTS_MAX
        && customersLength > 0 && customersLength <= CUSTOMERS_MAX
        && gamesLength >0 && gamesLength <= GAMES_MAX
        && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX

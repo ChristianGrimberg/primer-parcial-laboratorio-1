@@ -103,7 +103,25 @@ int rents_getEmptyIndex(sRental rentsList[], int rentsLength);
  *
  */
 int rents_getIndexById(sRental rentsList[], int rentsLength, int id);
-int rents_userSelection(char message[], char eMessage[], sRental rentsList[], int rentsLength);
+
+/** \brief Seleccion de una estructura consultando por pantalla al usuario.
+ *
+ * \param message[] char Mensaje de solicitud al usuario.
+ * \param eMessage[] char Mensaje ante error del valor ingresado por el usuario.
+ * \param rentsList[] sRental Arreglo de estructuras de Alquileres.
+ * \param rentsLength int Longitud del arreglo de Alquileres.
+ * \param customersList[] sCustomer Arreglo de estructuras de Clientes.
+ * \param customersLength int Longitud del arreglo de Clientes.
+ * \param gamesList[] sGame Arreglo de estructuras de Juegos.
+ * \param gamesLength int Longitud del arreglo de Juegos.
+ * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
+ * \param categoriesLength int Longitud del arreglo de Categorias.
+ * \return int
+ *          ID de la estructura elegida por el usuario.
+ *          [ERROR] Si la estructura elegida no se encuentra.
+ *
+ */
+int rents_userSelection(char message[], char eMessage[], sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
 int rents_add(sRental rentsList[], int rentsLength);
 int rents_modify(sRental rentsList[], int rentsLength);
 int rents_delete(sRental rentsList[], int rentsLength);
