@@ -49,7 +49,7 @@ Se dará de alta cada ocurrencia de alquiler, relacionando Juego-Cliente, Fecha 
 
 1. Se deberá desarrollar bibliotecas por cada entidad, las cuáles contendrán las funciones Alta, Baja, Modificar y Listar.
 1. Las validaciones deberán estar en una biblioteca aparte.
-1. El código deberá tener comentarios con la documentación de cada una de las funciones y respetar las reglas de estulo de la cátedra.
+1. El código deberá tener comentarios con la documentación de cada una de las funciones y respetar las reglas de estilo de la cátedra.
 
 #### Informes
 
