@@ -351,6 +351,43 @@ int rents_modify(sRental rentsList[], int rentsLength, sCustomer customersList[]
     return returnValue;
 }
 
+int rents_delete(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
+{
+    int returnValue = ERROR;
+    int id;
+    int index;
+
+    if(rentsList != NULL && customersList != NULL
+       && gamesList != NULL && categoriesList != NULL
+       && rentsLength > 0 && rentsLength <= RENTS_MAX
+       && customersLength > 0 && customersLength <= CUSTOMERS_MAX
+       && gamesLength >0 && gamesLength <= GAMES_MAX
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
+    {
+        id = rents_userSelection("Ingrese el ID del Alquiler a dar de baja: ", ERROR_MESSAGE, rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength);
+
+        if(id != ERROR)
+        {
+            index = rents_getIndexById(rentsList, rentsLength, id);
+
+            if(index != ERROR)
+            {
+                inputs_clearScreen();
+                printf("ATENCION! ESTA A PUNTO DE DAR DE BAJA EL SIGUIENTE ALQUILER:\n");
+                rents_print(rentsList[index], customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength);
+
+                if(inputs_userResponse("ESTA DE ACUERDO? [S] [N]: "))
+                {
+                    rentsList[index].isEmpty = TRUE;
+                    returnValue = OK;
+                }
+            }
+        }
+    }
+
+    return returnValue;
+}
+
 int rents_sort(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, int order)
 {
     int returnValue = ERROR;

@@ -156,7 +156,23 @@ int rents_add(sRental rentsList[], int rentsLength, sCustomer customersList[], i
  *
  */
 int rents_modify(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
-int rents_delete(sRental rentsList[], int rentsLength);
+
+/** \brief Inactivacion de una estructura dentro de un arreglo.
+ *
+ * \param rentsList[] sRental Arreglo de estructuras de Alquileres.
+ * \param rentsLength int Longitud del arreglo de Alquileres.
+ * \param customersList[] sCustomer Arreglo de estructuras de Clientes.
+ * \param customersLength int Longitud del arreglo de Clientes.
+ * \param gamesList[] sGame Arreglo de estructuras de Juegos.
+ * \param gamesLength int Longitud del arreglo de Juegos.
+ * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
+ * \param categoriesLength int Longitud del arreglo de Categorias.
+ * \return int
+ *          [ERROR] Si hubo un error al inactivar la estructura.
+ *          [OK] Si pudo inactivarse correctamente la estructura.
+ *
+ */
+int rents_delete(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
 
 /** \brief Ordenamiento de un arreglo de estructuras.
  *
