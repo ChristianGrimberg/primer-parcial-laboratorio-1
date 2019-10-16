@@ -164,6 +164,27 @@ int rents_getEmptyIndex(sRental rentsList[], int rentsLength)
     return returnValue;
 }
 
+int rents_getIndexById(sRental rentsList[], int rentsLength, int id)
+{
+    int returnValue = ERROR;
+
+    if(rentsList != NULL
+       && rentsLength > 0 && rentsLength <= RENTS_MAX)
+    {
+        for (int i = 0; i < rentsLength; i++)
+        {
+            if(rentsList[i].id == id
+               && rentsList[i].isEmpty == FALSE)
+            {
+                returnValue = i;
+                break;
+            }
+        }
+    }
+
+    return returnValue;
+}
+
 int rents_sort(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, int order)
 {
     int returnValue = ERROR;

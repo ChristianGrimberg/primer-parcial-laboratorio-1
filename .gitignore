@@ -32,3 +32,4 @@ bin/Debug/primer-parcial.exe
 *.a
 *.depend
 *.log
+*.save-failed

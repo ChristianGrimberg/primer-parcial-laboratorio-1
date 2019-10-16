@@ -91,6 +91,17 @@ void rents_hardcode(sRental rentsList[], int rentsLength);
  *
  */
 int rents_getEmptyIndex(sRental rentsList[], int rentsLength);
+
+/** \brief Obtiene el indice de la estructura buscada por el ID.
+ *
+ * \param rentsList[] sRental Arreglo de estructuras.
+ * \param rentsLength int Longitud del arreglo.
+ * \param id int ID a buscar.
+ * \return int
+ *          Indice del ID buscado.
+ *          [ERROR] Si el ID buscado no existe o esta inactivo.
+ *
+ */
 int rents_getIndexById(sRental rentsList[], int rentsLength, int id);
 int rents_userSelection(char message[], char eMessage[], sRental rentsList[], int rentsLength);
 int rents_add(sRental rentsList[], int rentsLength);
