@@ -1,11 +1,13 @@
-#include "rents.h"
+#include "menu.h"
 
 int main()
 {
-    sCategory categories[CATEGORIES_MAX];
-    sGame games[GAMES_MAX];
-    sCustomer customers[CUSTOMERS_MAX];
-    sRental rents[RENTS_MAX];
+    int lifeCycle; /**< Indicador del ciclo de vida de cada menu. >*/
+    int optionMenu; /**< Opcion elegida por el usuario del menu principal. >*/
+    sCategory categories[CATEGORIES_MAX]; /**< Arreglo de Categorias. >*/
+    sGame games[GAMES_MAX];/**< Arreglo de Juegos. >*/
+    sCustomer customers[CUSTOMERS_MAX]; /**< Arreglo de Clientes. >*/
+    sRental rents[RENTS_MAX]; /**< Arreglo de Alquileres. >*/
 
     if(categories_init(categories, CATEGORIES_MAX) == OK
        && games_init(games, GAMES_MAX) == OK
@@ -20,25 +22,55 @@ int main()
             rents_hardcode(rents, RENTS_MAX);
         }
 
-        if(categories_sort(categories, CATEGORIES_MAX, ASC) == ERROR
-           || games_sort(games, GAMES_MAX, categories, CATEGORIES_MAX, ASC) == ERROR
-           || customers_sort(customers, CUSTOMERS_MAX, ASC) == ERROR
-           || rents_sort(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX, ASC) == ERROR)
+        do
         {
-            printf("No se realizo el ordenamiento.\n");
-        }
+            lifeCycle = menu_main(&optionMenu);
 
-        if(categories_printList(categories, CATEGORIES_MAX) == 0
-           || games_printList(games, GAMES_MAX, categories, CATEGORIES_MAX) == 0
-           || customers_printList(customers, CUSTOMERS_MAX) == 0
-           || rents_printList(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX) == 0)
-        {
-            printf("No hay datos activos a imprimir.\n");
-        }
+            switch(optionMenu)
+            {
+            case 1:
+                do
+                {
+                    lifeCycle = menu_category(&optionMenu);
+
+                    switch(optionMenu)
+                    {
+                    }
+
+                    if(optionMenu == MENU_CATEGORY_MAX || optionMenu == ERROR)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        inputs_pauseScreen(CONTINUE_MESSAGE);
+                    }
+                }while(lifeCycle == OK);
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            case 5:
+                break;
+            }
+
+            if(optionMenu == MENU_MAIN_MAX || optionMenu == ERROR)
+            {
+                inputs_pauseScreen(QUIT_MESSAGE);
+                break;
+            }
+            else
+            {
+                inputs_pauseScreen(CONTINUE_MESSAGE);
+            }
+        }while(lifeCycle == OK);
     }
     else
     {
-        printf("El listado no hay podido inicializarse.\n");
+        printf("Error de inicializacion en arreglos de estructuras.\n");
     }
 
     return 0;
