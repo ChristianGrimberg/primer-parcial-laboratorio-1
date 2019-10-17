@@ -25,7 +25,7 @@ int menu_main(int* option)
     return returnValue;
 }
 
-int menu_category(int* option)
+int menu_categories(int* option)
 {
     int returnValue = ERROR;
 
@@ -42,6 +42,30 @@ int menu_category(int* option)
     printf(" +-------------------------------------------------------+\n\n");
 
     if(!inputs_getInt(option, "Elija una opcion del menu: ", ERROR_MESSAGE, 1, MENU_CATEGORY_MAX))
+    {
+        returnValue = OK;
+    }
+
+    return returnValue;
+}
+
+int menu_games(int* option)
+{
+    int returnValue = ERROR;
+
+    inputs_clearScreen();
+
+    printf(" +=======================================================+\n");
+    printf(" |                 ABM DE JUEGOS                         |\n");
+    printf(" +=======================================================+\n");
+    printf(" | [1] ALTA DE JUEGO                                     |\n");
+    printf(" | [2] BAJA DE JUEGO                                     |\n");
+    printf(" | [3] MODIFICACION DE JUEGO                             |\n");
+    printf(" | [4] LISTADO DE JUEGOS                                 |\n");
+    printf(" | [5] VOLVER AL MENU PRINCIPAL                          |\n");
+    printf(" +-------------------------------------------------------+\n\n");
+
+    if(!inputs_getInt(option, "Elija una opcion del menu: ", ERROR_MESSAGE, 1, MENU_GAME_MAX))
     {
         returnValue = OK;
     }

@@ -32,7 +32,7 @@ int main()
             case 1: /**< Menu ABM de Categorias. >*/
                 do
                 {
-                    lifeCycle = menu_category(&optionMenu);
+                    lifeCycle = menu_categories(&optionMenu);
 
                     switch(optionMenu)
                     {
@@ -87,7 +87,63 @@ int main()
                     }
                 }while(lifeCycle == OK);
                 break;
-            case 2:
+            case 2: /**< Menu ABM de Juegos. >*/
+                do
+                {
+                    lifeCycle = menu_games(&optionMenu);
+
+                    switch(optionMenu)
+                    {
+                    case 1: /**< Agregar nuevo Juego. >*/
+                        if(games_add(games, GAMES_MAX, categories, CATEGORIES_MAX) == OK)
+                        {
+                            printf("Juego agregado con exito.\n");
+                        }
+                        break;
+                    case 2: /**< Baja de un Juego. >*/
+                        inputs_clearScreen();
+
+                        if(games_delete(games, GAMES_MAX, categories, CATEGORIES_MAX) == OK)
+                        {
+                            printf("Juego eliminado correctamente.\n");
+                        }
+                        break;
+                    case 3: /**< Modificar un Juego. >*/
+                        inputs_clearScreen();
+
+                        if(games_modify(games, GAMES_MAX, categories, CATEGORIES_MAX) == OK)
+                        {
+                            printf("Juego modificado con exito.\n");
+                        }
+                        break;
+                    case 4: /**< Listado ordenado por descripcion de Juegos. >*/
+                        inputs_clearScreen();
+                        if(games_sort(games, GAMES_MAX, categories, CATEGORIES_MAX, ASC) == DISORDERED)
+                        {
+                            printf("Se ordeno la lista de Juegos.\n");
+                        }
+
+                        quantity = games_printList(games, GAMES_MAX, categories, CATEGORIES_MAX);
+                        if(quantity > 0)
+                        {
+                            printf("Se encontraron %d Juegos en el sistema.\n", quantity);
+                        }
+                        else
+                        {
+                            printf("No hay Categorias cargadas en el sistema.\n");
+                        }
+                        break;
+                    }
+
+                    if(optionMenu == MENU_GAME_MAX || optionMenu == ERROR)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        inputs_pauseScreen(CONTINUE_MESSAGE);
+                    }
+                }while(lifeCycle == OK);
                 break;
             case 3:
                 break;
