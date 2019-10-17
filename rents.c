@@ -482,7 +482,7 @@ void rents_print(sRental rental, sCustomer customersList[], int customersLength,
            && rents_isRental(rental, customersList[customerIndex], gamesList[gameIndex], categoriesList[categoryIndex]))
         {
             printf("+=======+======================+======================+===========+======================+======================+\n");
-            printf("|   ID  |         JUEGO        |       CATEGORIA      |   PRECIO  | APELLIDO DEL CLIENTE |  NOMBRE DEL CLIENTE  |\n");
+            printf("|   ID  |         JUEGO        |       CATEGORIA      |   PRECIO  |  NOMBRE DEL CLIENTE  | APELLIDO DEL CLIENTE |\n");
             printf("+=======+======================+======================+===========+======================+======================+\n");
 
             if(printRental(rental, customersList[customerIndex], gamesList[gameIndex], categoriesList[categoryIndex]) == 0)
@@ -525,7 +525,7 @@ int rents_printList(sRental rentsList[], int rentsLength, sCustomer customersLis
                 if(itemsCounter == 1)
                 {
                     printf("+=======+======================+======================+===========+======================+======================+\n");
-                    printf("|   ID  |         JUEGO        |       CATEGORIA      |   PRECIO  | APELLIDO DEL CLIENTE |  NOMBRE DEL CLIENTE  |\n");
+                    printf("|   ID  |         JUEGO        |       CATEGORIA      |   PRECIO  |  NOMBRE DEL CLIENTE  | APELLIDO DEL CLIENTE |\n");
                     printf("+=======+======================+======================+===========+======================+======================+\n");
                 }
 
@@ -579,8 +579,8 @@ static int printRental(sRental rental, sCustomer customer, sGame game, sCategory
         printf("| %5d | %20s | %20s | %9.2f | %20s | %20s |\n",
                rental.id, arrays_stringToCamelCase(game.description, GAME_NAME_MAX),
                arrays_stringToCamelCase(category.description, CATEGORIES_MAX), game.price,
-               arrays_stringToCamelCase(customer.lastName, CUSTOMER_NAME_MAX),
-               arrays_stringToCamelCase(customer.name, CUSTOMER_NAME_MAX));
+               arrays_stringToCamelCase(customer.name, CUSTOMER_NAME_MAX),
+               arrays_stringToCamelCase(customer.lastName, CUSTOMER_NAME_MAX));
         counter = 1;
     }
 

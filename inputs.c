@@ -374,7 +374,7 @@ int inputs_getDate(sDate* date, char message[], char eMessage[], sDate dateMin, 
     sDate dateAux;
 
     if(date != NULL && message != NULL && eMessage != NULL
-       && structs_dateCompare(dateMax, dateMin) < 0
+       && structs_dateCompare(dateMax, dateMin) >= 0
        && structs_isDate(dateMin) && structs_isDate(dateMax))
     {
         do

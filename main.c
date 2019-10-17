@@ -120,7 +120,7 @@ int main()
                         inputs_clearScreen();
                         if(games_sort(games, GAMES_MAX, categories, CATEGORIES_MAX, ASC) == DISORDERED)
                         {
-                            printf("Se ordeno la lista de Juegos.\n");
+                            printf("Se ordeno la lista de Juegos por descripcion.\n");
                         }
 
                         quantity = games_printList(games, GAMES_MAX, categories, CATEGORIES_MAX);
@@ -174,11 +174,11 @@ int main()
                             printf("Cliente modificado con exito.\n");
                         }
                         break;
-                    case 4: /**< Listado ordenado por descripcion de Clientes. >*/
+                    case 4: /**< Listado ordenado por genero y apellidos de Clientes. >*/
                         inputs_clearScreen();
                         if(customers_sort(customers, CUSTOMERS_MAX, ASC) == DISORDERED)
                         {
-                            printf("Se ordeno la lista de Clientes.\n");
+                            printf("Se ordeno la lista de Clientes de genero y apellido.\n");
                         }
 
                         quantity = customers_printList(customers, CUSTOMERS_MAX);
@@ -203,7 +203,63 @@ int main()
                     }
                 }while(lifeCycle == OK);
                 break;
-            case 4:
+            case 4: /**< Menu ABM de Alquileres. >*/
+                do
+                {
+                    lifeCycle = menu_rents(&optionMenu);
+
+                    switch(optionMenu)
+                    {
+                    case 1: /**< Alquilar un Juego. >*/
+                        if(rents_add(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX) == OK)
+                        {
+                            printf("Alquiler efectuado con exito.\n");
+                        }
+                        break;
+                    case 2: /**< Anulacion de un Alquiler. >*/
+                        inputs_clearScreen();
+
+                        if(rents_delete(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX) == OK)
+                        {
+                            printf("Alquiler anulado correctamente.\n");
+                        }
+                        break;
+                    case 3: /**< Modificar un Alquiler. >*/
+                        inputs_clearScreen();
+
+                        if(rents_modify(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX) == OK)
+                        {
+                            printf("Alquiler modificado con exito.\n");
+                        }
+                        break;
+                    case 4: /**< Listado ordenado por categoria y precio de Alquileres. >*/
+                        inputs_clearScreen();
+                        if(rents_sort(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX, ASC) == DISORDERED)
+                        {
+                            printf("Se ordeno la lista de Alquileres por categoria y precio.\n");
+                        }
+
+                        quantity = rents_printList(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX);
+                        if(quantity > 0)
+                        {
+                            printf("Se encontraron %d Alquileres realizados en el sistema.\n", quantity);
+                        }
+                        else
+                        {
+                            printf("No hay Alquiler realizados en el sistema.\n");
+                        }
+                        break;
+                    }
+
+                    if(optionMenu == MENU_RENTS_MAX || optionMenu == ERROR)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        inputs_pauseScreen(CONTINUE_MESSAGE);
+                    }
+                }while(lifeCycle == OK);
                 break;
             case 5:
                 break;

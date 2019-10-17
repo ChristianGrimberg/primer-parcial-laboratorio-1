@@ -12,7 +12,7 @@ int menu_main(int* option)
     printf(" | [1] ABM DE CATEGORIAS DE JUEGOS                       |\n");
     printf(" | [2] ABM DE JUEGOS INFANTILES                          |\n");
     printf(" | [3] ABM DE CLIENTES                                   |\n");
-    printf(" | [4] ABM DE ALQUILERES                                 |\n");
+    printf(" | [4] ALQUILER DE JUEGOS INFANTILES                     |\n");
     printf(" | [5] INFORMES                                          |\n");
     printf(" | [6] SALIR DEL PROGRAMA                                |\n");
     printf(" +-------------------------------------------------------+\n\n");
@@ -90,6 +90,30 @@ int menu_customers(int* option)
     printf(" +-------------------------------------------------------+\n\n");
 
     if(!inputs_getInt(option, "Elija una opcion del menu: ", ERROR_MESSAGE, 1, MENU_CUSTOMERS_MAX))
+    {
+        returnValue = OK;
+    }
+
+    return returnValue;
+}
+
+int menu_rents(int* option)
+{
+    int returnValue = ERROR;
+
+    inputs_clearScreen();
+
+    printf(" +=======================================================+\n");
+    printf(" |                 ALQUILER DE JUEGOS                    |\n");
+    printf(" +=======================================================+\n");
+    printf(" | [1] ALQUILER DE JUEGO                                 |\n");
+    printf(" | [2] ANULACION DE ALQUILER                             |\n");
+    printf(" | [3] MODIFICACION DE ALQUILER                          |\n");
+    printf(" | [4] LISTADO DE ALQUILERES REALIZADOS                  |\n");
+    printf(" | [5] VOLVER AL MENU PRINCIPAL                          |\n");
+    printf(" +-------------------------------------------------------+\n\n");
+
+    if(!inputs_getInt(option, "Elija una opcion del menu: ", ERROR_MESSAGE, 1, MENU_RENTS_MAX))
     {
         returnValue = OK;
     }
