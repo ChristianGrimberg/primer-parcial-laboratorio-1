@@ -72,3 +72,27 @@ int menu_games(int* option)
 
     return returnValue;
 }
+
+int menu_customers(int* option)
+{
+    int returnValue = ERROR;
+
+    inputs_clearScreen();
+
+    printf(" +=======================================================+\n");
+    printf(" |                 ABM DE CLIENTES                       |\n");
+    printf(" +=======================================================+\n");
+    printf(" | [1] ALTA DE CLIENTE                                   |\n");
+    printf(" | [2] BAJA DE CLIENTE                                   |\n");
+    printf(" | [3] MODIFICACION DE CLIENTE                           |\n");
+    printf(" | [4] LISTADO DE CLIENTES                               |\n");
+    printf(" | [5] VOLVER AL MENU PRINCIPAL                          |\n");
+    printf(" +-------------------------------------------------------+\n\n");
+
+    if(!inputs_getInt(option, "Elija una opcion del menu: ", ERROR_MESSAGE, 1, MENU_CUSTOMERS_MAX))
+    {
+        returnValue = OK;
+    }
+
+    return returnValue;
+}

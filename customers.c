@@ -241,7 +241,7 @@ int customers_add(sCustomer customersList[], int customersLength)
         {
             do
             {
-                if(!inputs_getChar(&sexAux, "Ingrese el Sexo [F] o [M]: ", ERROR_MESSAGE, 'a', 'Z'))
+                if(!inputs_getChar(&sexAux, "Ingrese el Sexo [F] o [M]: ", ERROR_MESSAGE, 'A', 'z'))
                 {
                     sexAux = toupper((char)sexAux);
                 }
@@ -425,8 +425,8 @@ int customers_sort(sCustomer customersList[], int customersLength, int order)
                 if(customers_isCustomer(customersList[i])
                    && customers_isCustomer(customersList[j]))
                 {
-                    if((customersList[i].sex > customersList[j].sex && order == ASC)
-                       || (customersList[i].sex < customersList[j].sex && order == DESC))
+                    if((toupper((char)customersList[i].sex) > toupper((char)customersList[j].sex) && order == ASC)
+                       || (toupper((char)customersList[i].sex) < toupper((char)customersList[j].sex) && order == DESC))
                     {
                         if(customers_swap(&customersList[i], &customersList[j]) == OK)
                         {
@@ -435,7 +435,7 @@ int customers_sort(sCustomer customersList[], int customersLength, int order)
                     }
                     else
                     {
-                        if(customersList[i].sex == customersList[j].sex)
+                        if(toupper((char)customersList[i].sex) == toupper((char)customersList[j].sex))
                         {
                             if((strcmp(arrays_stringToCamelCase(customersList[i].lastName, CUSTOMER_NAME_MAX),
                                        arrays_stringToCamelCase(customersList[j].lastName, CUSTOMER_NAME_MAX)) > 0

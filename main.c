@@ -145,7 +145,63 @@ int main()
                     }
                 }while(lifeCycle == OK);
                 break;
-            case 3:
+            case 3: /**< Menu ABM de Clientes. >*/
+                do
+                {
+                    lifeCycle = menu_customers(&optionMenu);
+
+                    switch(optionMenu)
+                    {
+                    case 1: /**< Agregar nuevo Cliente. >*/
+                        if(customers_add(customers, CUSTOMERS_MAX) == OK)
+                        {
+                            printf("Cliente agregado con exito.\n");
+                        }
+                        break;
+                    case 2: /**< Baja de un Cliente. >*/
+                        inputs_clearScreen();
+
+                        if(customers_delete(customers, CUSTOMERS_MAX) == OK)
+                        {
+                            printf("Cliente eliminado correctamente.\n");
+                        }
+                        break;
+                    case 3: /**< Modificar un Cliente. >*/
+                        inputs_clearScreen();
+
+                        if(customers_modify(customers, CUSTOMERS_MAX) == OK)
+                        {
+                            printf("Cliente modificado con exito.\n");
+                        }
+                        break;
+                    case 4: /**< Listado ordenado por descripcion de Clientes. >*/
+                        inputs_clearScreen();
+                        if(customers_sort(customers, CUSTOMERS_MAX, ASC) == DISORDERED)
+                        {
+                            printf("Se ordeno la lista de Clientes.\n");
+                        }
+
+                        quantity = customers_printList(customers, CUSTOMERS_MAX);
+                        if(quantity > 0)
+                        {
+                            printf("Se encontraron %d Clientes en el sistema.\n", quantity);
+                        }
+                        else
+                        {
+                            printf("No hay Clientes cargados en el sistema.\n");
+                        }
+                        break;
+                    }
+
+                    if(optionMenu == MENU_CUSTOMERS_MAX || optionMenu == ERROR)
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        inputs_pauseScreen(CONTINUE_MESSAGE);
+                    }
+                }while(lifeCycle == OK);
                 break;
             case 4:
                 break;
