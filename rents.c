@@ -258,6 +258,7 @@ int rents_add(sRental rentsList[], int rentsLength, sCustomer customersList[], i
                     rentsList[indexRentalAux].id = getNewId();
                     rentsList[indexRentalAux].gameId = idGameAux;
                     rentsList[indexRentalAux].customerId = idCustomerAux;
+                    rentsList[indexRentalAux].date = dateAux;
                     rentsList[indexRentalAux].isEmpty = FALSE;
                     returnValue = OK;
                 }
@@ -481,15 +482,15 @@ void rents_print(sRental rental, sCustomer customersList[], int customersLength,
            && categories_isCategory(categoriesList[categoryIndex])
            && rents_isRental(rental, customersList[customerIndex], gamesList[gameIndex], categoriesList[categoryIndex]))
         {
-            printf("+=======+======================+======================+===========+======================+======================+\n");
-            printf("|   ID  |         JUEGO        |       CATEGORIA      |   PRECIO  |  NOMBRE DEL CLIENTE  | APELLIDO DEL CLIENTE |\n");
-            printf("+=======+======================+======================+===========+======================+======================+\n");
+            printf("+=======+============+==================+==================+===========+==================+==================+\n");
+            printf("|   ID  |    FECHA   |       JUEGO      |     CATEGORIA    |   PRECIO  |  NOMBRE CLIENTE  | APELLIDO CLIENTE |\n");
+            printf("+=======+============+==================+==================+===========+==================+==================+\n");
 
             if(printRental(rental, customersList[customerIndex], gamesList[gameIndex], categoriesList[categoryIndex]) == 0)
             {
                 printf("Alquiler vacio.\n");
             }
-            printf("+-------+----------------------+----------------------+-----------+----------------------+----------------------+\n");
+            printf("+-------+------------+------------------+------------------+-----------+------------------+------------------+\n");
         }
     }
 }
@@ -524,9 +525,9 @@ int rents_printList(sRental rentsList[], int rentsLength, sCustomer customersLis
 
                 if(itemsCounter == 1)
                 {
-                    printf("+=======+======================+======================+===========+======================+======================+\n");
-                    printf("|   ID  |         JUEGO        |       CATEGORIA      |   PRECIO  |  NOMBRE DEL CLIENTE  | APELLIDO DEL CLIENTE |\n");
-                    printf("+=======+======================+======================+===========+======================+======================+\n");
+                    printf("+=======+============+==================+==================+===========+==================+==================+\n");
+                    printf("|   ID  |    FECHA   |       JUEGO      |     CATEGORIA    |   PRECIO  |  NOMBRE CLIENTE  | APELLIDO CLIENTE |\n");
+                    printf("+=======+============+==================+==================+===========+==================+==================+\n");
                 }
 
                 if(printRental(rentsList[i], customersList[customerIndex], gamesList[gameIndex], categoriesList[categoryIndex]) == 1)
@@ -543,7 +544,7 @@ int rents_printList(sRental rentsList[], int rentsLength, sCustomer customersLis
 
         if(flag == 1)
         {
-            printf("+-------+----------------------+----------------------+-----------+----------------------+----------------------+\n");
+            printf("+-------+------------+------------------+------------------+-----------+------------------+------------------+\n");
         }
     }
 
@@ -576,9 +577,12 @@ static int printRental(sRental rental, sCustomer customer, sGame game, sCategory
 
     if(rents_isRental(rental, customer, game, category))
     {
-        printf("| %5d | %20s | %20s | %9.2f | %20s | %20s |\n",
-               rental.id, arrays_stringToCamelCase(game.description, GAME_NAME_MAX),
-               arrays_stringToCamelCase(category.description, CATEGORIES_MAX), game.price,
+        printf("| %5d | %02d/%02d/%4d | %16s | %16s | %9.2f | %16s | %16s |\n",
+               rental.id,
+               rental.date.day, rental.date.month, rental.date.year,
+               arrays_stringToCamelCase(game.description, GAME_NAME_MAX),
+               arrays_stringToCamelCase(category.description, CATEGORIES_MAX),
+               game.price,
                arrays_stringToCamelCase(customer.name, CUSTOMER_NAME_MAX),
                arrays_stringToCamelCase(customer.lastName, CUSTOMER_NAME_MAX));
         counter = 1;
