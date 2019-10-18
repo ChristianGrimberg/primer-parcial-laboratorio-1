@@ -174,7 +174,7 @@ int main()
                             printf("Cliente modificado con exito.\n");
                         }
                         break;
-                    case 4: /**< Listado ordenado por genero y apellidos de Clientes. >*/
+                    case 4: /**< Listado ordenado por apellidos y nombre de Clientes. >*/
                         inputs_clearScreen();
                         if(customers_sort(customers, CUSTOMERS_MAX, ASC) == DISORDERED)
                         {

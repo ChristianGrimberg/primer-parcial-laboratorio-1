@@ -425,46 +425,35 @@ int customers_sort(sCustomer customersList[], int customersLength, int order)
                 if(customers_isCustomer(customersList[i])
                    && customers_isCustomer(customersList[j]))
                 {
-                    if((toupper((char)customersList[i].sex) > toupper((char)customersList[j].sex) && order == ASC)
-                       || (toupper((char)customersList[i].sex) < toupper((char)customersList[j].sex) && order == DESC))
+                    if(toupper((char)customersList[i].sex) == toupper((char)customersList[j].sex))
                     {
-                        if(customers_swap(&customersList[i], &customersList[j]) == OK)
+                        if((strcmp(arrays_stringToCamelCase(customersList[i].lastName, CUSTOMER_NAME_MAX),
+                                   arrays_stringToCamelCase(customersList[j].lastName, CUSTOMER_NAME_MAX)) > 0
+                            && order == ASC)
+                            || (strcmp(arrays_stringToCamelCase(customersList[i].lastName, CUSTOMER_NAME_MAX),
+                                   arrays_stringToCamelCase(customersList[j].lastName, CUSTOMER_NAME_MAX)) < 0
+                            && order == DESC))
                         {
-                            returnValue = DISORDERED;
-                        }
-                    }
-                    else
-                    {
-                        if(toupper((char)customersList[i].sex) == toupper((char)customersList[j].sex))
-                        {
-                            if((strcmp(arrays_stringToCamelCase(customersList[i].lastName, CUSTOMER_NAME_MAX),
-                                       arrays_stringToCamelCase(customersList[j].lastName, CUSTOMER_NAME_MAX)) > 0
-                                && order == ASC)
-                                || (strcmp(arrays_stringToCamelCase(customersList[i].lastName, CUSTOMER_NAME_MAX),
-                                       arrays_stringToCamelCase(customersList[j].lastName, CUSTOMER_NAME_MAX)) < 0
-                                && order == DESC))
+                            if(customers_swap(&customersList[i], &customersList[j]) == OK)
                             {
-                                if(customers_swap(&customersList[i], &customersList[j]) == OK)
-                                {
-                                    returnValue = DISORDERED;
-                                }
+                                returnValue = DISORDERED;
                             }
-                            else
+                        }
+                        else
+                        {
+                            if(strcmp(arrays_stringToCamelCase(customersList[i].lastName, CUSTOMER_NAME_MAX),
+                                   arrays_stringToCamelCase(customersList[j].lastName, CUSTOMER_NAME_MAX)) == 0)
                             {
-                                if(strcmp(arrays_stringToCamelCase(customersList[i].lastName, CUSTOMER_NAME_MAX),
-                                       arrays_stringToCamelCase(customersList[j].lastName, CUSTOMER_NAME_MAX)) == 0)
+                                if((strcmp(arrays_stringToCamelCase(customersList[i].name, CUSTOMER_NAME_MAX),
+                                           arrays_stringToCamelCase(customersList[j].name, CUSTOMER_NAME_MAX)) > 0
+                                    && order == ASC)
+                                    || (strcmp(arrays_stringToCamelCase(customersList[i].name, CUSTOMER_NAME_MAX),
+                                           arrays_stringToCamelCase(customersList[j].name, CUSTOMER_NAME_MAX)) < 0
+                                    && order == DESC))
                                 {
-                                    if((strcmp(arrays_stringToCamelCase(customersList[i].name, CUSTOMER_NAME_MAX),
-                                               arrays_stringToCamelCase(customersList[j].name, CUSTOMER_NAME_MAX)) > 0
-                                        && order == ASC)
-                                        || (strcmp(arrays_stringToCamelCase(customersList[i].name, CUSTOMER_NAME_MAX),
-                                               arrays_stringToCamelCase(customersList[j].name, CUSTOMER_NAME_MAX)) < 0
-                                        && order == DESC))
+                                    if(customers_swap(&customersList[i], &customersList[j]) == OK)
                                     {
-                                        if(customers_swap(&customersList[i], &customersList[j]) == OK)
-                                        {
-                                            returnValue = DISORDERED;
-                                        }
+                                        returnValue = DISORDERED;
                                     }
                                 }
                             }
