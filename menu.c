@@ -62,8 +62,9 @@ int menu_games(int* option)
     printf(" | [1] ALTA DE JUEGO                                     |\n");
     printf(" | [2] BAJA DE JUEGO                                     |\n");
     printf(" | [3] MODIFICACION DE JUEGO                             |\n");
-    printf(" | [4] LISTADO DE JUEGOS                                 |\n");
-    printf(" | [5] VOLVER AL MENU PRINCIPAL                          |\n");
+    printf(" | [4] LISTADO DE JUEGOS ORDENADOS ASCENDENTEMENTE       |\n");
+    printf(" | [5] LISTADO DE JUEGOS ORDENADOS DESCENDENTEMENTE      |\n");
+    printf(" | [6] VOLVER AL MENU PRINCIPAL                          |\n");
     printf(" +-------------------------------------------------------+\n\n");
 
     if(!inputs_getInt(option, "Elija una opcion del menu: ", ERROR_MESSAGE, 1, MENU_GAME_MAX))

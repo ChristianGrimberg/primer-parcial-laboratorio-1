@@ -141,10 +141,12 @@ int main()
                             printf("Juego modificado con exito.\n");
                         }
                         break;
-                    case 4: /**< Listado ordenado por descripcion de Juegos. >*/
+                    case 4: /**< Listado ordenado por descripcion ascendente de Juegos. >*/
+                    case 5: /**< Listado ordenado por descripcion descendente de Juegos. >*/
                         inputs_clearScreen();
 
-                        if(games_sort(games, GAMES_MAX, categories, CATEGORIES_MAX, ASC) == 0)
+                        if((optionMenu == 4 && games_sort(games, GAMES_MAX, categories, CATEGORIES_MAX, ASC) == 0)
+                           || (optionMenu == 5 && games_sort(games, GAMES_MAX, categories, CATEGORIES_MAX, DESC) == 0))
                         {
                             quantity = games_printList(games, GAMES_MAX, categories, CATEGORIES_MAX);
 
@@ -154,7 +156,7 @@ int main()
                             }
                             else
                             {
-                                printf("No hay Juegos cargadas en el sistema.\n");
+                                printf("No hay Juegos cargados en el sistema.\n");
                             }
                         }
                         break;
