@@ -255,10 +255,14 @@ int main()
                             printf("Alquiler modificado con exito.\n");
                         }
                         break;
-                    case 4: /**< Listado ordenado por categoria y precio de Alquileres. >*/
+                    case 4: /**< Listado ordenado por fecha y precio de Alquileres de forma ascendente. >*/
+                    case 5:  /**< Listado ordenado por fecha y precio de Alquileres de forma ascendente. >*/
                         inputs_clearScreen();
 
-                        if(rents_sort(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX, ASC) == 0)
+                        if((optionMenu == 4
+                                && rents_sort(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX, ASC) == 0)
+                           || (optionMenu == 5
+                                && rents_sort(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX, DESC) == 0))
                         {
                             quantity = rents_printList(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX);
 

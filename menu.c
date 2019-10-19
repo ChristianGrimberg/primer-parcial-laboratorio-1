@@ -106,15 +106,16 @@ int menu_rents(int* option)
 
     inputs_clearScreen();
 
-    printf(" +=======================================================+\n");
-    printf(" |                 ALQUILER DE JUEGOS                    |\n");
-    printf(" +=======================================================+\n");
-    printf(" | [1] ALQUILER DE JUEGO                                 |\n");
-    printf(" | [2] ANULACION DE ALQUILER                             |\n");
-    printf(" | [3] MODIFICACION DE ALQUILER                          |\n");
-    printf(" | [4] LISTADO DE ALQUILERES REALIZADOS                  |\n");
-    printf(" | [5] VOLVER AL MENU PRINCIPAL                          |\n");
-    printf(" +-------------------------------------------------------+\n\n");
+    printf(" +==========================================================+\n");
+    printf(" |                 ALQUILER DE JUEGOS                       |\n");
+    printf(" +==========================================================+\n");
+    printf(" | [1] ALQUILER DE JUEGO                                    |\n");
+    printf(" | [2] ANULACION DE ALQUILER                                |\n");
+    printf(" | [3] MODIFICACION DE ALQUILER                             |\n");
+    printf(" | [4] ALQUILERES REALIZADOS ORDENADOS DE FORMA ASCENDENTE  |\n");
+    printf(" | [5] ALQUILERES REALIZADOS ORDENADOS DE FORMA DESCENDENTE |\n");
+    printf(" | [6] VOLVER AL MENU PRINCIPAL                             |\n");
+    printf(" +----------------------------------------------------------+\n\n");
 
     if(!inputs_getInt(option, "Elija una opcion del menu: ", ERROR_MESSAGE, 1, MENU_RENTS_MAX))
     {
