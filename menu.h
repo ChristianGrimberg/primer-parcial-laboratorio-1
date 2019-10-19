@@ -8,6 +8,7 @@
 #define MENU_GAME_MAX 6 /**< Opcion maxima del menu de Juegos. >*/
 #define MENU_CUSTOMERS_MAX 6 /**< Opcion maxima del menu de Juegos. >*/
 #define MENU_RENTS_MAX 6 /**< Opcion maxima del menu de Alquileres. >*/
+#define MENU_REPORTS_MAX 6 /**< Opcion maxima del menu de Reportes. >*/
 
 /** \brief Funcion que imprime el menu principal del programa.
  *
@@ -58,5 +59,15 @@ int menu_customers(int* option);
  *
  */
 int menu_rents(int* option);
+
+/** \brief Funcion que imprime el menu Reportes.
+ *
+ * \param option int* Opcion elegida del menu.
+ * \return int
+ *      [-1] Si hubo un error.
+ *      Retorna la opcion elegida en el menu.
+ *
+ */
+int menu_reports(int* option);
 
 #endif // MENU_H_INCLUDED

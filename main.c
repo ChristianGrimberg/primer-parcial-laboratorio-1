@@ -280,7 +280,21 @@ int main()
                     inputs_pauseScreen(CONTINUE_MESSAGE);
                 }while(lifeCycle == 0);
                 break;
-            case 5:
+            case 5: /**< Reportes del Sistema. >*/
+                do
+                {
+                    lifeCycle = menu_reports(&optionMenu);
+
+                    if(optionMenu == MENU_REPORTS_MAX || optionMenu == -1)
+                    {
+                        break;
+                    }
+
+                    switch(optionMenu)
+                    {
+                    }
+                    inputs_pauseScreen(CONTINUE_MESSAGE);
+                }while(lifeCycle == 0);
                 break;
             }
             inputs_pauseScreen(CONTINUE_MESSAGE);

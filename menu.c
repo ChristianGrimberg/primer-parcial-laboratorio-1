@@ -124,3 +124,28 @@ int menu_rents(int* option)
 
     return returnValue;
 }
+
+int menu_reports(int* option)
+{
+    int returnValue = -1;
+
+    inputs_clearScreen();
+
+    printf(" +=======================================================+\n");
+    printf(" |                 REPORTES DEL SISTEMA                  |\n");
+    printf(" +=======================================================+\n");
+    printf(" | [1] JUEGOS DE MESA                                    |\n");
+    printf(" | [2] ALQUILERES POR CLIENTE                            |\n");
+    printf(" | [3] IMPORTES TOTALIZADOS POR CLIENTE                  |\n");
+    printf(" | [4] CLIENTES SIN ALQUILERES                           |\n");
+    printf(" | [5] JUEGOS SIN ALQUILER                               |\n");
+    printf(" | [6] VOLVER AL MENU PRINCIPAL                          |\n");
+    printf(" +-------------------------------------------------------+\n\n");
+
+    if(!inputs_getInt(option, "Elija una opcion del menu: ", ERROR_MESSAGE, 1, MENU_REPORTS_MAX))
+    {
+        returnValue = 0;
+    }
+
+    return returnValue;
+}
