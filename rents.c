@@ -427,12 +427,8 @@ int rents_sort(sRental rentsList[], int rentsLength, sCustomer customersList[], 
                    && rents_isRental(rentsList[i], customersList[customerIndex1], gamesList[gameIndex1], categoriesList[categoryIndex1])
                    && rents_isRental(rentsList[j], customersList[customerIndex2], gamesList[gameIndex2], categoriesList[categoryIndex2]))
                 {
-                    if((strcmp(arrays_stringToCamelCase(categoriesList[categoryIndex1].description, CATEGORY_NAME_MAX),
-                               arrays_stringToCamelCase(categoriesList[categoryIndex2].description, CATEGORY_NAME_MAX)) > 0
-                        && order == ASC)
-                        || (strcmp(arrays_stringToCamelCase(categoriesList[categoryIndex1].description, CATEGORY_NAME_MAX),
-                               arrays_stringToCamelCase(categoriesList[categoryIndex2].description, CATEGORY_NAME_MAX)) < 0
-                        && order == DESC))
+                    if((structs_dateCompare(rentsList[i].date, rentsList[j].date) > 0 && order == ASC)
+                        || (structs_dateCompare(rentsList[i].date, rentsList[j].date) < 0 && order == DESC))
                     {
                         if(rents_swap(&rentsList[i], &rentsList[j]) == -1)
                         {
@@ -442,8 +438,7 @@ int rents_sort(sRental rentsList[], int rentsLength, sCustomer customersList[], 
                     }
                     else
                     {
-                        if(strcmp(arrays_stringToCamelCase(categoriesList[categoryIndex1].description, CATEGORY_NAME_MAX),
-                               arrays_stringToCamelCase(categoriesList[categoryIndex2].description, CATEGORY_NAME_MAX)) == 0)
+                        if(structs_dateCompare(rentsList[i].date, rentsList[j].date) == 0)
                         {
                             if((gamesList[gameIndex1].price > gamesList[gameIndex2].price && order == ASC)
                                || (gamesList[gameIndex1].price < gamesList[gameIndex2].price && order == DESC))
