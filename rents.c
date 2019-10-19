@@ -74,7 +74,7 @@ int rents_compare(sRental rental1, sRental rental2)
 
 int rents_swap(sRental* rental1, sRental* rental2)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     sRental aux1;
     sRental aux2;
 
@@ -86,7 +86,7 @@ int rents_swap(sRental* rental1, sRental* rental2)
     if(rents_compare(*rental1, aux2) == 0
        && rents_compare(*rental2, aux1) == 0)
     {
-        returnValue = OK;
+        returnValue = 0;
     }
 
     return returnValue;
@@ -94,7 +94,7 @@ int rents_swap(sRental* rental1, sRental* rental2)
 
 int rents_init(sRental rentsList[], int rentsLength)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     int i;
 
     if(rentsList != NULL
@@ -107,7 +107,7 @@ int rents_init(sRental rentsList[], int rentsLength)
 
         if(i == rentsLength)
         {
-            returnValue = OK;
+            returnValue = 0;
         }
     }
 
@@ -145,7 +145,7 @@ void rents_hardcode(sRental rentsList[], int rentsLength)
 
 int rents_getEmptyIndex(sRental rentsList[], int rentsLength)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     int i;
 
     if(rentsList != NULL
@@ -166,7 +166,7 @@ int rents_getEmptyIndex(sRental rentsList[], int rentsLength)
 
 int rents_getIndexById(sRental rentsList[], int rentsLength, int id)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
 
     if(rentsList != NULL
        && rentsLength > 0 && rentsLength <= RENTS_MAX)
@@ -187,7 +187,7 @@ int rents_getIndexById(sRental rentsList[], int rentsLength, int id)
 
 int rents_userSelection(char message[], char eMessage[], sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     int auxId = 0;
     int auxIndex = 0;
 
@@ -210,7 +210,7 @@ int rents_userSelection(char message[], char eMessage[], sRental rentsList[], in
             {
                 auxIndex = rents_getIndexById(rentsList, rentsLength, auxId);
 
-                if(auxIndex != ERROR)
+                if(auxIndex != -1)
                 {
                     returnValue = auxId;
                 }
@@ -227,7 +227,7 @@ int rents_userSelection(char message[], char eMessage[], sRental rentsList[], in
 
 int rents_add(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     int indexRentalAux;
     int idGameAux;
     int idCustomerAux;
@@ -244,15 +244,15 @@ int rents_add(sRental rentsList[], int rentsLength, sCustomer customersList[], i
     {
         indexRentalAux = rents_getEmptyIndex(rentsList, rentsLength);
 
-        if(indexRentalAux != ERROR)
+        if(indexRentalAux != -1)
         {
             idGameAux = games_userSelection("Seleccione un Juego: ", ERROR_MESSAGE, gamesList, gamesLength, categoriesList, categoriesLength);
 
-            if(idGameAux != ERROR)
+            if(idGameAux != -1)
             {
                 idCustomerAux = customers_userSelection("Seleccione un Cliente: ", ERROR_MESSAGE, customersList, customersLength);
 
-                if(idCustomerAux != ERROR
+                if(idCustomerAux != -1
                    && !inputs_getDate(&dateAux, "Ingrese una fecha: ", ERROR_MESSAGE, dateMin, dateMax))
                 {
                     rentsList[indexRentalAux].id = getNewId();
@@ -260,7 +260,7 @@ int rents_add(sRental rentsList[], int rentsLength, sCustomer customersList[], i
                     rentsList[indexRentalAux].customerId = idCustomerAux;
                     rentsList[indexRentalAux].date = dateAux;
                     rentsList[indexRentalAux].isEmpty = 0;
-                    returnValue = OK;
+                    returnValue = 0;
                 }
             }
         }
@@ -271,7 +271,7 @@ int rents_add(sRental rentsList[], int rentsLength, sCustomer customersList[], i
 
 int rents_modify(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     int indexRentalAux;
     int idRentalAux;
     int idGameAux;
@@ -290,11 +290,11 @@ int rents_modify(sRental rentsList[], int rentsLength, sCustomer customersList[]
     {
         idRentalAux = rents_userSelection("Ingrese el ID del Alquiler a modificar: ", ERROR_MESSAGE, rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength);
 
-        if(idRentalAux != ERROR)
+        if(idRentalAux != -1)
         {
             indexRentalAux = rents_getIndexById(rentsList, rentsLength, idRentalAux);
 
-            if(indexRentalAux != ERROR)
+            if(indexRentalAux != -1)
             {
                 inputs_clearScreen();
 
@@ -314,21 +314,21 @@ int rents_modify(sRental rentsList[], int rentsLength, sCustomer customersList[]
                         case 1:
                             idGameAux = games_userSelection("Elija un nuevo Juego: ", ERROR_MESSAGE, gamesList, gamesLength, categoriesList, categoriesLength);
 
-                            if(idGameAux != ERROR)
+                            if(idGameAux != -1)
                             {
                                 rentsList[indexRentalAux].gameId = idGameAux;
                                 printf("Cambio de Juego exitoso.\n");
-                                returnValue = OK;
+                                returnValue = 0;
                             }
                             break;
                         case 2:
                             idCustomerAux = customers_userSelection("Elija un nuevo Cliente: ", ERROR_MESSAGE, customersList, customersLength);
 
-                            if(idCustomerAux != ERROR)
+                            if(idCustomerAux != -1)
                             {
                                 rentsList[indexRentalAux].customerId = idCustomerAux;
                                 printf("Cambio de Cliente exitoso.\n");
-                                returnValue = OK;
+                                returnValue = 0;
                             }
                             break;
                         case 3:
@@ -336,12 +336,12 @@ int rents_modify(sRental rentsList[], int rentsLength, sCustomer customersList[]
                             {
                                 rentsList[indexRentalAux].date = dateAux;
                                 printf("Fecha modificada con exito.\n");
-                                returnValue = OK;
+                                returnValue = 0;
                             }
                             break;
                         case 4:
                             printf("Operacion cancelada.\n");
-                            returnValue = OK;
+                            returnValue = 0;
                             break;
                     }
                 }
@@ -354,7 +354,7 @@ int rents_modify(sRental rentsList[], int rentsLength, sCustomer customersList[]
 
 int rents_delete(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     int id;
     int index;
 
@@ -367,11 +367,11 @@ int rents_delete(sRental rentsList[], int rentsLength, sCustomer customersList[]
     {
         id = rents_userSelection("Ingrese el ID del Alquiler a dar de baja: ", ERROR_MESSAGE, rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength);
 
-        if(id != ERROR)
+        if(id != -1)
         {
             index = rents_getIndexById(rentsList, rentsLength, id);
 
-            if(index != ERROR)
+            if(index != -1)
             {
                 inputs_clearScreen();
                 printf("ATENCION! ESTA A PUNTO DE DAR DE BAJA EL SIGUIENTE ALQUILER:\n");
@@ -380,7 +380,7 @@ int rents_delete(sRental rentsList[], int rentsLength, sCustomer customersList[]
                 if(inputs_userResponse("ESTA DE ACUERDO? [S] [N]: "))
                 {
                     rentsList[index].isEmpty = 1;
-                    returnValue = OK;
+                    returnValue = 0;
                 }
             }
         }
@@ -434,7 +434,7 @@ int rents_sort(sRental rentsList[], int rentsLength, sCustomer customersList[], 
                                arrays_stringToCamelCase(categoriesList[categoryIndex2].description, CATEGORY_NAME_MAX)) < 0
                         && order == DESC))
                     {
-                        if(rents_swap(&rentsList[i], &rentsList[j]) == OK)
+                        if(rents_swap(&rentsList[i], &rentsList[j]) == 0)
                         {
                             returnValue = DISORDERED;
                         }
@@ -447,7 +447,7 @@ int rents_sort(sRental rentsList[], int rentsLength, sCustomer customersList[], 
                             if((gamesList[gameIndex1].price > gamesList[gameIndex2].price && order == ASC)
                                || (gamesList[gameIndex1].price < gamesList[gameIndex2].price && order == DESC))
                             {
-                                if(rents_swap(&rentsList[i], &rentsList[j]) == OK)
+                                if(rents_swap(&rentsList[i], &rentsList[j]) == 0)
                                 {
                                     returnValue = DISORDERED;
                                 }

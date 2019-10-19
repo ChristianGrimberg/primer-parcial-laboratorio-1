@@ -10,10 +10,10 @@ int main()
     sCustomer customers[CUSTOMERS_MAX]; /**< Arreglo de Clientes. >*/
     sRental rents[RENTS_MAX]; /**< Arreglo de Alquileres. >*/
 
-    if(categories_init(categories, CATEGORIES_MAX) == OK
-       && games_init(games, GAMES_MAX) == OK
-       && customers_init(customers, CUSTOMERS_MAX) == OK
-       && rents_init(rents, RENTS_MAX) == OK)
+    if(categories_init(categories, CATEGORIES_MAX) == 0
+       && games_init(games, GAMES_MAX) == 0
+       && customers_init(customers, CUSTOMERS_MAX) == 0
+       && rents_init(rents, RENTS_MAX) == 0)
     {
         if(HARDCODE)
         {
@@ -37,7 +37,7 @@ int main()
                     switch(optionMenu)
                     {
                     case 1: /**< Agregar nueva Categoria. >*/
-                        if(categories_add(categories, CATEGORIES_MAX) == OK)
+                        if(categories_add(categories, CATEGORIES_MAX) == 0)
                         {
                             printf("Categoria agregada con exito.\n");
                         }
@@ -45,7 +45,7 @@ int main()
                     case 2: /**< Baja de una Categoria. >*/
                         inputs_clearScreen();
 
-                        if(categories_delete(categories, CATEGORIES_MAX) == OK)
+                        if(categories_delete(categories, CATEGORIES_MAX) == 0)
                         {
                             printf("Categoria eliminada correctamente.\n");
                         }
@@ -53,7 +53,7 @@ int main()
                     case 3: /**< Modificar una Categoria. >*/
                         inputs_clearScreen();
 
-                        if(categories_modify(categories, CATEGORIES_MAX) == OK)
+                        if(categories_modify(categories, CATEGORIES_MAX) == 0)
                         {
                             printf("Categoria modificada con exito.\n");
                         }
@@ -77,7 +77,7 @@ int main()
                         break;
                     }
 
-                    if(optionMenu == MENU_CATEGORY_MAX || optionMenu == ERROR)
+                    if(optionMenu == MENU_CATEGORY_MAX || optionMenu == -1)
                     {
                         break;
                     }
@@ -85,7 +85,7 @@ int main()
                     {
                         inputs_pauseScreen(CONTINUE_MESSAGE);
                     }
-                }while(lifeCycle == OK);
+                }while(lifeCycle == 0);
                 break;
             case 2: /**< Menu ABM de Juegos. >*/
                 do
@@ -95,7 +95,7 @@ int main()
                     switch(optionMenu)
                     {
                     case 1: /**< Agregar nuevo Juego. >*/
-                        if(games_add(games, GAMES_MAX, categories, CATEGORIES_MAX) == OK)
+                        if(games_add(games, GAMES_MAX, categories, CATEGORIES_MAX) == 0)
                         {
                             printf("Juego agregado con exito.\n");
                         }
@@ -103,7 +103,7 @@ int main()
                     case 2: /**< Baja de un Juego. >*/
                         inputs_clearScreen();
 
-                        if(games_delete(games, GAMES_MAX, categories, CATEGORIES_MAX) == OK)
+                        if(games_delete(games, GAMES_MAX, categories, CATEGORIES_MAX) == 0)
                         {
                             printf("Juego eliminado correctamente.\n");
                         }
@@ -111,7 +111,7 @@ int main()
                     case 3: /**< Modificar un Juego. >*/
                         inputs_clearScreen();
 
-                        if(games_modify(games, GAMES_MAX, categories, CATEGORIES_MAX) == OK)
+                        if(games_modify(games, GAMES_MAX, categories, CATEGORIES_MAX) == 0)
                         {
                             printf("Juego modificado con exito.\n");
                         }
@@ -135,7 +135,7 @@ int main()
                         break;
                     }
 
-                    if(optionMenu == MENU_GAME_MAX || optionMenu == ERROR)
+                    if(optionMenu == MENU_GAME_MAX || optionMenu == -1)
                     {
                         break;
                     }
@@ -143,7 +143,7 @@ int main()
                     {
                         inputs_pauseScreen(CONTINUE_MESSAGE);
                     }
-                }while(lifeCycle == OK);
+                }while(lifeCycle == 0);
                 break;
             case 3: /**< Menu ABM de Clientes. >*/
                 do
@@ -153,7 +153,7 @@ int main()
                     switch(optionMenu)
                     {
                     case 1: /**< Agregar nuevo Cliente. >*/
-                        if(customers_add(customers, CUSTOMERS_MAX) == OK)
+                        if(customers_add(customers, CUSTOMERS_MAX) == 0)
                         {
                             printf("Cliente agregado con exito.\n");
                         }
@@ -161,7 +161,7 @@ int main()
                     case 2: /**< Baja de un Cliente. >*/
                         inputs_clearScreen();
 
-                        if(customers_delete(customers, CUSTOMERS_MAX) == OK)
+                        if(customers_delete(customers, CUSTOMERS_MAX) == 0)
                         {
                             printf("Cliente eliminado correctamente.\n");
                         }
@@ -169,7 +169,7 @@ int main()
                     case 3: /**< Modificar un Cliente. >*/
                         inputs_clearScreen();
 
-                        if(customers_modify(customers, CUSTOMERS_MAX) == OK)
+                        if(customers_modify(customers, CUSTOMERS_MAX) == 0)
                         {
                             printf("Cliente modificado con exito.\n");
                         }
@@ -193,7 +193,7 @@ int main()
                         break;
                     }
 
-                    if(optionMenu == MENU_CUSTOMERS_MAX || optionMenu == ERROR)
+                    if(optionMenu == MENU_CUSTOMERS_MAX || optionMenu == -1)
                     {
                         break;
                     }
@@ -201,7 +201,7 @@ int main()
                     {
                         inputs_pauseScreen(CONTINUE_MESSAGE);
                     }
-                }while(lifeCycle == OK);
+                }while(lifeCycle == 0);
                 break;
             case 4: /**< Menu ABM de Alquileres. >*/
                 do
@@ -211,7 +211,7 @@ int main()
                     switch(optionMenu)
                     {
                     case 1: /**< Alquilar un Juego. >*/
-                        if(rents_add(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX) == OK)
+                        if(rents_add(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX) == 0)
                         {
                             printf("Alquiler efectuado con exito.\n");
                         }
@@ -219,7 +219,7 @@ int main()
                     case 2: /**< Anulacion de un Alquiler. >*/
                         inputs_clearScreen();
 
-                        if(rents_delete(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX) == OK)
+                        if(rents_delete(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX) == 0)
                         {
                             printf("Alquiler anulado correctamente.\n");
                         }
@@ -227,7 +227,7 @@ int main()
                     case 3: /**< Modificar un Alquiler. >*/
                         inputs_clearScreen();
 
-                        if(rents_modify(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX) == OK)
+                        if(rents_modify(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX) == 0)
                         {
                             printf("Alquiler modificado con exito.\n");
                         }
@@ -251,7 +251,7 @@ int main()
                         break;
                     }
 
-                    if(optionMenu == MENU_RENTS_MAX || optionMenu == ERROR)
+                    if(optionMenu == MENU_RENTS_MAX || optionMenu == -1)
                     {
                         break;
                     }
@@ -259,13 +259,13 @@ int main()
                     {
                         inputs_pauseScreen(CONTINUE_MESSAGE);
                     }
-                }while(lifeCycle == OK);
+                }while(lifeCycle == 0);
                 break;
             case 5:
                 break;
             }
 
-            if(optionMenu == MENU_MAIN_MAX || optionMenu == ERROR)
+            if(optionMenu == MENU_MAIN_MAX || optionMenu == -1)
             {
                 inputs_pauseScreen(QUIT_MESSAGE);
                 break;
@@ -274,7 +274,7 @@ int main()
             {
                 inputs_pauseScreen(CONTINUE_MESSAGE);
             }
-        }while(lifeCycle == OK);
+        }while(lifeCycle == 0);
     }
     else
     {

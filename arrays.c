@@ -2,7 +2,7 @@
 
 int arrays_swapInt(int* i, int* j)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     int aux1;
     int aux2;
 
@@ -13,7 +13,7 @@ int arrays_swapInt(int* i, int* j)
 
     if(*i == aux2 && *j == aux1)
     {
-        returnValue = OK;
+        returnValue = 0;
     }
 
     return returnValue;
@@ -21,7 +21,7 @@ int arrays_swapInt(int* i, int* j)
 
 int arrays_swapFloat(float* i, float* j)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     float aux1;
     float aux2;
 
@@ -32,7 +32,7 @@ int arrays_swapFloat(float* i, float* j)
 
     if(*i == aux2 && *j == aux1)
     {
-        returnValue = OK;
+        returnValue = 0;
     }
 
     return returnValue;
@@ -40,7 +40,7 @@ int arrays_swapFloat(float* i, float* j)
 
 int arrays_swapChar(char* i, char* j)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     char aux1;
     char aux2;
 
@@ -51,7 +51,7 @@ int arrays_swapChar(char* i, char* j)
 
     if(*i == aux2 && *j == aux1)
     {
-        returnValue = OK;
+        returnValue = 0;
     }
 
     return returnValue;
@@ -59,7 +59,7 @@ int arrays_swapChar(char* i, char* j)
 
 int arrays_swapString(char string1[], char string2[])
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     char aux1[STRING_MAX];
     char aux2[STRING_MAX];
 
@@ -72,7 +72,7 @@ int arrays_swapString(char string1[], char string2[])
 
         if(!strcmp(string1, aux2) && !strcmp(string2, aux1))
         {
-            returnValue = OK;
+            returnValue = 0;
         }
     }
 
@@ -81,7 +81,7 @@ int arrays_swapString(char string1[], char string2[])
 
 int arrays_concatStrings(char firstString[], char secondString[], int maxLenght)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
 
     if(firstString != NULL && secondString != NULL
         && (strlen(firstString) + strlen(secondString)) < maxLenght
@@ -92,7 +92,7 @@ int arrays_concatStrings(char firstString[], char secondString[], int maxLenght)
         /**< Se controla el uso de memoria agregando el caracter terminador. */
         firstString[maxLenght] = EXIT_BUFFER;
 
-        returnValue = OK;
+        returnValue = 0;
     }
 
     return returnValue;

@@ -110,7 +110,7 @@ int structs_dateCompare(sDate date1, sDate date2)
 
 int structs_swapDate(sDate* date1, sDate* date2)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     sDate aux1;
     sDate aux2;
 
@@ -122,7 +122,7 @@ int structs_swapDate(sDate* date1, sDate* date2)
     if(structs_dateCompare(*date1, aux2) == 0
        && structs_dateCompare(*date2, aux1) == 0)
     {
-        returnValue = OK;
+        returnValue = 0;
     }
 
     return returnValue;

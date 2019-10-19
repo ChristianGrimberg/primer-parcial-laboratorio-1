@@ -2,7 +2,7 @@
 
 int menu_main(int* option)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
 
     inputs_clearScreen();
 
@@ -19,7 +19,7 @@ int menu_main(int* option)
 
     if(!inputs_getInt(option, "Elija una opcion del menu: ", ERROR_MESSAGE, 1, MENU_MAIN_MAX))
     {
-        returnValue = OK;
+        returnValue = 0;
     }
 
     return returnValue;
@@ -27,7 +27,7 @@ int menu_main(int* option)
 
 int menu_categories(int* option)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
 
     inputs_clearScreen();
 
@@ -43,7 +43,7 @@ int menu_categories(int* option)
 
     if(!inputs_getInt(option, "Elija una opcion del menu: ", ERROR_MESSAGE, 1, MENU_CATEGORY_MAX))
     {
-        returnValue = OK;
+        returnValue = 0;
     }
 
     return returnValue;
@@ -51,7 +51,7 @@ int menu_categories(int* option)
 
 int menu_games(int* option)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
 
     inputs_clearScreen();
 
@@ -67,7 +67,7 @@ int menu_games(int* option)
 
     if(!inputs_getInt(option, "Elija una opcion del menu: ", ERROR_MESSAGE, 1, MENU_GAME_MAX))
     {
-        returnValue = OK;
+        returnValue = 0;
     }
 
     return returnValue;
@@ -75,7 +75,7 @@ int menu_games(int* option)
 
 int menu_customers(int* option)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
 
     inputs_clearScreen();
 
@@ -91,7 +91,7 @@ int menu_customers(int* option)
 
     if(!inputs_getInt(option, "Elija una opcion del menu: ", ERROR_MESSAGE, 1, MENU_CUSTOMERS_MAX))
     {
-        returnValue = OK;
+        returnValue = 0;
     }
 
     return returnValue;
@@ -99,7 +99,7 @@ int menu_customers(int* option)
 
 int menu_rents(int* option)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
 
     inputs_clearScreen();
 
@@ -115,7 +115,7 @@ int menu_rents(int* option)
 
     if(!inputs_getInt(option, "Elija una opcion del menu: ", ERROR_MESSAGE, 1, MENU_RENTS_MAX))
     {
-        returnValue = OK;
+        returnValue = 0;
     }
 
     return returnValue;

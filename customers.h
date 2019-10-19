@@ -59,8 +59,8 @@ int customers_compare(sCustomer customer1, sCustomer customer2);
  * \param customer1 sCustomer* Direccion de memoria de la estructura 1.
  * \param customer2 sCustomer* Direccion de memoria de la estructura 2.
  * \return int
- *          [ERROR] Si hubo un error en el intercambio.
- *          [OK] Si el intercambio fue exitoso.
+ *          [-1] Si hubo un error en el intercambio.
+ *          [0] Si el intercambio fue exitoso.
  *
  */
 int customers_swap(sCustomer* customer1, sCustomer* customer2);
@@ -70,8 +70,8 @@ int customers_swap(sCustomer* customer1, sCustomer* customer2);
  * \param customersList[] sCustomer Arreglo de estructuras.
  * \param customersLength int Longitud del arreglo.
  * \return int
- *          [ERROR] Si hubo un error al inicializar.
- *          [OK] Si la inicializacion se realizo correctamente.
+ *          [-1] Si hubo un error al inicializar.
+ *          [0] Si la inicializacion se realizo correctamente.
  *
  */
 int customers_init(sCustomer customersList[], int customersLength);
@@ -91,7 +91,7 @@ void customers_hardcode(sCustomer customersList[], int customersLength);
  * \param customersLength int Longitud del arreglo.
  * \return int
  *          Indice de la primera posicion vacia del arreglo.
- *          [ERROR] Si no hay ninguna posicion vacia.
+ *          [-1] Si no hay ninguna posicion vacia.
  *
  */
 int customers_getEmptyIndex(sCustomer customersList[], int customersLength);
@@ -103,7 +103,7 @@ int customers_getEmptyIndex(sCustomer customersList[], int customersLength);
  * \param id int ID a buscar.
  * \return int
  *          Indice del ID buscado.
- *          [ERROR] Si el ID buscado no existe o esta inactivo.
+ *          [-1] Si el ID buscado no existe o esta inactivo.
  *
  */
 int customers_getIndexById(sCustomer customersList[], int customersLength, int id);
@@ -116,7 +116,7 @@ int customers_getIndexById(sCustomer customersList[], int customersLength, int i
  * \param customersLength int Longitud del arreglo.
  * \return int
  *          ID de la estructura elegida por el usuario.
- *          [ERROR] Si la estructura elegida no se encuentra.
+ *          [-1] Si la estructura elegida no se encuentra.
  *
  */
 int customers_userSelection(char message[], char eMessage[], sCustomer customersList[], int customersLength);
@@ -126,8 +126,8 @@ int customers_userSelection(char message[], char eMessage[], sCustomer customers
  * \param customersList[] sCustomer Arreglo de estructuras.
  * \param customersLength int Longitud del arreglo.
  * \return int
- *          [ERROR] Si hubo un error al cargar la estructura.
- *          [OK] Si pudo cargarse correctamente la estructura.
+ *          [-1] Si hubo un error al cargar la estructura.
+ *          [0] Si pudo cargarse correctamente la estructura.
  *
  */
 int customers_add(sCustomer customersList[], int customersLength);
@@ -137,8 +137,8 @@ int customers_add(sCustomer customersList[], int customersLength);
  * \param customersList[] sCustomer Arreglo de estructuras.
  * \param customersLength int Longitud del arreglo.
  * \return int
- *          [ERROR] Si hubo un error al modificar la estructura.
- *          [OK] Si pudo modificarse correctamente la estructura.
+ *          [-1] Si hubo un error al modificar la estructura.
+ *          [0] Si pudo modificarse correctamente la estructura.
  *
  */
 int customers_modify(sCustomer customersList[], int customersLength);
@@ -148,8 +148,8 @@ int customers_modify(sCustomer customersList[], int customersLength);
  * \param customersList[] sCustomer Arreglo de estructuras.
  * \param customersLength int Longitud del arreglo.
  * \return int
- *          [ERROR] Si hubo un error al inactivar la estructura.
- *          [OK] Si pudo inactivarse correctamente la estructura.
+ *          [-1] Si hubo un error al inactivar la estructura.
+ *          [0] Si pudo inactivarse correctamente la estructura.
  *
  */
 int customers_delete(sCustomer customersList[], int customersLength);

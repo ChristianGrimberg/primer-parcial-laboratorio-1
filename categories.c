@@ -69,7 +69,7 @@ int categories_compare(sCategory category1, sCategory category2)
 
 int categories_swap(sCategory* category1, sCategory* category2)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     sCategory aux1;
     sCategory aux2;
 
@@ -81,7 +81,7 @@ int categories_swap(sCategory* category1, sCategory* category2)
     if(categories_compare(*category1, aux2) == 0
        && categories_compare(*category2, aux1) == 0)
     {
-        returnValue = OK;
+        returnValue = 0;
     }
 
     return returnValue;
@@ -89,7 +89,7 @@ int categories_swap(sCategory* category1, sCategory* category2)
 
 int categories_init(sCategory categoriesList[], int categoriesLength)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     int i;
 
     if(categoriesList != NULL
@@ -102,7 +102,7 @@ int categories_init(sCategory categoriesList[], int categoriesLength)
 
         if(i == categoriesLength)
         {
-            returnValue = OK;
+            returnValue = 0;
         }
     }
 
@@ -140,7 +140,7 @@ void categories_hardcode(sCategory categoriesList[], int categoriesLength)
 
 int categories_getEmptyIndex(sCategory categoriesList[], int categoriesLength)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     int i;
 
     if(categoriesList != NULL
@@ -161,7 +161,7 @@ int categories_getEmptyIndex(sCategory categoriesList[], int categoriesLength)
 
 int categories_getIndexById(sCategory categoriesList[], int categoriesLength, int id)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
 
     if(categoriesList != NULL
        && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
@@ -182,7 +182,7 @@ int categories_getIndexById(sCategory categoriesList[], int categoriesLength, in
 
 int categories_userSelection(char message[], char eMessage[], sCategory categoriesList[], int categoriesLength)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     int auxId = 0;
     int auxIndex = 0;
 
@@ -200,7 +200,7 @@ int categories_userSelection(char message[], char eMessage[], sCategory categori
             {
                 auxIndex = categories_getIndexById(categoriesList, categoriesLength, auxId);
 
-                if(auxIndex != ERROR)
+                if(auxIndex != -1)
                 {
                     returnValue = auxId;
                 }
@@ -217,7 +217,7 @@ int categories_userSelection(char message[], char eMessage[], sCategory categori
 
 int categories_add(sCategory categoriesList[], int categoriesLength)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     int indexAux;
     char descriptionAux[CATEGORY_NAME_MAX];
 
@@ -226,7 +226,7 @@ int categories_add(sCategory categoriesList[], int categoriesLength)
     {
         indexAux = categories_getEmptyIndex(categoriesList, categoriesLength);
 
-        if(indexAux != ERROR
+        if(indexAux != -1
            && !inputs_getString(descriptionAux,
                              "Ingrese la descripcion de la Categoria: ", ERROR_MESSAGE,
                              1, CATEGORY_NAME_MAX))
@@ -234,7 +234,7 @@ int categories_add(sCategory categoriesList[], int categoriesLength)
             categoriesList[indexAux].id = getNewId();
             strcpy(categoriesList[indexAux].description, descriptionAux);
             categoriesList[indexAux].isEmpty = 0;
-            returnValue = OK;
+            returnValue = 0;
         }
     }
 
@@ -243,7 +243,7 @@ int categories_add(sCategory categoriesList[], int categoriesLength)
 
 int categories_modify(sCategory categoriesList[], int categoriesLength)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     int id;
     int index;
     char descriptionAux[CATEGORY_NAME_MAX];
@@ -254,16 +254,16 @@ int categories_modify(sCategory categoriesList[], int categoriesLength)
         id = categories_userSelection("Ingrese el ID de la Categoria a modificar: ",
             ERROR_MESSAGE, categoriesList, categoriesLength);
 
-        if(id != ERROR)
+        if(id != -1)
         {
             index = categories_getIndexById(categoriesList, categoriesLength, id);
 
-            if(index != ERROR
+            if(index != -1
                && !inputs_getString(descriptionAux, "Ingrese la nueva descripcion: ",
                     ERROR_MESSAGE, 1, CATEGORY_NAME_MAX))
             {
                 strcpy(categoriesList[index].description, descriptionAux);
-                returnValue = OK;
+                returnValue = 0;
             }
         }
     }
@@ -273,7 +273,7 @@ int categories_modify(sCategory categoriesList[], int categoriesLength)
 
 int categories_delete(sCategory categoriesList[], int categoriesLength)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     int id;
     int index;
 
@@ -283,11 +283,11 @@ int categories_delete(sCategory categoriesList[], int categoriesLength)
         id = categories_userSelection("Ingrese el ID de la Categoria a dar de baja: ",
             ERROR_MESSAGE, categoriesList, categoriesLength);
 
-        if(id != ERROR)
+        if(id != -1)
         {
             index = categories_getIndexById(categoriesList, categoriesLength, id);
 
-            if(index != ERROR)
+            if(index != -1)
             {
                 inputs_clearScreen();
                 printf("ATENCION! ESTA A PUNTO DE DAR DE BAJA A LA SIGUIENTE CATEGORIA:\n");
@@ -296,7 +296,7 @@ int categories_delete(sCategory categoriesList[], int categoriesLength)
                 if(inputs_userResponse("ESTA DE ACUERDO? [S] [N]: "))
                 {
                     categoriesList[index].isEmpty = 1;
-                    returnValue = OK;
+                    returnValue = 0;
                 }
             }
         }
@@ -327,7 +327,7 @@ int categories_sort(sCategory categoriesList[], int categoriesLength, int order)
                                arrays_stringToCamelCase(categoriesList[j].description, CATEGORY_NAME_MAX)) < 0
                         && order == DESC))
                     {
-                        if(categories_swap(&categoriesList[i], &categoriesList[j]) == OK)
+                        if(categories_swap(&categoriesList[i], &categoriesList[j]) == 0)
                         {
                             returnValue = DISORDERED;
                         }

@@ -5,8 +5,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define OK 0 /**< Valor de retorno OK. >*/
-#define ERROR -1 /**< Valor de retorno de error. >*/
 #define ORDERED 1 /**< Valor de retorno de lista ordenada. >*/
 #define DISORDERED 0 /**< Valor de retorno de lista desordenada. */
 #define EMPTY_ID -1 /**< ID sin asignar. >*/

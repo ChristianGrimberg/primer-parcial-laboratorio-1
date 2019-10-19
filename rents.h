@@ -55,8 +55,8 @@ int rents_compare(sRental rental1, sRental rental2);
  * \param rental1 sRental* Direccion de memoria de la estructura 1.
  * \param rental2 SRental* Direccion de memoria de la estructura 2.
  * \return int
- *          [ERROR] Si hubo un error en el intercambio.
- *          [OK] Si el intercambio fue exitoso.
+ *          [-1] Si hubo un error en el intercambio.
+ *          [0] Si el intercambio fue exitoso.
  *
  */
 int rents_swap(sRental* rental1, sRental* rental2);
@@ -66,8 +66,8 @@ int rents_swap(sRental* rental1, sRental* rental2);
  * \param rentsList[] sRental Arreglo de estructuras.
  * \param rentsLength int Longitud del arreglo.
  * \return int
- *          [ERROR] Si hubo un error al inicializar.
- *          [OK] Si la inicializacion se realizo correctamente.
+ *          [-1] Si hubo un error al inicializar.
+ *          [0] Si la inicializacion se realizo correctamente.
  *
  */
 int rents_init(sRental rentsList[], int rentsLength);
@@ -87,7 +87,7 @@ void rents_hardcode(sRental rentsList[], int rentsLength);
  * \param rentsLength int Longitud del arreglo.
  * \return int
  *          Indice de la primera posicion vacia del arreglo.
- *          [ERROR] Si no hay ninguna posicion vacia.
+ *          [-1] Si no hay ninguna posicion vacia.
  *
  */
 int rents_getEmptyIndex(sRental rentsList[], int rentsLength);
@@ -99,7 +99,7 @@ int rents_getEmptyIndex(sRental rentsList[], int rentsLength);
  * \param id int ID a buscar.
  * \return int
  *          Indice del ID buscado.
- *          [ERROR] Si el ID buscado no existe o esta inactivo.
+ *          [-1] Si el ID buscado no existe o esta inactivo.
  *
  */
 int rents_getIndexById(sRental rentsList[], int rentsLength, int id);
@@ -118,7 +118,7 @@ int rents_getIndexById(sRental rentsList[], int rentsLength, int id);
  * \param categoriesLength int Longitud del arreglo de Categorias.
  * \return int
  *          ID de la estructura elegida por el usuario.
- *          [ERROR] Si la estructura elegida no se encuentra.
+ *          [-1] Si la estructura elegida no se encuentra.
  *
  */
 int rents_userSelection(char message[], char eMessage[], sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
@@ -134,8 +134,8 @@ int rents_userSelection(char message[], char eMessage[], sRental rentsList[], in
  * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
  * \param categoriesLength int Longitud del arreglo de Categorias.
  * \return int
- *          [ERROR] Si hubo un error al cargar la estructura.
- *          [OK] Si pudo cargarse correctamente la estructura.
+ *          [-1] Si hubo un error al cargar la estructura.
+ *          [0] Si pudo cargarse correctamente la estructura.
  *
  */
 int rents_add(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
@@ -151,8 +151,8 @@ int rents_add(sRental rentsList[], int rentsLength, sCustomer customersList[], i
  * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
  * \param categoriesLength int Longitud del arreglo de Categorias.
  * \return int
- *          [ERROR] Si hubo un error al modificar la estructura.
- *          [OK] Si pudo modificarse correctamente la estructura.
+ *          [-1] Si hubo un error al modificar la estructura.
+ *          [0] Si pudo modificarse correctamente la estructura.
  *
  */
 int rents_modify(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
@@ -168,8 +168,8 @@ int rents_modify(sRental rentsList[], int rentsLength, sCustomer customersList[]
  * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
  * \param categoriesLength int Longitud del arreglo de Categorias.
  * \return int
- *          [ERROR] Si hubo un error al inactivar la estructura.
- *          [OK] Si pudo inactivarse correctamente la estructura.
+ *          [-1] Si hubo un error al inactivar la estructura.
+ *          [0] Si pudo inactivarse correctamente la estructura.
  *
  */
 int rents_delete(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);

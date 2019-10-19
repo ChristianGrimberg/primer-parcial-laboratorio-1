@@ -55,8 +55,8 @@ int games_compare(sGame game1, sGame game2);
  * \param game1 sGame* Direccion de memoria de la estructura 1.
  * \param game2 sGame* Direccion de memoria de la estructura 2.
  * \return int
- *          [ERROR] Si hubo un error en el intercambio.
- *          [OK] Si el intercambio fue exitoso.
+ *          [-1] Si hubo un error en el intercambio.
+ *          [0] Si el intercambio fue exitoso.
  *
  */
 int games_swap(sGame* game1, sGame* game2);
@@ -66,8 +66,8 @@ int games_swap(sGame* game1, sGame* game2);
  * \param gamesList[] sGame Arreglo de estructuras.
  * \param gamesLength int Longitud del arreglo.
  * \return int
- *          [ERROR] Si hubo un error al inicializar.
- *          [OK] Si la inicializacion se realizo correctamente.
+ *          [-1] Si hubo un error al inicializar.
+ *          [0] Si la inicializacion se realizo correctamente.
  *
  */
 int games_init(sGame gamesList[], int gamesLength);
@@ -87,7 +87,7 @@ void games_hardcode(sGame gamesList[], int gamesLength);
  * \param gamesLength int Longitud del arreglo.
  * \return int
  *          Indice de la primera posicion vacia del arreglo.
- *          [ERROR] Si no hay ninguna posicion vacia.
+ *          [-1] Si no hay ninguna posicion vacia.
  *
  */
 int games_getEmptyIndex(sGame gamesList[], int gamesLength);
@@ -99,7 +99,7 @@ int games_getEmptyIndex(sGame gamesList[], int gamesLength);
  * \param id int ID a buscar.
  * \return int
  *          Indice del ID buscado.
- *          [ERROR] Si el ID buscado no existe o esta inactivo.
+ *          [-1] Si el ID buscado no existe o esta inactivo.
  *
  */
 int games_getIndexById(sGame gamesList[], int gamesLength, int id);
@@ -114,7 +114,7 @@ int games_getIndexById(sGame gamesList[], int gamesLength, int id);
  * \param categoriesLength int Longitud del arreglo de Categorias.
  * \return int
  *          ID de la estructura elegida por el usuario.
- *          [ERROR] Si la estructura elegida no se encuentra.
+ *          [-1] Si la estructura elegida no se encuentra.
  *
  */
 int games_userSelection(char message[], char eMessage[], sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
@@ -126,8 +126,8 @@ int games_userSelection(char message[], char eMessage[], sGame gamesList[], int 
  * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
  * \param categoriesLength int Longitud del arreglo de Categorias.
  * \return int
- *          [ERROR] Si hubo un error al cargar la estructura.
- *          [OK] Si pudo cargarse correctamente la estructura.
+ *          [-1] Si hubo un error al cargar la estructura.
+ *          [0] Si pudo cargarse correctamente la estructura.
  *
  */
 int games_add(sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
@@ -139,8 +139,8 @@ int games_add(sGame gamesList[], int gamesLength, sCategory categoriesList[], in
  * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
  * \param categoriesLength int Longitud del arreglo de Categorias.
  * \return int
- *          [ERROR] Si hubo un error al modificar la estructura.
- *          [OK] Si pudo modificarse correctamente la estructura.
+ *          [-1] Si hubo un error al modificar la estructura.
+ *          [0] Si pudo modificarse correctamente la estructura.
  *
  */
 int games_modify(sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
@@ -152,8 +152,8 @@ int games_modify(sGame gamesList[], int gamesLength, sCategory categoriesList[],
  * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
  * \param categoriesLength int Longitud del arreglo de Categorias.
  * \return int
- *          [ERROR] Si hubo un error al inactivar la estructura.
- *          [OK] Si pudo inactivarse correctamente la estructura.
+ *          [-1] Si hubo un error al inactivar la estructura.
+ *          [0] Si pudo inactivarse correctamente la estructura.
  *
  */
 int games_delete(sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);

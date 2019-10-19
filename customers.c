@@ -71,7 +71,7 @@ int customers_compare(sCustomer customer1, sCustomer customer2)
 
 int customers_swap(sCustomer* customer1, sCustomer* customer2)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     sCustomer aux1;
     sCustomer aux2;
 
@@ -83,7 +83,7 @@ int customers_swap(sCustomer* customer1, sCustomer* customer2)
     if(customers_compare(*customer1, aux2) == 0
        && customers_compare(*customer2, aux1) == 0)
     {
-        returnValue = OK;
+        returnValue = 0;
     }
 
     return returnValue;
@@ -91,7 +91,7 @@ int customers_swap(sCustomer* customer1, sCustomer* customer2)
 
 int customers_init(sCustomer customersList[], int customersLength)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     int i;
 
     if(customersList != NULL
@@ -104,7 +104,7 @@ int customers_init(sCustomer customersList[], int customersLength)
 
         if(i == customersLength)
         {
-            returnValue = OK;
+            returnValue = 0;
         }
     }
 
@@ -145,7 +145,7 @@ void customers_hardcode(sCustomer customersList[], int customersLength)
 
 int customers_getEmptyIndex(sCustomer customersList[], int customersLength)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     int i;
 
     if(customersList != NULL
@@ -166,7 +166,7 @@ int customers_getEmptyIndex(sCustomer customersList[], int customersLength)
 
 int customers_getIndexById(sCustomer customersList[], int customersLength, int id)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
 
     if(customersList != NULL
        && customersLength > 0 && customersLength <= CUSTOMERS_MAX)
@@ -187,7 +187,7 @@ int customers_getIndexById(sCustomer customersList[], int customersLength, int i
 
 int customers_userSelection(char message[], char eMessage[], sCustomer customersList[], int customersLength)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     int auxId = 0;
     int auxIndex = 0;
 
@@ -205,7 +205,7 @@ int customers_userSelection(char message[], char eMessage[], sCustomer customers
             {
                 auxIndex = customers_getIndexById(customersList, customersLength, auxId);
 
-                if(auxIndex != ERROR)
+                if(auxIndex != -1)
                 {
                     returnValue = auxId;
                 }
@@ -222,7 +222,7 @@ int customers_userSelection(char message[], char eMessage[], sCustomer customers
 
 int customers_add(sCustomer customersList[], int customersLength)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     int indexAux;
     char nameAux[CUSTOMER_NAME_MAX];
     char lastNameAux[CUSTOMER_NAME_MAX];
@@ -235,7 +235,7 @@ int customers_add(sCustomer customersList[], int customersLength)
     {
         indexAux = customers_getEmptyIndex(customersList, customersLength);
 
-        if(indexAux != ERROR
+        if(indexAux != -1
            && !inputs_getString(nameAux, "Ingrese el Nombre: ", ERROR_MESSAGE, 1, CUSTOMER_NAME_MAX)
            && !inputs_getString(lastNameAux, "Ingrese el Apellido: ", ERROR_MESSAGE, 1, CUSTOMER_NAME_MAX))
         {
@@ -260,7 +260,7 @@ int customers_add(sCustomer customersList[], int customersLength)
                 strcpy(customersList[indexAux].phone, phoneAux);
                 strcpy(customersList[indexAux].address, addressAux);
                 customersList[indexAux].isEmpty = 0;
-                returnValue = OK;
+                returnValue = 0;
             }
         }
     }
@@ -270,7 +270,7 @@ int customers_add(sCustomer customersList[], int customersLength)
 
 int customers_modify(sCustomer customersList[], int customersLength)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     int idAux;
     int indexAux;
     int option;
@@ -286,11 +286,11 @@ int customers_modify(sCustomer customersList[], int customersLength)
         idAux = customers_userSelection("Ingrese el ID del Cliente a modificar: ",
             ERROR_MESSAGE, customersList, customersLength);
 
-        if(idAux != ERROR)
+        if(idAux != -1)
         {
             indexAux = customers_getIndexById(customersList, customersLength, idAux);
 
-            if(indexAux!= ERROR)
+            if(indexAux!= -1)
             {
                 inputs_clearScreen();
 
@@ -315,7 +315,7 @@ int customers_modify(sCustomer customersList[], int customersLength)
                             {
                                 strcpy(customersList[indexAux].name, nameAux);
                                 printf("Nombre modificado con exito.\n");
-                                returnValue = OK;
+                                returnValue = 0;
                             }
                             break;
                         case 2:
@@ -324,7 +324,7 @@ int customers_modify(sCustomer customersList[], int customersLength)
                             {
                                 strcpy(customersList[indexAux].lastName, lastNameAux);
                                 printf("Apellido modificado con exito.\n");
-                                returnValue = OK;
+                                returnValue = 0;
                             }
                             break;
                         case 3:
@@ -341,7 +341,7 @@ int customers_modify(sCustomer customersList[], int customersLength)
                             {
                                 customersList[indexAux].sex = sexAux;
                                 printf("Sexo modificado con exito.\n");
-                                returnValue = OK;
+                                returnValue = 0;
                             }
                             break;
                         case 4:
@@ -351,7 +351,7 @@ int customers_modify(sCustomer customersList[], int customersLength)
                             {
                                 strcpy(customersList[indexAux].phone, phoneAux);
                                 printf("Telefono modificado con exito.\n");
-                                returnValue = OK;
+                                returnValue = 0;
                             }
                             break;
                         case 5:
@@ -360,12 +360,12 @@ int customers_modify(sCustomer customersList[], int customersLength)
                             {
                                 strcpy(customersList[indexAux].address, addressAux);
                                 printf("Direccion modificada con exito.\n");
-                                returnValue = OK;
+                                returnValue = 0;
                             }
                             break;
                         case 6:
                             printf("Operacion cancelada.\n");
-                            returnValue = OK;
+                            returnValue = 0;
                             break;
                     }
                 }
@@ -378,7 +378,7 @@ int customers_modify(sCustomer customersList[], int customersLength)
 
 int customers_delete(sCustomer customersList[], int customersLength)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     int id;
     int index;
 
@@ -388,11 +388,11 @@ int customers_delete(sCustomer customersList[], int customersLength)
         id = customers_userSelection("Ingrese el ID del Cliente a dar de baja: ",
             ERROR_MESSAGE, customersList, customersLength);
 
-        if(id != ERROR)
+        if(id != -1)
         {
             index = customers_getIndexById(customersList, customersLength, id);
 
-            if(index != ERROR)
+            if(index != -1)
             {
                 inputs_clearScreen();
                 printf("ATENCION! ESTA A PUNTO DE DAR DE BAJA AL SIGUIENTE CLIENTE:\n");
@@ -401,7 +401,7 @@ int customers_delete(sCustomer customersList[], int customersLength)
                 if(inputs_userResponse("ESTA DE ACUERDO? [S] [N]: "))
                 {
                     customersList[index].isEmpty = 1;
-                    returnValue = OK;
+                    returnValue = 0;
                 }
             }
         }
@@ -434,7 +434,7 @@ int customers_sort(sCustomer customersList[], int customersLength, int order)
                                    arrays_stringToCamelCase(customersList[j].lastName, CUSTOMER_NAME_MAX)) < 0
                             && order == DESC))
                         {
-                            if(customers_swap(&customersList[i], &customersList[j]) == OK)
+                            if(customers_swap(&customersList[i], &customersList[j]) == 0)
                             {
                                 returnValue = DISORDERED;
                             }
@@ -451,7 +451,7 @@ int customers_sort(sCustomer customersList[], int customersLength, int order)
                                            arrays_stringToCamelCase(customersList[j].name, CUSTOMER_NAME_MAX)) < 0
                                     && order == DESC))
                                 {
-                                    if(customers_swap(&customersList[i], &customersList[j]) == OK)
+                                    if(customers_swap(&customersList[i], &customersList[j]) == 0)
                                     {
                                         returnValue = DISORDERED;
                                     }

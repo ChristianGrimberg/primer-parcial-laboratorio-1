@@ -71,7 +71,7 @@ int games_compare(sGame game1, sGame game2)
 
 int games_swap(sGame* game1, sGame* game2)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     sGame aux1;
     sGame aux2;
 
@@ -83,7 +83,7 @@ int games_swap(sGame* game1, sGame* game2)
     if(games_compare(*game1, aux2) == 0
        && games_compare(*game2, aux1) == 0)
     {
-        returnValue = OK;
+        returnValue = 0;
     }
 
     return returnValue;
@@ -91,7 +91,7 @@ int games_swap(sGame* game1, sGame* game2)
 
 int games_init(sGame gamesList[], int gamesLength)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     int i;
 
     if(gamesList != NULL
@@ -104,7 +104,7 @@ int games_init(sGame gamesList[], int gamesLength)
 
         if(i == gamesLength)
         {
-            returnValue = OK;
+            returnValue = 0;
         }
     }
 
@@ -147,7 +147,7 @@ void games_hardcode(sGame gamesList[], int gamesLength)
 
 int games_getEmptyIndex(sGame gamesList[], int gamesLength)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     int i;
 
     if(gamesList != NULL
@@ -168,7 +168,7 @@ int games_getEmptyIndex(sGame gamesList[], int gamesLength)
 
 int games_getIndexById(sGame gamesList[], int gamesLength, int id)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
 
     if(gamesList != NULL
        && gamesLength > 0 && gamesLength <= GAMES_MAX)
@@ -189,7 +189,7 @@ int games_getIndexById(sGame gamesList[], int gamesLength, int id)
 
 int games_userSelection(char message[], char eMessage[], sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     int auxId = 0;
     int auxIndex = 0;
 
@@ -208,7 +208,7 @@ int games_userSelection(char message[], char eMessage[], sGame gamesList[], int 
             {
                 auxIndex = games_getIndexById(gamesList, gamesLength, auxId);
 
-                if(auxIndex != ERROR)
+                if(auxIndex != -1)
                 {
                     returnValue = auxId;
                 }
@@ -225,7 +225,7 @@ int games_userSelection(char message[], char eMessage[], sGame gamesList[], int 
 
 int games_add(sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     int indexGameAux;
     int idCategoryAux;
     float priceAux;
@@ -237,7 +237,7 @@ int games_add(sGame gamesList[], int gamesLength, sCategory categoriesList[], in
     {
         indexGameAux = games_getEmptyIndex(gamesList, gamesLength);
 
-        if(indexGameAux != ERROR
+        if(indexGameAux != -1
            && !inputs_getString(descriptionAux,
                                 "Ingrese la descripcion del Juego: ", ERROR_MESSAGE, 1, GAME_NAME_MAX)
            && !inputs_getFloat(&priceAux,
@@ -245,14 +245,14 @@ int games_add(sGame gamesList[], int gamesLength, sCategory categoriesList[], in
         {
             idCategoryAux = categories_userSelection("Seleccione un Categoria: ", ERROR_MESSAGE, categoriesList, categoriesLength);
 
-            if(idCategoryAux != ERROR)
+            if(idCategoryAux != -1)
             {
                 gamesList[indexGameAux].id = getNewId();
                 strcpy(gamesList[indexGameAux].description, descriptionAux);
                 gamesList[indexGameAux].price = priceAux;
                 gamesList[indexGameAux].categoryId = idCategoryAux;
                 gamesList[indexGameAux].isEmpty = 0;
-                returnValue = OK;
+                returnValue = 0;
             }
         }
     }
@@ -262,7 +262,7 @@ int games_add(sGame gamesList[], int gamesLength, sCategory categoriesList[], in
 
 int games_modify(sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     int id;
     int index;
     int option;
@@ -277,11 +277,11 @@ int games_modify(sGame gamesList[], int gamesLength, sCategory categoriesList[],
         id = games_userSelection("Ingrese el ID del Juego a modificar: ",
             ERROR_MESSAGE, gamesList, gamesLength, categoriesList, categoriesLength);
 
-        if(id != ERROR)
+        if(id != -1)
         {
             index = games_getIndexById(gamesList, gamesLength, id);
 
-            if(index != ERROR)
+            if(index != -1)
             {
                 inputs_clearScreen();
 
@@ -303,7 +303,7 @@ int games_modify(sGame gamesList[], int gamesLength, sCategory categoriesList[],
                             {
                                 strcpy(gamesList[index].description, descriptionAux);
                                 printf("Descripcion modificada con exito.\n");
-                                returnValue = OK;
+                                returnValue = 0;
                             }
                             break;
                         case 2:
@@ -311,22 +311,22 @@ int games_modify(sGame gamesList[], int gamesLength, sCategory categoriesList[],
                             {
                                 gamesList[index].price = priceAux;
                                 printf("Precio modificado con exito.\n");
-                                returnValue = OK;
+                                returnValue = 0;
                             }
                             break;
                         case 3:
                             categoryIdAux = categories_userSelection("Elija una nueva Categoria: ", ERROR_MESSAGE, categoriesList, categoriesLength);
 
-                            if(categoryIdAux != ERROR)
+                            if(categoryIdAux != -1)
                             {
                                 gamesList[index].categoryId = categoryIdAux;
                                 printf("Categoria modificada con exito.\n");
-                                returnValue = OK;
+                                returnValue = 0;
                             }
                             break;
                         case 4:
                             printf("Operacion cancelada.\n");
-                            returnValue = OK;
+                            returnValue = 0;
                             break;
                     }
                 }
@@ -339,7 +339,7 @@ int games_modify(sGame gamesList[], int gamesLength, sCategory categoriesList[],
 
 int games_delete(sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     int id;
     int index;
 
@@ -350,11 +350,11 @@ int games_delete(sGame gamesList[], int gamesLength, sCategory categoriesList[],
         id = games_userSelection("Ingrese el ID del Juego a dar de baja: ",
             ERROR_MESSAGE, gamesList, gamesLength, categoriesList, categoriesLength);
 
-        if(id != ERROR)
+        if(id != -1)
         {
             index = games_getIndexById(gamesList, gamesLength, id);
 
-            if(index != ERROR)
+            if(index != -1)
             {
                 inputs_clearScreen();
                 printf("ATENCION! ESTA A PUNTO DE DAR DE BAJA EL SIGUIENTE JUEGO:\n");
@@ -363,7 +363,7 @@ int games_delete(sGame gamesList[], int gamesLength, sCategory categoriesList[],
                 if(inputs_userResponse("ESTA DE ACUERDO? [S] [N]: "))
                 {
                     gamesList[index].isEmpty = 1;
-                    returnValue = OK;
+                    returnValue = 0;
                 }
             }
         }
@@ -399,7 +399,7 @@ int games_sort(sGame gamesList[], int gamesLength, sCategory categoriesList[], i
                                arrays_stringToCamelCase(gamesList[j].description, GAME_NAME_MAX)) < 0
                         && order == DESC))
                     {
-                        if(games_swap(&gamesList[i], &gamesList[j]) == OK)
+                        if(games_swap(&gamesList[i], &gamesList[j]) == 0)
                         {
                             returnValue = DISORDERED;
                         }
@@ -447,7 +447,7 @@ int games_printList(sGame gamesList[], int gamesLength, sCategory categoriesList
         {
             categoryIndex = categories_getIndexById(categoriesList, categoriesLength, gamesList[i].categoryId);
 
-            if(categoryIndex != ERROR
+            if(categoryIndex != -1
                && games_isGame(gamesList[i], categoriesList[categoryIndex]))
             {
                 itemsCounter++;

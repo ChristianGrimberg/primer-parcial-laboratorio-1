@@ -13,7 +13,7 @@
  *
  * \param option int* Opcion elegida del menu.
  * \return int
- *      [ERROR] Si hubo un error.
+ *      [-1] Si hubo un error.
  *      Retorna la opcion elegida en el menu.
  *
  */
@@ -23,7 +23,7 @@ int menu_main(int* option);
  *
  * \param option int* Opcion elegida del menu.
  * \return int
- *      [ERROR] Si hubo un error.
+ *      [-1] Si hubo un error.
  *      Retorna la opcion elegida en el menu.
  *
  */
@@ -33,7 +33,7 @@ int menu_categories(int* option);
  *
  * \param option int* Opcion elegida del menu.
  * \return int
- *      [ERROR] Si hubo un error.
+ *      [-1] Si hubo un error.
  *      Retorna la opcion elegida en el menu.
  *
  */
@@ -43,7 +43,7 @@ int menu_games(int* option);
  *
  * \param option int* Opcion elegida del menu.
  * \return int
- *      [ERROR] Si hubo un error.
+ *      [-1] Si hubo un error.
  *      Retorna la opcion elegida en el menu.
  *
  */
@@ -53,7 +53,7 @@ int menu_customers(int* option);
  *
  * \param option int* Opcion elegida del menu.
  * \return int
- *      [ERROR] Si hubo un error.
+ *      [-1] Si hubo un error.
  *      Retorna la opcion elegida en el menu.
  *
  */

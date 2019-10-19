@@ -177,7 +177,7 @@ int inputs_getNumberType(float number)
 
 int inputs_getInt(int* input, char message[], char eMessage[], int lowLimit, int hiLimit)
 {
-    int returnValue = ERROR; /**< Variable de retorno. >*/
+    int returnValue = -1; /**< Variable de retorno. >*/
     int counter = 0; /**< Variable contador de ciclos de solicitudes al usuario. >*/
     int numberIndicator = -1; /**< Variable para almacenar si la cadena ingresada es decimal. >*/
     int convertedNumber; /**< Variable para almacenar la cadena convertida a numero. >*/
@@ -216,7 +216,7 @@ int inputs_getInt(int* input, char message[], char eMessage[], int lowLimit, int
         if(convertedNumber >= lowLimit && convertedNumber <= hiLimit)
         {
             *input = convertedNumber;
-            returnValue = OK;
+            returnValue = 0;
         }
     }
 
@@ -225,7 +225,7 @@ int inputs_getInt(int* input, char message[], char eMessage[], int lowLimit, int
 
 int inputs_getFloat(float* input, char message[], char eMessage[], float lowLimit, float hiLimit)
 {
-    int returnValue = ERROR; /**< Variable de retorno. >*/
+    int returnValue = -1; /**< Variable de retorno. >*/
     int counter = 0; /**< Variable contador de ciclos de solicitudes al usuario. >*/
     int numberIndicator = -1; /**< Variable para almacenar si la cadena ingresada es flotante. >*/
 
@@ -265,7 +265,7 @@ int inputs_getFloat(float* input, char message[], char eMessage[], float lowLimi
         if(convertedNumber >= lowLimit && convertedNumber <= hiLimit)
         {
             *input = convertedNumber;
-            returnValue = OK;
+            returnValue = 0;
         }
     }
 
@@ -274,7 +274,7 @@ int inputs_getFloat(float* input, char message[], char eMessage[], float lowLimi
 
 int inputs_getChar(char* input, char message[], char eMessage[], char lowLimit, char hiLimit)
 {
-    int returnValue = ERROR; /**< Variable de retorno. >*/
+    int returnValue = -1; /**< Variable de retorno. >*/
     int counter = 0; /**< Variable contador de ciclos de solicitudes al usuario. >*/
 
     char charValue; /**< Variable para almacenar el caracter ingresado por teclado. >*/
@@ -307,7 +307,7 @@ int inputs_getChar(char* input, char message[], char eMessage[], char lowLimit, 
         if((int)charValue >= (int)lowLimit && (int)charValue <= (int)hiLimit)
         {
             *input = charValue;
-            returnValue = OK;
+            returnValue = 0;
         }
     }
 
@@ -316,7 +316,7 @@ int inputs_getChar(char* input, char message[], char eMessage[], char lowLimit, 
 
 int inputs_getString(char* input, char message[], char eMessage[], int lowLimit, int hiLimit)
 {
-    int returnValue = ERROR; /**< Variable de retorno. >*/
+    int returnValue = -1; /**< Variable de retorno. >*/
     int counter = 0; /**< Variable contador de ciclos de solicitudes al usuario. >*/
     int sizeScan = 0; /**< Variable para almacenar el tamano de la cadena ingresada. >*/
 
@@ -360,7 +360,7 @@ int inputs_getString(char* input, char message[], char eMessage[], int lowLimit,
 
             strcpy(input, auxMessage);
 
-            returnValue = OK;
+            returnValue = 0;
         }
     }
 
@@ -369,7 +369,7 @@ int inputs_getString(char* input, char message[], char eMessage[], int lowLimit,
 
 int inputs_getDate(sDate* date, char message[], char eMessage[], sDate dateMin, sDate dateMax)
 {
-    int returnValue = ERROR;
+    int returnValue = -1;
     int counter = 0;
     sDate dateAux;
 
@@ -408,7 +408,7 @@ int inputs_getDate(sDate* date, char message[], char eMessage[], sDate dateMin, 
             date->month = dateAux.month;
             date->year = dateAux.year;
 
-            returnValue = OK;
+            returnValue = 0;
         }
     }
 
@@ -417,7 +417,7 @@ int inputs_getDate(sDate* date, char message[], char eMessage[], sDate dateMin, 
 
 int inputs_getPhone(char* input, char message[], char eMessage[], int lowLimit, int hiLimit)
 {
-    int returnValue = ERROR; /**< Variable de retorno. >*/
+    int returnValue = -1; /**< Variable de retorno. >*/
     int counter = 0; /**< Variable contador de ciclos de solicitudes al usuario. >*/
     int sizeScan = 0; /**< Variable para almacenar el tamano de la cadena ingresada. >*/
 
@@ -454,7 +454,7 @@ int inputs_getPhone(char* input, char message[], char eMessage[], int lowLimit, 
            && inputs_isPhone(auxPhone))
         {
             strcpy(input, auxPhone);
-            returnValue = OK;
+            returnValue = 0;
         }
     }
 

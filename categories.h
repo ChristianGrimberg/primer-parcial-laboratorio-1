@@ -49,8 +49,8 @@ int categories_compare(sCategory category1, sCategory category2);
  * \param category1 sCategory* Direccion de memoria de la estructura 1.
  * \param category2 sCategory* Direccion de memoria de la estructura 2.
  * \return int
- *          [ERROR] Si hubo un error en el intercambio.
- *          [OK] Si el intercambio fue exitoso.
+ *          [-1] Si hubo un error en el intercambio.
+ *          [0] Si el intercambio fue exitoso.
  *
  */
 int categories_swap(sCategory* category1, sCategory* category2);
@@ -60,8 +60,8 @@ int categories_swap(sCategory* category1, sCategory* category2);
  * \param categoriesList[] sCategory Arreglo de estructuras.
  * \param categoriesLength int Longitud del arreglo.
  * \return int
- *          [ERROR] Si hubo un error al inicializar.
- *          [OK] Si la inicializacion se realizo correctamente.
+ *          [-1] Si hubo un error al inicializar.
+ *          [0] Si la inicializacion se realizo correctamente.
  *
  */
 int categories_init(sCategory categoriesList[], int categoriesLength);
@@ -81,7 +81,7 @@ void categories_hardcode(sCategory categoriesList[], int categoriesLength);
  * \param categoriesLength int Longitud del arreglo.
  * \return int
  *          Indice de la primera posicion vacia del arreglo.
- *          [ERROR] Si no hay ninguna posicion vacia.
+ *          [-1] Si no hay ninguna posicion vacia.
  *
  */
 int categories_getEmptyIndex(sCategory categoriesList[], int categoriesLength);
@@ -93,7 +93,7 @@ int categories_getEmptyIndex(sCategory categoriesList[], int categoriesLength);
  * \param id int ID a buscar.
  * \return int
  *          Indice del ID buscado.
- *          [ERROR] Si el ID buscado no existe o esta inactivo.
+ *          [-1] Si el ID buscado no existe o esta inactivo.
  *
  */
 int categories_getIndexById(sCategory categoriesList[], int categoriesLength, int id);
@@ -106,7 +106,7 @@ int categories_getIndexById(sCategory categoriesList[], int categoriesLength, in
  * \param categoriesLength int Longitud del arreglo.
  * \return int
  *          ID de la estructura elegida por el usuario.
- *          [ERROR] Si la estructura elegida no se encuentra.
+ *          [-1] Si la estructura elegida no se encuentra.
  *
  */
 int categories_userSelection(char message[], char eMessage[], sCategory categoriesList[], int categoriesLength);
@@ -116,8 +116,8 @@ int categories_userSelection(char message[], char eMessage[], sCategory categori
  * \param categoriesList[] sCategory Arreglo de estructuras.
  * \param categoriesLength int Longitud del arreglo.
  * \return int
- *          [ERROR] Si hubo un error al cargar la estructura.
- *          [OK] Si pudo cargarse correctamente la estructura.
+ *          [-1] Si hubo un error al cargar la estructura.
+ *          [0] Si pudo cargarse correctamente la estructura.
  *
  */
 int categories_add(sCategory categoriesList[], int categoriesLength);
@@ -127,8 +127,8 @@ int categories_add(sCategory categoriesList[], int categoriesLength);
  * \param categoriesList[] sCategory Arreglo de estructuras.
  * \param categoriesLength int Longitud del arreglo.
  * \return int
- *          [ERROR] Si hubo un error al modificar la estructura.
- *          [OK] Si pudo modificarse correctamente la estructura.
+ *          [-1] Si hubo un error al modificar la estructura.
+ *          [0] Si pudo modificarse correctamente la estructura.
  *
  */
 int categories_modify(sCategory categoriesList[], int categoriesLength);
@@ -138,8 +138,8 @@ int categories_modify(sCategory categoriesList[], int categoriesLength);
  * \param categoriesList[] sCategory Arreglo de estructuras.
  * \param categoriesLength int Longitud del arreglo.
  * \return int
- *          [ERROR] Si hubo un error al inactivar la estructura.
- *          [OK] Si pudo inactivarse correctamente la estructura.
+ *          [-1] Si hubo un error al inactivar la estructura.
+ *          [0] Si pudo inactivarse correctamente la estructura.
  *
  */
 int categories_delete(sCategory categoriesList[], int categoriesLength);
