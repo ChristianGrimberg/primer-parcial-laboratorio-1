@@ -4,7 +4,7 @@
 #include "rents.h"
 
 #define MENU_MAIN_MAX 6 /**< Opcion maxima del menu principal. >*/
-#define MENU_CATEGORY_MAX 5 /**< Opcion maxima del menu de Categorias. >*/
+#define MENU_CATEGORY_MAX 6 /**< Opcion maxima del menu de Categorias. >*/
 #define MENU_GAME_MAX 5 /**< Opcion maxima del menu de Juegos. >*/
 #define MENU_CUSTOMERS_MAX 5 /**< Opcion maxima del menu de Juegos. >*/
 #define MENU_RENTS_MAX 5 /**< Opcion maxima del menu de Alquileres. >*/

@@ -37,8 +37,9 @@ int menu_categories(int* option)
     printf(" | [1] ALTA DE CATEGORIA                                 |\n");
     printf(" | [2] BAJA DE CATEGORIA                                 |\n");
     printf(" | [3] MODIFICACION DE CATEGORIA                         |\n");
-    printf(" | [4] LISTADO DE CATEGORIAS                             |\n");
-    printf(" | [5] VOLVER AL MENU PRINCIPAL                          |\n");
+    printf(" | [4] LISTADO DE CATEGORIAS ORDENADAS ASCENDENTEMENTE   |\n");
+    printf(" | [5] LISTADO DE CATEGORIAS ORDENADAS DESCENDENTEMENTE  |\n");
+    printf(" | [6] VOLVER AL MENU PRINCIPAL                          |\n");
     printf(" +-------------------------------------------------------+\n\n");
 
     if(!inputs_getInt(option, "Elija una opcion del menu: ", ERROR_MESSAGE, 1, MENU_CATEGORY_MAX))

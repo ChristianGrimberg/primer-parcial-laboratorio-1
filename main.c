@@ -84,10 +84,12 @@ int main()
                             printf("Categoria modificada con exito.\n");
                         }
                         break;
-                    case 4: /**< Listado ordenado por descripcion de Categorias. >*/
+                    case 4: /**< Listado ordenado por descripcion ascendente de Categorias. >*/
+                    case 5: /**< Listado ordenado por descripcion descendente de Categorias. >*/
                         inputs_clearScreen();
 
-                        if(categories_sort(categories, CATEGORIES_MAX, ASC) == 0)
+                        if((optionMenu == 4 && categories_sort(categories, CATEGORIES_MAX, ASC) == 0)
+                           || (optionMenu == 5 && categories_sort(categories, CATEGORIES_MAX, DESC) == 0))
                         {
                             quantity = categories_printList(categories, CATEGORIES_MAX);
 
