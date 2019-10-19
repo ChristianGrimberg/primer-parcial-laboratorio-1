@@ -415,6 +415,33 @@ int games_sort(sGame gamesList[], int gamesLength, sCategory categoriesList[], i
     return returnValue;
 }
 
+int games_clone(sGame gamesDestination[], sGame gamesOrigin[], int gamesLength)
+{
+    int returnValue = -1;
+    int i;
+
+    if(gamesDestination != NULL && gamesOrigin != NULL
+       && gamesLength > 0 && gamesLength <= GAMES_MAX)
+    {
+        for(i = 0; i < gamesLength; i++)
+        {
+            gamesDestination[i] = gamesOrigin[i];
+
+            if(games_compare(gamesDestination[i], gamesOrigin[i]) != 0)
+            {
+                break;
+            }
+        }
+
+        if(i == gamesLength)
+        {
+            returnValue = 0;
+        }
+    }
+
+    return returnValue;
+}
+
 void games_print(sGame game, sCategory categoriesList[], int categoriesLength)
 {
     int categoryIndex;

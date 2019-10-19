@@ -188,8 +188,8 @@ int rents_delete(sRental rentsList[], int rentsLength, sCustomer customersList[]
  *          [ASC] Para orden ascendente.
  *          [DESC] Para orden descendente.
  * \return int
- *          [ORDERED] Si no se realizo ningun ordenamiento.
- *          [DISORDERED] Si al menos hizo un minimo ordenamiento.
+ *          [-1] Si hubo un error para realizar el ordenamiento.
+ *          [0] Si pudo procesar el algoritmo de ordenamiento.
  *
  */
 int rents_sort(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, int order);

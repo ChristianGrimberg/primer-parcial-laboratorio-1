@@ -13,7 +13,7 @@ int menu_main(int* option)
     printf(" | [2] ABM DE JUEGOS INFANTILES                          |\n");
     printf(" | [3] ABM DE CLIENTES                                   |\n");
     printf(" | [4] ALQUILER DE JUEGOS INFANTILES                     |\n");
-    printf(" | [5] INFORMES                                          |\n");
+    printf(" | [5] INFORMES Y REPORTES                               |\n");
     printf(" | [6] SALIR DEL PROGRAMA                                |\n");
     printf(" +-------------------------------------------------------+\n\n");
 
@@ -132,7 +132,7 @@ int menu_reports(int* option)
     inputs_clearScreen();
 
     printf(" +=======================================================+\n");
-    printf(" |                 REPORTES DEL SISTEMA                  |\n");
+    printf(" |             INFORMES Y REPORTES DEL SISTEMA           |\n");
     printf(" +=======================================================+\n");
     printf(" | [1] JUEGOS DE MESA                                    |\n");
     printf(" | [2] ALQUILERES POR CLIENTE                            |\n");

@@ -168,11 +168,23 @@ int games_delete(sGame gamesList[], int gamesLength, sCategory categoriesList[],
  *          [ASC] Para orden ascendente.
  *          [DESC] Para orden descendente.
  * \return int
- *          [ORDERED] Si no se realizo ningun ordenamiento.
- *          [DISORDERED] Si al menos hizo un minimo ordenamiento.
+ *          [-1] Si hubo un error para realizar el ordenamiento.
+ *          [0] Si pudo procesar el algoritmo de ordenamiento.
  *
  */
 int games_sort(sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, int order);
+
+/** \brief Clonacion de Arreglos de Juegos.
+ *
+ * \param gamesDestination[] sGame Arreglo destino de Juegos.
+ * \param gamesOrigin[] sGame Arreglo origen de Juegos.
+ * \param gamesLength int Longitud del arreglo de Juegos.
+ * \return int
+ *          [-1] Si hubo un error al clonar
+ *          [0] Si la clonacion fue realizada con exito.
+ *
+ */
+int games_clone(sGame gamesDestination[], sGame gamesOrigin[], int gamesLength);
 
 /** \brief Impresion con formato tabla de una estructura.
  *

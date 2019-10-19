@@ -1,7 +1,7 @@
 /**
  * ============================================================================
  * Nombre         : Primer parcial de Laboratorio 1
- * Author         : Christian Grimberg
+ * Autor          : Christian Grimberg
  * Descripcion    : Alquiler de Juegos Infantiles
  * ============================================================================
  */
@@ -15,6 +15,7 @@ int main()
     int quantity; /**< Cantidad retornada en una funcion. >*/
     sCategory categories[CATEGORIES_MAX]; /**< Arreglo de Categorias. >*/
     sGame games[GAMES_MAX];/**< Arreglo de Juegos. >*/
+    sGame tableGames[GAMES_MAX]; /**< Arreglo de Juegos de Mesa. >*/
     sCustomer customers[CUSTOMERS_MAX]; /**< Arreglo de Clientes. >*/
     sRental rents[RENTS_MAX]; /**< Arreglo de Alquileres. >*/
 
@@ -292,6 +293,14 @@ int main()
 
                     switch(optionMenu)
                     {
+                    case 1:
+                        inputs_clearScreen();
+
+                        if(games_init(tableGames, GAMES_MAX) != -1
+                           && games_clone(tableGames, games, GAMES_MAX) == 0)
+                        {
+                        }
+                        break;
                     }
                     inputs_pauseScreen(CONTINUE_MESSAGE);
                 }while(lifeCycle == 0);
