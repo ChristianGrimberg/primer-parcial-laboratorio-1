@@ -30,7 +30,7 @@ int customers_isCustomer(sCustomer customer)
 {
     int returnValue = 0;
 
-    if(customer.id != EMPTY_ID
+    if(customer.id != -1
        && customer.name != NULL
        && customer.lastName != NULL
        && customer.phone != NULL
@@ -412,7 +412,7 @@ int customers_delete(sCustomer customersList[], int customersLength)
 
 int customers_sort(sCustomer customersList[], int customersLength, int order)
 {
-    int returnValue = ORDERED;
+    int returnValue = -1;
 
     if(customersList != NULL
        && customersLength > 0 && customersLength <= CUSTOMERS_MAX
@@ -434,9 +434,10 @@ int customers_sort(sCustomer customersList[], int customersLength, int order)
                                    arrays_stringToCamelCase(customersList[j].lastName, CUSTOMER_NAME_MAX)) < 0
                             && order == DESC))
                         {
-                            if(customers_swap(&customersList[i], &customersList[j]) == 0)
+                            if(customers_swap(&customersList[i], &customersList[j]) == -1)
                             {
-                                returnValue = DISORDERED;
+                                returnValue = -1;
+                                break;
                             }
                         }
                         else
@@ -453,13 +454,16 @@ int customers_sort(sCustomer customersList[], int customersLength, int order)
                                 {
                                     if(customers_swap(&customersList[i], &customersList[j]) == 0)
                                     {
-                                        returnValue = DISORDERED;
+                                        returnValue = -1;
+                                        break;
                                     }
                                 }
                             }
                         }
                     }
                 }
+
+                returnValue = 0;
             }
         }
     }
@@ -528,7 +532,7 @@ static sCustomer nullCustomer()
 {
     sCustomer aux;
 
-    aux.id = EMPTY_ID;
+    aux.id = -1;
     strcpy(aux.name, "NULL");
     strcpy(aux.lastName, "NULL");
     strcpy(aux.address, "NULL");

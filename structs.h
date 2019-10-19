@@ -5,9 +5,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define ORDERED 1 /**< Valor de retorno de lista ordenada. >*/
-#define DISORDERED 0 /**< Valor de retorno de lista desordenada. */
-#define EMPTY_ID -1 /**< ID sin asignar. >*/
+#define HARDCODE 1 /**< Indicador de harcoding para propositos de testeo. >*/
+#define ASC 1 /**< Metodo para ordenar de forma Ascendente. >*/
+#define DESC 0 /**< Metodo para ordenar de forma Descendente. >*/
 #define DAY_MIN 1 /**< Dia minimo de cada mes. >*/
 #define DAY_28 28 /**< Dia maximo de febrero de anio no bisiesto. >*/
 #define DAY_29 29 /**< Dia maximo de febrero de anio bisiesto. >*/
@@ -17,9 +17,6 @@
 #define MONTH_MAX 12 /**< Mes maximo de cada anio. >*/
 #define YEAR_MIN 1900 /**< Anio minimo definido por el programa. >*/
 #define YEAR_MAX 2500 /**< Anio maximo definido por el programa. >*/
-#define ASC 1 /**< Metodo para ordenar de forma Ascendente. >*/
-#define DESC 0 /**< Metodo para ordenar de forma Descendente. >*/
-#define HARDCODE 1 /**< Indicador de harcoding para propositos de testeo. >*/
 
 /*! \struct sDate
  * \brief Tipo de Dato generico para almacenar una Fecha.

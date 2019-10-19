@@ -33,7 +33,7 @@ int rents_isRental(sRental rental, sCustomer customer, sGame game, sCategory cat
 {
     int returnValue = 0;
 
-    if(rental.id != EMPTY_ID
+    if(rental.id != -1
        && customers_isCustomer(customer) && rental.customerId == customer.id
        && games_isGame(game, category) && rental.gameId == game.id
        && categories_isCategory(category) && game.categoryId == category.id
@@ -391,7 +391,7 @@ int rents_delete(sRental rentsList[], int rentsLength, sCustomer customersList[]
 
 int rents_sort(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, int order)
 {
-    int returnValue = ORDERED;
+    int returnValue = -1;
     int customerIndex1;
     int customerIndex2;
     int gameIndex1;
@@ -434,9 +434,10 @@ int rents_sort(sRental rentsList[], int rentsLength, sCustomer customersList[], 
                                arrays_stringToCamelCase(categoriesList[categoryIndex2].description, CATEGORY_NAME_MAX)) < 0
                         && order == DESC))
                     {
-                        if(rents_swap(&rentsList[i], &rentsList[j]) == 0)
+                        if(rents_swap(&rentsList[i], &rentsList[j]) == -1)
                         {
-                            returnValue = DISORDERED;
+                            returnValue = -1;
+                            break;
                         }
                     }
                     else
@@ -447,14 +448,17 @@ int rents_sort(sRental rentsList[], int rentsLength, sCustomer customersList[], 
                             if((gamesList[gameIndex1].price > gamesList[gameIndex2].price && order == ASC)
                                || (gamesList[gameIndex1].price < gamesList[gameIndex2].price && order == DESC))
                             {
-                                if(rents_swap(&rentsList[i], &rentsList[j]) == 0)
+                                if(rents_swap(&rentsList[i], &rentsList[j]) == -1)
                                 {
-                                    returnValue = DISORDERED;
+                                    returnValue = -1;
+                                    break;
                                 }
                             }
                         }
                     }
                 }
+
+                returnValue = 0;
             }
         }
     }
@@ -555,9 +559,9 @@ static sRental nullRental()
 {
     sRental aux;
 
-    aux.id = EMPTY_ID;
-    aux.gameId = EMPTY_ID;
-    aux.customerId = EMPTY_ID;
+    aux.id = -1;
+    aux.gameId = -1;
+    aux.customerId = -1;
     aux.date = structs_nullDate();
     aux.isEmpty = 1;
 

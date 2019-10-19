@@ -31,7 +31,7 @@ int games_isGame(sGame game, sCategory category)
 {
     int returnValue = 0;
 
-    if(game.id != EMPTY_ID
+    if(game.id != -1
        && game.description != NULL
        && game.isEmpty == 0
        && categories_isCategory(category) && category.id == game.categoryId)
@@ -374,7 +374,7 @@ int games_delete(sGame gamesList[], int gamesLength, sCategory categoriesList[],
 
 int games_sort(sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, int order)
 {
-    int returnValue = ORDERED;
+    int returnValue = -1;
     int categoryIndex1;
     int categoryIndex2;
 
@@ -399,12 +399,15 @@ int games_sort(sGame gamesList[], int gamesLength, sCategory categoriesList[], i
                                arrays_stringToCamelCase(gamesList[j].description, GAME_NAME_MAX)) < 0
                         && order == DESC))
                     {
-                        if(games_swap(&gamesList[i], &gamesList[j]) == 0)
+                        if(games_swap(&gamesList[i], &gamesList[j]) == -1)
                         {
-                            returnValue = DISORDERED;
+                            returnValue = -1;
+                            break;
                         }
                     }
                 }
+
+                returnValue = 0;
             }
         }
     }
@@ -484,10 +487,10 @@ static sGame nullGame()
 {
     sGame aux;
 
-    aux.id = EMPTY_ID;
+    aux.id = -1;
     strcpy(aux.description, "NULL");
     aux.price = 0.0f;
-    aux.categoryId = EMPTY_ID;
+    aux.categoryId = -1;
     aux.isEmpty = 1;
 
     return aux;

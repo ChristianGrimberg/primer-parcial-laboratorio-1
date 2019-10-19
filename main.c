@@ -34,6 +34,11 @@ int main()
                 {
                     lifeCycle = menu_categories(&optionMenu);
 
+                    if(optionMenu == MENU_CATEGORY_MAX || optionMenu == -1)
+                    {
+                        break;
+                    }
+
                     switch(optionMenu)
                     {
                     case 1: /**< Agregar nueva Categoria. >*/
@@ -60,37 +65,34 @@ int main()
                         break;
                     case 4: /**< Listado ordenado por descripcion de Categorias. >*/
                         inputs_clearScreen();
-                        if(categories_sort(categories, CATEGORIES_MAX, ASC) == DISORDERED)
-                        {
-                            printf("Se ordeno la lista de Categorias por Descripcion.\n");
-                        }
 
-                        quantity = categories_printList(categories, CATEGORIES_MAX);
-                        if(quantity > 0)
+                        if(categories_sort(categories, CATEGORIES_MAX, ASC) == 0)
                         {
-                            printf("Se encontraron %d Categorias en el sistema.\n", quantity);
-                        }
-                        else
-                        {
-                            printf("No hay Categorias cargadas en el sistema.\n");
+                            quantity = categories_printList(categories, CATEGORIES_MAX);
+
+                            if(quantity > 0)
+                            {
+                                printf("Se encontraron %d Categorias en el sistema.\n", quantity);
+                            }
+                            else
+                            {
+                                printf("No hay Categorias cargadas en el sistema.\n");
+                            }
                         }
                         break;
                     }
-
-                    if(optionMenu == MENU_CATEGORY_MAX || optionMenu == -1)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        inputs_pauseScreen(CONTINUE_MESSAGE);
-                    }
+                    inputs_pauseScreen(CONTINUE_MESSAGE);
                 }while(lifeCycle == 0);
                 break;
             case 2: /**< Menu ABM de Juegos. >*/
                 do
                 {
                     lifeCycle = menu_games(&optionMenu);
+
+                    if(optionMenu == MENU_GAME_MAX || optionMenu == -1)
+                    {
+                        break;
+                    }
 
                     switch(optionMenu)
                     {
@@ -118,37 +120,34 @@ int main()
                         break;
                     case 4: /**< Listado ordenado por descripcion de Juegos. >*/
                         inputs_clearScreen();
-                        if(games_sort(games, GAMES_MAX, categories, CATEGORIES_MAX, ASC) == DISORDERED)
-                        {
-                            printf("Se ordeno la lista de Juegos por descripcion.\n");
-                        }
 
-                        quantity = games_printList(games, GAMES_MAX, categories, CATEGORIES_MAX);
-                        if(quantity > 0)
+                        if(games_sort(games, GAMES_MAX, categories, CATEGORIES_MAX, ASC) == 0)
                         {
-                            printf("Se encontraron %d Juegos en el sistema.\n", quantity);
-                        }
-                        else
-                        {
-                            printf("No hay Categorias cargadas en el sistema.\n");
+                            quantity = games_printList(games, GAMES_MAX, categories, CATEGORIES_MAX);
+
+                            if(quantity > 0)
+                            {
+                                printf("Se encontraron %d Juegos en el sistema.\n", quantity);
+                            }
+                            else
+                            {
+                                printf("No hay Juegos cargadas en el sistema.\n");
+                            }
                         }
                         break;
                     }
-
-                    if(optionMenu == MENU_GAME_MAX || optionMenu == -1)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        inputs_pauseScreen(CONTINUE_MESSAGE);
-                    }
+                    inputs_pauseScreen(CONTINUE_MESSAGE);
                 }while(lifeCycle == 0);
                 break;
             case 3: /**< Menu ABM de Clientes. >*/
                 do
                 {
                     lifeCycle = menu_customers(&optionMenu);
+
+                    if(optionMenu == MENU_CUSTOMERS_MAX || optionMenu == -1)
+                    {
+                        break;
+                    }
 
                     switch(optionMenu)
                     {
@@ -176,37 +175,34 @@ int main()
                         break;
                     case 4: /**< Listado ordenado por apellidos y nombre de Clientes. >*/
                         inputs_clearScreen();
-                        if(customers_sort(customers, CUSTOMERS_MAX, ASC) == DISORDERED)
-                        {
-                            printf("Se ordeno la lista de Clientes de genero y apellido.\n");
-                        }
 
-                        quantity = customers_printList(customers, CUSTOMERS_MAX);
-                        if(quantity > 0)
+                        if(customers_sort(customers, CUSTOMERS_MAX, ASC) == 0)
                         {
-                            printf("Se encontraron %d Clientes en el sistema.\n", quantity);
-                        }
-                        else
-                        {
-                            printf("No hay Clientes cargados en el sistema.\n");
+                            quantity = customers_printList(customers, CUSTOMERS_MAX);
+
+                            if(quantity > 0)
+                            {
+                                printf("Se encontraron %d Clientes en el sistema.\n", quantity);
+                            }
+                            else
+                            {
+                                printf("No hay Clientes cargados en el sistema.\n");
+                            }
                         }
                         break;
                     }
-
-                    if(optionMenu == MENU_CUSTOMERS_MAX || optionMenu == -1)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        inputs_pauseScreen(CONTINUE_MESSAGE);
-                    }
+                    inputs_pauseScreen(CONTINUE_MESSAGE);
                 }while(lifeCycle == 0);
                 break;
             case 4: /**< Menu ABM de Alquileres. >*/
                 do
                 {
                     lifeCycle = menu_rents(&optionMenu);
+
+                    if(optionMenu == MENU_RENTS_MAX || optionMenu == -1)
+                    {
+                        break;
+                    }
 
                     switch(optionMenu)
                     {
@@ -234,31 +230,23 @@ int main()
                         break;
                     case 4: /**< Listado ordenado por categoria y precio de Alquileres. >*/
                         inputs_clearScreen();
-                        if(rents_sort(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX, ASC) == DISORDERED)
-                        {
-                            printf("Se ordeno la lista de Alquileres por categoria y precio.\n");
-                        }
 
-                        quantity = rents_printList(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX);
-                        if(quantity > 0)
+                        if(rents_sort(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX, ASC) == 0)
                         {
-                            printf("Se encontraron %d Alquileres realizados en el sistema.\n", quantity);
-                        }
-                        else
-                        {
-                            printf("No hay Alquiler realizados en el sistema.\n");
+                            quantity = rents_printList(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX);
+
+                            if(quantity > 0)
+                            {
+                                printf("Se encontraron %d Alquileres realizados en el sistema.\n", quantity);
+                            }
+                            else
+                            {
+                                printf("No hay Alquileres realizados en el sistema.\n");
+                            }
                         }
                         break;
                     }
-
-                    if(optionMenu == MENU_RENTS_MAX || optionMenu == -1)
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        inputs_pauseScreen(CONTINUE_MESSAGE);
-                    }
+                    inputs_pauseScreen(CONTINUE_MESSAGE);
                 }while(lifeCycle == 0);
                 break;
             case 5:

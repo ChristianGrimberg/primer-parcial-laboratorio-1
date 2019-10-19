@@ -30,7 +30,7 @@ int categories_isCategory(sCategory category)
 {
     int returnValue = 0;
 
-    if(category.id != EMPTY_ID
+    if(category.id != -1
        && category.description != NULL
        && !category.isEmpty)
     {
@@ -307,7 +307,7 @@ int categories_delete(sCategory categoriesList[], int categoriesLength)
 
 int categories_sort(sCategory categoriesList[], int categoriesLength, int order)
 {
-    int returnValue = ORDERED;
+    int returnValue = -1;
 
     if(categoriesList != NULL
        && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX
@@ -327,12 +327,15 @@ int categories_sort(sCategory categoriesList[], int categoriesLength, int order)
                                arrays_stringToCamelCase(categoriesList[j].description, CATEGORY_NAME_MAX)) < 0
                         && order == DESC))
                     {
-                        if(categories_swap(&categoriesList[i], &categoriesList[j]) == 0)
+                        if(categories_swap(&categoriesList[i], &categoriesList[j]) == -1)
                         {
-                            returnValue = DISORDERED;
+                            returnValue = -1;
+                            break;
                         }
                     }
                 }
+
+                returnValue = 0;
             }
         }
     }
@@ -401,7 +404,7 @@ static sCategory nullCategory()
 {
     sCategory aux;
 
-    aux.id = EMPTY_ID;
+    aux.id = -1;
     strcpy(aux.description, "NULL");
     aux.isEmpty = 1;
 
