@@ -1,3 +1,11 @@
+/**
+ * ============================================================================
+ * Nombre         : Primer parcial de Laboratorio 1
+ * Author         : Christian Grimberg
+ * Descripcion    : Alquiler de Juegos Infantiles
+ * ============================================================================
+ */
+
 #include "menu.h"
 
 int main()
@@ -10,14 +18,21 @@ int main()
     sCustomer customers[CUSTOMERS_MAX]; /**< Arreglo de Clientes. >*/
     sRental rents[RENTS_MAX]; /**< Arreglo de Alquileres. >*/
 
-    if(categories_init(categories, CATEGORIES_MAX) == 0
-       && games_init(games, GAMES_MAX) == 0
-       && customers_init(customers, CUSTOMERS_MAX) == 0
-       && rents_init(rents, RENTS_MAX) == 0)
+    if(categories_init(categories, CATEGORIES_MAX) == -1
+       || games_init(games, GAMES_MAX) == -1
+       || customers_init(customers, CUSTOMERS_MAX) == -1
+       || rents_init(rents, RENTS_MAX) == -1)
+   {
+       printf("Error de inicializacion en arreglos de estructuras.\n");
+       exit(1);
+   }
+    else
     {
+        /**< El enunciado requiere que las Categorias esten minimamente harcodeadas. >*/
+        categories_hardcode(categories, CATEGORIES_MAX);
+
         if(HARDCODE)
         {
-            categories_hardcode(categories, CATEGORIES_MAX);
             games_hardcode(games, GAMES_MAX);
             customers_hardcode(customers, CUSTOMERS_MAX);
             rents_hardcode(rents, RENTS_MAX);
@@ -26,6 +41,12 @@ int main()
         do
         {
             lifeCycle = menu_main(&optionMenu);
+
+            if(optionMenu == MENU_MAIN_MAX || optionMenu == -1)
+            {
+                inputs_pauseScreen(QUIT_MESSAGE);
+                break;
+            }
 
             switch(optionMenu)
             {
@@ -252,21 +273,8 @@ int main()
             case 5:
                 break;
             }
-
-            if(optionMenu == MENU_MAIN_MAX || optionMenu == -1)
-            {
-                inputs_pauseScreen(QUIT_MESSAGE);
-                break;
-            }
-            else
-            {
-                inputs_pauseScreen(CONTINUE_MESSAGE);
-            }
+            inputs_pauseScreen(CONTINUE_MESSAGE);
         }while(lifeCycle == 0);
-    }
-    else
-    {
-        printf("Error de inicializacion en arreglos de estructuras.\n");
     }
 
     return 0;
