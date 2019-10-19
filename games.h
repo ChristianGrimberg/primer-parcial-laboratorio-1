@@ -179,12 +179,28 @@ int games_sort(sGame gamesList[], int gamesLength, sCategory categoriesList[], i
  * \param gamesDestination[] sGame Arreglo destino de Juegos.
  * \param gamesOrigin[] sGame Arreglo origen de Juegos.
  * \param gamesLength int Longitud del arreglo de Juegos.
+ * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
+ * \param categoriesLength int Longitud del arreglo de Categorias.
  * \return int
- *          [-1] Si hubo un error al clonar
+ *          [-1] Si hubo un error al clonar.
  *          [0] Si la clonacion fue realizada con exito.
  *
  */
-int games_clone(sGame gamesDestination[], sGame gamesOrigin[], int gamesLength);
+int games_cloneList(sGame gamesDestination[], sGame gamesOrigin[], int gamesLength, sCategory categoriesList[], int categoriesLength);
+
+/** \brief Filtrado de Arreglo de Juegos por Categoria.
+ *
+ * \param gamesList[] sGame Arreglo de estructuras de Juegos.
+ * \param gamesLength int Longitud del arreglo de Juegos.
+ * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
+ * \param categoriesLength int Longitud del arreglo de Categorias.
+ * \param category sCategory Categoria a filtrar.
+ * \return int
+ *          [-1] Si hubo un error al filtrar.
+ *          [0] Si el arreglo fue recorrido con exito.
+ *
+ */
+int games_filterListByCategory(sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, sCategory category);
 
 /** \brief Impresion con formato tabla de una estructura.
  *

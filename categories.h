@@ -98,6 +98,18 @@ int categories_getEmptyIndex(sCategory categoriesList[], int categoriesLength);
  */
 int categories_getIndexById(sCategory categoriesList[], int categoriesLength, int id);
 
+/** \brief Obtiene el ID de la estructura buscada por la Descripcion.
+ *
+ * \param categoriesList[] sCategory Arreglo de estructuras.
+ * \param categoriesLength int Longitud del arreglo.
+ * \param description[] char Descripcion a buscar.
+ * \return int
+ *          ID buscado.
+ *          [-1] Si la descripcion buscada no existe o esta inactiva.
+ *
+ */
+int categories_getIdByDescription(sCategory categoriesList[], int categoriesLength, char description[]);
+
 /** \brief Seleccion de una estructura consultando por pantalla al usuario.
  *
  * \param message[] char Mensaje de solicitud al usuario.

@@ -173,8 +173,8 @@ int customers_getIndexById(sCustomer customersList[], int customersLength, int i
     {
         for (int i = 0; i < customersLength; i++)
         {
-            if(customersList[i].id == id
-               && !customersList[i].isEmpty)
+            if(!customersList[i].isEmpty
+               && customersList[i].id == id)
             {
                 returnValue = i;
                 break;

@@ -173,8 +173,8 @@ int rents_getIndexById(sRental rentsList[], int rentsLength, int id)
     {
         for (int i = 0; i < rentsLength; i++)
         {
-            if(rentsList[i].id == id
-               && !rentsList[i].isEmpty)
+            if(!rentsList[i].isEmpty
+               && rentsList[i].id == id)
             {
                 returnValue = i;
                 break;

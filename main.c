@@ -13,11 +13,14 @@ int main()
     int lifeCycle; /**< Indicador del ciclo de vida de cada menu. >*/
     int optionMenu; /**< Opcion elegida por el usuario del menu principal. >*/
     int quantity; /**< Cantidad retornada en una funcion. >*/
+    int idCategoryFiltered; /**< ID de Categoria a filtrar. >*/
+    int indexCategoryFiltered; /**< Indica de Categoria a filtrar. >*/
     sCategory categories[CATEGORIES_MAX]; /**< Arreglo de Categorias. >*/
     sGame games[GAMES_MAX];/**< Arreglo de Juegos. >*/
     sGame tableGames[GAMES_MAX]; /**< Arreglo de Juegos de Mesa. >*/
     sCustomer customers[CUSTOMERS_MAX]; /**< Arreglo de Clientes. >*/
     sRental rents[RENTS_MAX]; /**< Arreglo de Alquileres. >*/
+    char categoryNameFiltered[CATEGORY_NAME_MAX] = "mesa"; /**< Nombre de la Categoria a filtrar. >*/
 
     if(categories_init(categories, CATEGORIES_MAX) == -1
        || games_init(games, GAMES_MAX) == -1
@@ -297,8 +300,30 @@ int main()
                         inputs_clearScreen();
 
                         if(games_init(tableGames, GAMES_MAX) != -1
-                           && games_clone(tableGames, games, GAMES_MAX) == 0)
+                           && games_cloneList(tableGames, games, GAMES_MAX, categories, CATEGORIES_MAX) == 0)
                         {
+                            idCategoryFiltered = categories_getIdByDescription(categories, CATEGORIES_MAX, categoryNameFiltered);
+
+                            if(idCategoryFiltered != -1)
+                            {
+                                indexCategoryFiltered = categories_getIndexById(categories, CATEGORIES_MAX, idCategoryFiltered);
+
+                                if(indexCategoryFiltered != -1
+                                   && games_filterListByCategory(tableGames, GAMES_MAX,
+                                        categories, CATEGORIES_MAX, categories[indexCategoryFiltered]) == 0)
+                                {
+                                    quantity = games_printList(tableGames, GAMES_MAX, categories, CATEGORIES_MAX);
+
+                                    if(quantity > 0)
+                                    {
+                                        printf("Existen %d Juegos de Mesa.\n", quantity);
+                                    }
+                                    else
+                                    {
+                                        printf("No hay Juegos de Mesa cargados en el Sistema.\n");
+                                    }
+                                }
+                            }
                         }
                         break;
                     }

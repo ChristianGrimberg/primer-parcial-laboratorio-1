@@ -175,8 +175,8 @@ int games_getIndexById(sGame gamesList[], int gamesLength, int id)
     {
         for (int i = 0; i < gamesLength; i++)
         {
-            if(gamesList[i].id == id
-               && !gamesList[i].isEmpty)
+            if(!gamesList[i].isEmpty
+               && gamesList[i].id == id)
             {
                 returnValue = i;
                 break;
@@ -415,21 +415,55 @@ int games_sort(sGame gamesList[], int gamesLength, sCategory categoriesList[], i
     return returnValue;
 }
 
-int games_clone(sGame gamesDestination[], sGame gamesOrigin[], int gamesLength)
+int games_cloneList(sGame gamesDestination[], sGame gamesOrigin[], int gamesLength, sCategory categoriesList[], int categoriesLength)
 {
     int returnValue = -1;
     int i;
+    int index;
 
     if(gamesDestination != NULL && gamesOrigin != NULL
        && gamesLength > 0 && gamesLength <= GAMES_MAX)
     {
         for(i = 0; i < gamesLength; i++)
         {
-            gamesDestination[i] = gamesOrigin[i];
+            index = categories_getIndexById(categoriesList, categoriesLength, gamesOrigin[i].categoryId);
 
-            if(games_compare(gamesDestination[i], gamesOrigin[i]) != 0)
+            if(index != -1 && games_isGame(gamesOrigin[i], categoriesList[index]))
             {
-                break;
+                gamesDestination[i] = gamesOrigin[i];
+
+                if(games_compare(gamesDestination[i], gamesOrigin[i]) != 0)
+                {
+                    break;
+                }
+            }
+        }
+
+        if(i == gamesLength)
+        {
+            returnValue = 0;
+        }
+    }
+
+    return returnValue;
+}
+
+int games_filterListByCategory(sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, sCategory category)
+{
+    int returnValue = -1;
+    int i;
+
+    if(gamesList != NULL && categoriesList != NULL
+       && gamesLength > 0 && gamesLength <= GAMES_MAX
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX
+       && category.id != -1)
+    {
+        for(i = 0; i < gamesLength; i++)
+        {
+            if(gamesList[i].categoryId != -1
+               && gamesList[i].categoryId != category.id)
+            {
+                gamesList[i].isEmpty = 1;
             }
         }
 

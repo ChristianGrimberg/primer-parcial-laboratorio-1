@@ -168,11 +168,36 @@ int categories_getIndexById(sCategory categoriesList[], int categoriesLength, in
     {
         for (int i = 0; i < categoriesLength; i++)
         {
-            if(categoriesList[i].id == id
-               && !categoriesList[i].isEmpty)
+            if(!categoriesList[i].isEmpty
+               && categoriesList[i].id == id)
             {
                 returnValue = i;
                 break;
+            }
+        }
+    }
+
+    return returnValue;
+}
+
+int categories_getIdByDescription(sCategory categoriesList[], int categoriesLength, char categoryName[])
+{
+    int returnValue = -1;
+    int i;
+
+    if(categoriesList != NULL
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
+    {
+        for(i = 0; i < categoriesLength; i++)
+        {
+            if(!categoriesList[i].isEmpty)
+            {
+                if(strcmp(arrays_stringToCamelCase(categoriesList[i].description, CATEGORY_NAME_MAX),
+                          arrays_stringToCamelCase(categoryName, CATEGORY_NAME_MAX)) == 0)
+                {
+                    returnValue = categoriesList[i].id;
+                    break;
+                }
             }
         }
     }
