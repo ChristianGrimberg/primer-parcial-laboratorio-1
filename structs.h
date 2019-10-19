@@ -5,8 +5,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define TRUE 1 /**< Valor booleano de verdadero. >*/
-#define FALSE 0 /**< Valor booleano de falso. >*/
 #define OK 0 /**< Valor de retorno OK. >*/
 #define ERROR -1 /**< Valor de retorno de error. >*/
 #define ORDERED 1 /**< Valor de retorno de lista ordenada. >*/
@@ -23,7 +21,7 @@
 #define YEAR_MAX 2500 /**< Anio maximo definido por el programa. >*/
 #define ASC 1 /**< Metodo para ordenar de forma Ascendente. >*/
 #define DESC 0 /**< Metodo para ordenar de forma Descendente. >*/
-#define HARDCODE TRUE /**< Indicador de harcoding para propositos de testeo. >*/
+#define HARDCODE 1 /**< Indicador de harcoding para propositos de testeo. >*/
 
 /*! \struct sDate
  * \brief Tipo de Dato generico para almacenar una Fecha.
@@ -48,7 +46,7 @@ typedef struct
  */
 sDate structs_nullDate(void);
 
-/** \brief Funcion que evalua si la fecha ingresada es válida
+/** \brief Funcion que evalua si la fecha ingresada es vï¿½lida
  *
  * \param date sDate Fecha a evaluar.
  * \return int

@@ -32,7 +32,7 @@ int categories_isCategory(sCategory category)
 
     if(category.id != EMPTY_ID
        && category.description != NULL
-       && category.isEmpty == FALSE)
+       && !category.isEmpty)
     {
         returnValue = 1;
     }
@@ -44,8 +44,8 @@ int categories_compare(sCategory category1, sCategory category2)
 {
     int compare = -2;
 
-    if(category1.isEmpty == FALSE
-       && category2.isEmpty == FALSE)
+    if(!category1.isEmpty
+       && !category2.isEmpty)
     {
         if(category1.id > category2.id)
         {
@@ -114,11 +114,11 @@ void categories_hardcode(sCategory categoriesList[], int categoriesLength)
     int indexHardcodeMax = 4;
 
     sCategory categoriesAux[] = {
-        {getNewId(), "mesa", FALSE},
-        {getNewId(), "azar", FALSE},
-        {getNewId(), "estrategia", FALSE},
-        {getNewId(), "salon", FALSE},
-        {getNewId(), "magia", FALSE}
+        {getNewId(), "mesa", 0},
+        {getNewId(), "azar", 0},
+        {getNewId(), "estrategia", 0},
+        {getNewId(), "salon", 0},
+        {getNewId(), "magia", 0}
     };
 
     if(categoriesList != NULL
@@ -148,7 +148,7 @@ int categories_getEmptyIndex(sCategory categoriesList[], int categoriesLength)
     {
         for (i = 0; i < categoriesLength; i++)
         {
-            if(categoriesList[i].isEmpty == TRUE)
+            if(categoriesList[i].isEmpty)
             {
                 returnValue = i;
                 break;
@@ -169,7 +169,7 @@ int categories_getIndexById(sCategory categoriesList[], int categoriesLength, in
         for (int i = 0; i < categoriesLength; i++)
         {
             if(categoriesList[i].id == id
-               && categoriesList[i].isEmpty == FALSE)
+               && !categoriesList[i].isEmpty)
             {
                 returnValue = i;
                 break;
@@ -233,7 +233,7 @@ int categories_add(sCategory categoriesList[], int categoriesLength)
         {
             categoriesList[indexAux].id = getNewId();
             strcpy(categoriesList[indexAux].description, descriptionAux);
-            categoriesList[indexAux].isEmpty = FALSE;
+            categoriesList[indexAux].isEmpty = 0;
             returnValue = OK;
         }
     }
@@ -295,7 +295,7 @@ int categories_delete(sCategory categoriesList[], int categoriesLength)
 
                 if(inputs_userResponse("ESTA DE ACUERDO? [S] [N]: "))
                 {
-                    categoriesList[index].isEmpty = TRUE;
+                    categoriesList[index].isEmpty = 1;
                     returnValue = OK;
                 }
             }
@@ -403,7 +403,7 @@ static sCategory nullCategory()
 
     aux.id = EMPTY_ID;
     strcpy(aux.description, "NULL");
-    aux.isEmpty = TRUE;
+    aux.isEmpty = 1;
 
     return aux;
 }

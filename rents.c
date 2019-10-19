@@ -37,7 +37,7 @@ int rents_isRental(sRental rental, sCustomer customer, sGame game, sCategory cat
        && customers_isCustomer(customer) && rental.customerId == customer.id
        && games_isGame(game, category) && rental.gameId == game.id
        && categories_isCategory(category) && game.categoryId == category.id
-       && rental.isEmpty == FALSE)
+       && !rental.isEmpty)
     {
         returnValue = 1;
     }
@@ -49,8 +49,8 @@ int rents_compare(sRental rental1, sRental rental2)
 {
     int compare = -2;
 
-    if(rental1.isEmpty == FALSE
-       && rental2.isEmpty == FALSE)
+    if(!rental1.isEmpty
+       && !rental2.isEmpty)
     {
         if(rental1.id > rental2.id)
         {
@@ -119,11 +119,11 @@ void rents_hardcode(sRental rentsList[], int rentsLength)
     int indexHardcodeMax = 4;
 
     sRental rentsAux[] = {
-        {getNewId(), 201, 301, {1, 1, 2019}, FALSE},
-        {getNewId(), 205, 303, {12, 10, 2019}, FALSE},
-        {getNewId(), 202, 305, {21, 5, 2019}, FALSE},
-        {getNewId(), 203, 302, {5, 3, 2019}, FALSE},
-        {getNewId(), 204, 304, {8, 9, 2019}, FALSE},
+        {getNewId(), 201, 301, {1, 1, 2019}, 0},
+        {getNewId(), 205, 303, {12, 10, 2019},0},
+        {getNewId(), 202, 305, {21, 5, 2019}, 0},
+        {getNewId(), 203, 302, {5, 3, 2019}, 0},
+        {getNewId(), 204, 304, {8, 9, 2019}, 0},
     };
 
     if(rentsList != NULL
@@ -153,7 +153,7 @@ int rents_getEmptyIndex(sRental rentsList[], int rentsLength)
     {
         for (i = 0; i < rentsLength; i++)
         {
-            if(rentsList[i].isEmpty == TRUE)
+            if(rentsList[i].isEmpty == 1)
             {
                 returnValue = i;
                 break;
@@ -174,7 +174,7 @@ int rents_getIndexById(sRental rentsList[], int rentsLength, int id)
         for (int i = 0; i < rentsLength; i++)
         {
             if(rentsList[i].id == id
-               && rentsList[i].isEmpty == FALSE)
+               && !rentsList[i].isEmpty)
             {
                 returnValue = i;
                 break;
@@ -259,7 +259,7 @@ int rents_add(sRental rentsList[], int rentsLength, sCustomer customersList[], i
                     rentsList[indexRentalAux].gameId = idGameAux;
                     rentsList[indexRentalAux].customerId = idCustomerAux;
                     rentsList[indexRentalAux].date = dateAux;
-                    rentsList[indexRentalAux].isEmpty = FALSE;
+                    rentsList[indexRentalAux].isEmpty = 0;
                     returnValue = OK;
                 }
             }
@@ -379,7 +379,7 @@ int rents_delete(sRental rentsList[], int rentsLength, sCustomer customersList[]
 
                 if(inputs_userResponse("ESTA DE ACUERDO? [S] [N]: "))
                 {
-                    rentsList[index].isEmpty = TRUE;
+                    rentsList[index].isEmpty = 1;
                     returnValue = OK;
                 }
             }
@@ -559,7 +559,7 @@ static sRental nullRental()
     aux.gameId = EMPTY_ID;
     aux.customerId = EMPTY_ID;
     aux.date = structs_nullDate();
-    aux.isEmpty = TRUE;
+    aux.isEmpty = 1;
 
     return aux;
 }

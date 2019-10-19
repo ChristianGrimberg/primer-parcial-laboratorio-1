@@ -15,7 +15,7 @@ int main()
        && customers_init(customers, CUSTOMERS_MAX) == OK
        && rents_init(rents, RENTS_MAX) == OK)
     {
-        if(HARDCODE == TRUE)
+        if(HARDCODE)
         {
             categories_hardcode(categories, CATEGORIES_MAX);
             games_hardcode(games, GAMES_MAX);

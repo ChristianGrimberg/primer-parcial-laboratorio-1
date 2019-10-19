@@ -33,7 +33,7 @@ int games_isGame(sGame game, sCategory category)
 
     if(game.id != EMPTY_ID
        && game.description != NULL
-       && game.isEmpty == FALSE
+       && game.isEmpty == 0
        && categories_isCategory(category) && category.id == game.categoryId)
     {
         returnValue = 1;
@@ -46,8 +46,8 @@ int games_compare(sGame game1, sGame game2)
 {
     int compare = -2;
 
-    if(game1.isEmpty == FALSE
-       && game1.isEmpty == FALSE)
+    if(!game1.isEmpty
+       && !game1.isEmpty)
     {
         if(game1.id > game2.id)
         {
@@ -116,16 +116,16 @@ void games_hardcode(sGame gamesList[], int gamesLength)
     int indexHardcodeMax = 9;
 
     sGame gamesAux[] = {
-        {getNewId(), "monopoly", 1200.0, 101, FALSE},
-        {getNewId(), "quien es quien", 550.0, 101, FALSE},
-        {getNewId(), "age of empires", 3500.0, 103, FALSE},
-        {getNewId(), "truco", 150.0, 104, FALSE},
-        {getNewId(), "cartas de magia", 600.0, 105, FALSE},
-        {getNewId(), "ruleta", 4000.0, 102, FALSE},
-        {getNewId(), "bingo", 400.0, 102, FALSE},
-        {getNewId(), "uno", 450.0, 104, FALSE},
-        {getNewId(), "poker", 650.0, 104, FALSE},
-        {getNewId(), "set de magia", 5500.0, 105, FALSE},
+        {getNewId(), "monopoly", 1200.0, 101, 0},
+        {getNewId(), "quien es quien", 550.0, 101, 0},
+        {getNewId(), "age of empires", 3500.0, 103, 0},
+        {getNewId(), "truco", 150.0, 104, 0},
+        {getNewId(), "cartas de magia", 600.0, 105, 0},
+        {getNewId(), "ruleta", 4000.0, 102, 0},
+        {getNewId(), "bingo", 400.0, 102, 0},
+        {getNewId(), "uno", 450.0, 104, 0},
+        {getNewId(), "poker", 650.0, 104, 0},
+        {getNewId(), "set de magia", 5500.0, 105, 0},
     };
 
     if(gamesList != NULL
@@ -155,7 +155,7 @@ int games_getEmptyIndex(sGame gamesList[], int gamesLength)
     {
         for (i = 0; i < gamesLength; i++)
         {
-            if(gamesList[i].isEmpty == TRUE)
+            if(gamesList[i].isEmpty)
             {
                 returnValue = i;
                 break;
@@ -176,7 +176,7 @@ int games_getIndexById(sGame gamesList[], int gamesLength, int id)
         for (int i = 0; i < gamesLength; i++)
         {
             if(gamesList[i].id == id
-               && gamesList[i].isEmpty == FALSE)
+               && !gamesList[i].isEmpty)
             {
                 returnValue = i;
                 break;
@@ -251,7 +251,7 @@ int games_add(sGame gamesList[], int gamesLength, sCategory categoriesList[], in
                 strcpy(gamesList[indexGameAux].description, descriptionAux);
                 gamesList[indexGameAux].price = priceAux;
                 gamesList[indexGameAux].categoryId = idCategoryAux;
-                gamesList[indexGameAux].isEmpty = FALSE;
+                gamesList[indexGameAux].isEmpty = 0;
                 returnValue = OK;
             }
         }
@@ -362,7 +362,7 @@ int games_delete(sGame gamesList[], int gamesLength, sCategory categoriesList[],
 
                 if(inputs_userResponse("ESTA DE ACUERDO? [S] [N]: "))
                 {
-                    gamesList[index].isEmpty = TRUE;
+                    gamesList[index].isEmpty = 1;
                     returnValue = OK;
                 }
             }
@@ -488,7 +488,7 @@ static sGame nullGame()
     strcpy(aux.description, "NULL");
     aux.price = 0.0f;
     aux.categoryId = EMPTY_ID;
-    aux.isEmpty = TRUE;
+    aux.isEmpty = 1;
 
     return aux;
 }

@@ -34,7 +34,7 @@ int customers_isCustomer(sCustomer customer)
        && customer.name != NULL
        && customer.lastName != NULL
        && customer.phone != NULL
-       && customer.isEmpty == FALSE)
+       && !customer.isEmpty)
     {
         returnValue = 1;
     }
@@ -116,14 +116,14 @@ void customers_hardcode(sCustomer customersList[], int customersLength)
     int indexHardcodeMax = 7;
 
     sCustomer customersAux[] = {
-        {getNewId(), "marcelo", "tinelli", 'm', "+54 11 2000-3000", "carlos calvo 2820", FALSE},
-        {getNewId(), "susana", "gimenez", 'f', "+54 11 1000-9000", "cordoba 1560", FALSE},
-        {getNewId(), "ricardo", "darin", 'm', "+54 11 5000-7000", "corrientes 960", FALSE},
-        {getNewId(), "moria", "casan", 'f', "+54 11 3000-1000", "tilcara 150", FALSE},
-        {getNewId(), "marley", "wieber", 'm', "+54 11 8000-5000", "junin 58220", FALSE},
-        {getNewId(), "mirtha", "legrand", 'f', "+54 11 4000-2000", "mitre 1200", FALSE},
-        {getNewId(), "veronica", "lozano", 'f', "+54 11 6000-4000", "santa fe 2820", FALSE},
-        {getNewId(), "sebastian", "yatra", 'm', "+54 11 7000-6000", "san juan 70",  FALSE}
+        {getNewId(), "marcelo", "tinelli", 'm', "+54 11 2000-3000", "carlos calvo 2820", 0},
+        {getNewId(), "susana", "gimenez", 'f', "+54 11 1000-9000", "cordoba 1560", 0},
+        {getNewId(), "ricardo", "darin", 'm', "+54 11 5000-7000", "corrientes 960", 0},
+        {getNewId(), "moria", "casan", 'f', "+54 11 3000-1000", "tilcara 150", 0},
+        {getNewId(), "marley", "wieber", 'm', "+54 11 8000-5000", "junin 58220", 0},
+        {getNewId(), "mirtha", "legrand", 'f', "+54 11 4000-2000", "mitre 1200", 0},
+        {getNewId(), "veronica", "lozano", 'f', "+54 11 6000-4000", "santa fe 2820", 0},
+        {getNewId(), "sebastian", "yatra", 'm', "+54 11 7000-6000", "san juan 70",  0}
     };
 
     if(customersList != NULL
@@ -153,7 +153,7 @@ int customers_getEmptyIndex(sCustomer customersList[], int customersLength)
     {
         for (i = 0; i < customersLength; i++)
         {
-            if(customersList[i].isEmpty == TRUE)
+            if(customersList[i].isEmpty)
             {
                 returnValue = i;
                 break;
@@ -174,7 +174,7 @@ int customers_getIndexById(sCustomer customersList[], int customersLength, int i
         for (int i = 0; i < customersLength; i++)
         {
             if(customersList[i].id == id
-               && customersList[i].isEmpty == FALSE)
+               && !customersList[i].isEmpty)
             {
                 returnValue = i;
                 break;
@@ -259,7 +259,7 @@ int customers_add(sCustomer customersList[], int customersLength)
                 customersList[indexAux].sex = sexAux;
                 strcpy(customersList[indexAux].phone, phoneAux);
                 strcpy(customersList[indexAux].address, addressAux);
-                customersList[indexAux].isEmpty = FALSE;
+                customersList[indexAux].isEmpty = 0;
                 returnValue = OK;
             }
         }
@@ -400,7 +400,7 @@ int customers_delete(sCustomer customersList[], int customersLength)
 
                 if(inputs_userResponse("ESTA DE ACUERDO? [S] [N]: "))
                 {
-                    customersList[index].isEmpty = TRUE;
+                    customersList[index].isEmpty = 1;
                     returnValue = OK;
                 }
             }
@@ -534,7 +534,7 @@ static sCustomer nullCustomer()
     strcpy(aux.address, "NULL");
     aux.sex = ' ';
     strcpy(aux.phone, "NULL");
-    aux.isEmpty = TRUE;
+    aux.isEmpty = 1;
 
     return aux;
 }
