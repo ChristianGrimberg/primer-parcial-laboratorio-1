@@ -252,6 +252,21 @@ float rents_getTotalPrices(sRental rentsList[], int rentsLength, sCustomer custo
  */
 int rents_getCustomersWithoutRents(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength);
 
+/** \brief Filtrado de arreglo de Juegos sin alquileres.
+ *
+ * \param rentsList[] sRental Arreglo de estructuras de Alquileres.
+ * \param rentsLength int Longitud del arreglo de Alquileres.
+ * \param gamesList[] sGame Arreglo de estructuras de Juegos.
+ * \param gamesLength int Longitud del arreglo de Juegos.
+ * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
+ * \param categoriesLength int Longitud del arreglo de Categorias.
+ * \return int
+ *          [-1] Si hubo un error al filtrar.
+ *          [0] Si el arreglo fue recorrido con exito.
+ *
+ */
+int rents_getGamesWithoutRents(sRental rentsList[], int rentsLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
+
 /** \brief Impresion con formato tabla de una estructura.
  *
  * \param rental sRental Estructura de Alquiler.

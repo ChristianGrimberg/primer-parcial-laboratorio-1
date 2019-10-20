@@ -390,6 +390,23 @@ int main()
                         }
                         break;
                     case 5:
+                        inputs_clearScreen();
+
+                        if(games_init(filteredGames, GAMES_MAX) == 0
+                           && games_cloneList(filteredGames, games, GAMES_MAX, categories, CATEGORIES_MAX) == 0
+                           && rents_getGamesWithoutRents(rents, RENTS_MAX, filteredGames, GAMES_MAX, categories, CATEGORIES_MAX) == 0)
+                        {
+                            quantity = games_printList(filteredGames, GAMES_MAX, categories, CATEGORIES_MAX);
+
+                            if(quantity > 0)
+                            {
+                                printf("Se encontraron %d Juegos sin alquiler.\n", quantity);
+                            }
+                            else
+                            {
+                                printf("Todos los Juegos estan alquilados.\n");
+                            }
+                        }
                         break;
                     }
                     inputs_pauseScreen(CONTINUE_MESSAGE);

@@ -35,13 +35,29 @@ static int printRental(sRental rental, sCustomer customer, sGame game, sCategory
  * \param rentsLength int Longitud del arreglo.
  * \param customersList[] sCustomer Arreglo de estructuras de Clientes.
  * \param customersLength int Longitud del arreglo de Clientes.
- * \param customerId int ID de Cliente.
+ * \param gameId int ID de Juego.
  * \return int
  *          [0] Si el Cliente no tiene Alquileres.
  *          [1] Si el Cliente tiene al menos un Alquiler.
  *
  */
-static int customerWithRents(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, int customerId);
+static int customerWithRents(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, int gameId);
+
+/** \brief Indicador de que el Juego tiene al menos un Alquiler realizado.
+ *
+ * \param rentsList[] sRental Arreglo de estructuras.
+ * \param rentsLength int Longitud del arreglo.
+ * \param gamesList[] sGame Arreglo de estructuras de Juegos.
+ * \param gamesLength int Longitud del arreglo de Juegos.
+ * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
+ * \param categoriesLength int Longitud del arreglo de Categorias.
+ * \param customerId int ID de Cliente.
+ * \return int
+ *          [0] Si el Juego no tiene Alquileres.
+ *          [1] Si el Juego tiene al menos un Alquiler.
+ *
+ */
+static int gameWithRents(sRental rentsList[], int rentsLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, int gameId);
 
 int rents_isRental(sRental rental, sCustomer customer, sGame game, sCategory category)
 {
@@ -610,6 +626,33 @@ int rents_getCustomersWithoutRents(sRental rentsList[], int rentsLength, sCustom
     return returnValue;
 }
 
+int rents_getGamesWithoutRents(sRental rentsList[], int rentsLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
+{
+    int returnValue = -1;
+    int i;
+
+    if(rentsList != NULL && gamesList != NULL && categoriesList != NULL
+       && rentsLength > 0 && rentsLength <= RENTS_MAX
+       && gamesLength >0 && gamesLength <= GAMES_MAX
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
+    {
+        for(i = 0; i < gamesLength; i++)
+        {
+            if(gameWithRents(rentsList, rentsLength, gamesList, gamesLength, categoriesList, categoriesLength, gamesList[i].id))
+            {
+                gamesList[i].isEmpty = 1;
+            }
+        }
+
+        if(i == gamesLength)
+        {
+            returnValue = 0;
+        }
+    }
+
+    return returnValue;
+}
+
 void rents_print(sRental rental, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
 {
     int customerIndex;
@@ -752,7 +795,41 @@ static int customerWithRents(sRental rentsList[], int rentsLength, sCustomer cus
         {
             for(i = 0; i < rentsLength; i++)
             {
-                if(rentsList[i].customerId == customerId)
+                if(!rentsList[i].isEmpty
+                   && rentsList[i].customerId == customerId)
+                {
+                    rented = 1;
+                    break;
+                }
+            }
+        }
+    }
+
+    return rented;
+}
+
+static int gameWithRents(sRental rentsList[], int rentsLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, int gameId)
+{
+    int rented = 0;
+    int gameIndex;
+    int categoryIndex;
+    int i;
+
+    if(rentsList != NULL && gamesList != NULL && categoriesList != NULL
+       && rentsLength > 0 && rentsLength <= RENTS_MAX
+       && gamesLength > 0 && gamesLength <= GAMES_MAX
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
+    {
+        gameIndex = games_getIndexById(gamesList, gamesLength, gameId);
+        categoryIndex = categories_getIndexById(categoriesList, categoriesLength, gamesList[gameIndex].categoryId);
+
+        if(gameIndex != -1 && categoryIndex != -1
+           && games_isGame(gamesList[gameIndex], categoriesList[categoryIndex]))
+        {
+            for(i = 0; i < rentsLength; i++)
+            {
+                if(!rentsList[i].isEmpty
+                   && rentsList[i].gameId == gameId)
                 {
                     rented = 1;
                     break;
