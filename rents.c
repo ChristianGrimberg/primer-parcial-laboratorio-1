@@ -418,7 +418,10 @@ int rents_sort(sRental rentsList[], int rentsLength, sCustomer customersList[], 
                 categoryIndex1 = categories_getIndexById(categoriesList, categoriesLength, gamesList[gameIndex1].categoryId);
                 categoryIndex2 = categories_getIndexById(categoriesList, categoriesLength, gamesList[gameIndex2].categoryId);
 
-                if(customers_isCustomer(customersList[customerIndex1])
+                if(customerIndex1 != -1 && customerIndex2 != -1
+                   && gameIndex1 != -1 && gameIndex2 != -1
+                   && categoryIndex1 != -1 && categoryIndex2 != -1
+                   && customers_isCustomer(customersList[customerIndex1])
                    && customers_isCustomer(customersList[customerIndex2])
                    && games_isGame(gamesList[gameIndex1], categoriesList[categoryIndex1])
                    && games_isGame(gamesList[gameIndex2], categoriesList[categoryIndex2])
@@ -455,6 +458,78 @@ int rents_sort(sRental rentsList[], int rentsLength, sCustomer customersList[], 
 
                 returnValue = 0;
             }
+        }
+    }
+
+    return returnValue;
+}
+
+int rents_cloneList(sRental rentsDestination[], sRental rentsOrigin[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
+{
+    int returnValue = -1;
+    int i;
+    int customerIndex;
+    int gameIndex;
+    int categoryIndex;
+
+    if(rentsDestination != NULL && rentsOrigin != NULL && customersList != NULL
+       && gamesList != NULL && categoriesList != NULL
+       && rentsLength > 0 && rentsLength <= RENTS_MAX
+       && customersLength > 0 && customersLength <= CUSTOMERS_MAX
+       && gamesLength >0 && gamesLength <= GAMES_MAX
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
+    {
+        for(i = 0; i < rentsLength; i++)
+        {
+            customerIndex = customers_getIndexById(customersList, customersLength, rentsOrigin[i].customerId);
+            gameIndex = games_getIndexById(gamesList, gamesLength, rentsOrigin[i].gameId);
+            categoryIndex = categories_getIndexById(categoriesList, categoriesLength, gamesList[gameIndex].categoryId);
+
+            if(customerIndex != -1 && gameIndex != -1 && categoryIndex != -1
+               && customers_isCustomer(customersList[customerIndex])
+               && games_isGame(gamesList[gameIndex], categoriesList[categoryIndex])
+               && categories_isCategory(categoriesList[categoryIndex])
+               && rents_isRental(rentsOrigin[i], customersList[customerIndex], gamesList[gameIndex], categoriesList[categoryIndex]))
+            {
+                rentsDestination[i] = rentsOrigin[i];
+
+                if(rents_compare(rentsDestination[i], rentsOrigin[i]) != 0)
+                {
+                    break;
+                }
+            }
+        }
+
+        if(i == rentsLength)
+        {
+            returnValue = 0;
+        }
+    }
+
+    return returnValue;
+}
+
+int rents_filterListByCustomer(sRental rentsList[], int rentsLength, sCustomer customer)
+{
+    int returnValue = -1;
+    int i;
+
+    if(rentsList != NULL
+       && rentsLength > 0 && rentsLength <= RENTS_MAX
+       && customers_isCustomer(customer))
+    {
+        for(i = 0; i < rentsLength; i++)
+        {
+            if(rentsList[i].customerId != -1
+               && rentsList[i].customerId != customer.id)
+            {
+                rentsList[i].isEmpty = 1;
+            }
+        }
+
+        if(i == rentsLength)
+        {
+            returnValue = 0;
         }
     }
 

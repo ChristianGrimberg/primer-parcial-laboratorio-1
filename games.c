@@ -456,7 +456,7 @@ int games_filterListByCategory(sGame gamesList[], int gamesLength, sCategory cat
     if(gamesList != NULL && categoriesList != NULL
        && gamesLength > 0 && gamesLength <= GAMES_MAX
        && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX
-       && category.id != -1)
+       && categories_isCategory(category))
     {
         for(i = 0; i < gamesLength; i++)
         {

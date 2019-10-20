@@ -14,12 +14,15 @@ int main()
     int optionMenu; /**< Opcion elegida por el usuario del menu principal. >*/
     int quantity; /**< Cantidad retornada en una funcion. >*/
     int idCategoryFiltered; /**< ID de Categoria a filtrar. >*/
-    int indexCategoryFiltered; /**< Indica de Categoria a filtrar. >*/
+    int indexCategoryFiltered; /**< Indice de la Categoria a filtrar. >*/
+    int idCustomerFiltered; /**< ID del Cliente a filtrar. >*/
+    int indexCustomerFiltered; /**< Indice del Cliente a filtrar. >*/
     sCategory categories[CATEGORIES_MAX]; /**< Arreglo de Categorias. >*/
     sGame games[GAMES_MAX];/**< Arreglo de Juegos. >*/
-    sGame tableGames[GAMES_MAX]; /**< Arreglo de Juegos de Mesa. >*/
+    sGame tableGames[GAMES_MAX]; /**< Arreglo filtrado de Juegos de Mesa. >*/
     sCustomer customers[CUSTOMERS_MAX]; /**< Arreglo de Clientes. >*/
     sRental rents[RENTS_MAX]; /**< Arreglo de Alquileres. >*/
+    sRental rentsByClient[RENTS_MAX]; /**< Arreglo de Alquileres filtrado por Cliente. >*/
     char categoryNameFiltered[CATEGORY_NAME_MAX] = "mesa"; /**< Nombre de la Categoria a filtrar. >*/
 
     if(categories_init(categories, CATEGORIES_MAX) == -1
@@ -299,7 +302,7 @@ int main()
                     case 1:
                         inputs_clearScreen();
 
-                        if(games_init(tableGames, GAMES_MAX) != -1
+                        if(games_init(tableGames, GAMES_MAX) == 0
                            && games_cloneList(tableGames, games, GAMES_MAX, categories, CATEGORIES_MAX) == 0)
                         {
                             idCategoryFiltered = categories_getIdByDescription(categories, CATEGORIES_MAX, categoryNameFiltered);
@@ -321,6 +324,35 @@ int main()
                                     else
                                     {
                                         printf("No hay Juegos de Mesa cargados en el Sistema.\n");
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case 2:
+                        if(rents_init(rentsByClient, RENTS_MAX) == 0
+                           && rents_cloneList(rentsByClient, rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX) == 0)
+                        {
+                            idCustomerFiltered = customers_userSelection("Seleccione el Cliente: ", ERROR_MESSAGE, customers, CUSTOMERS_MAX);
+
+                            if(idCustomerFiltered != -1)
+                            {
+                                inputs_clearScreen();
+
+                                indexCustomerFiltered = customers_getIndexById(customers, CUSTOMERS_MAX, idCustomerFiltered);
+
+                                if(indexCustomerFiltered != -1
+                                   && rents_filterListByCustomer(rentsByClient, RENTS_MAX, customers[indexCustomerFiltered]) == 0)
+                                {
+                                    quantity = rents_printList(rentsByClient, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX);
+
+                                    if(quantity > 0)
+                                    {
+                                        printf("Existen %d Alquileres del Cliente seleccionado.\n", quantity);
+                                    }
+                                    else
+                                    {
+                                        printf("No hay Alquileres del Cliente cargados en el Sistema.\n");
                                     }
                                 }
                             }
