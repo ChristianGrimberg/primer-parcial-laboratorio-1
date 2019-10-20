@@ -116,16 +116,16 @@ void games_hardcode(sGame gamesList[], int gamesLength)
     int indexHardcodeMax = 9;
 
     sGame gamesAux[] = {
-        {getNewId(), "monopoly", 1200.0, 101, 0},
-        {getNewId(), "quien es quien", 550.0, 101, 0},
-        {getNewId(), "age of empires", 3500.0, 103, 0},
-        {getNewId(), "truco", 150.0, 104, 0},
-        {getNewId(), "cartas de magia", 600.0, 105, 0},
-        {getNewId(), "ruleta", 4000.0, 102, 0},
-        {getNewId(), "bingo", 400.0, 102, 0},
-        {getNewId(), "uno", 450.0, 104, 0},
-        {getNewId(), "poker", 650.0, 104, 0},
-        {getNewId(), "set de magia", 5500.0, 105, 0},
+        {getNewId(), "monopoly", 300.0, 101, 0},
+        {getNewId(), "quien es quien", 150.0, 101, 0},
+        {getNewId(), "age of empires", 990.0, 103, 0},
+        {getNewId(), "truco", 12.50, 104, 0},
+        {getNewId(), "cartas de magia", 65.0, 105, 0},
+        {getNewId(), "ruleta", 1200.0, 102, 0},
+        {getNewId(), "bingo", 96.30, 102, 0},
+        {getNewId(), "uno", 16.0, 104, 0},
+        {getNewId(), "poker", 53.75, 104, 0},
+        {getNewId(), "set de magia", 1800.0, 105, 0},
     };
 
     if(gamesList != NULL

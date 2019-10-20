@@ -224,6 +224,21 @@ int rents_cloneList(sRental rentsDestination[], sRental rentsOrigin[], int rents
  */
 int rents_filterListByCustomer(sRental rentsList[], int rentsLength, sCustomer customer);
 
+/** \brief Funcion que totaliza los costos de un arreglo de Alquileres.
+ *
+ * \param rentsList[] sRental Arreglo de estructuras de Alquileres.
+ * \param rentsLength int Longitud del arreglo de Alquileres.
+ * \param customersList[] sCustomer Arreglo de estructuras de Clientes.
+ * \param customersLength int Longitud del arreglo de Clientes.
+ * \param gamesList[] sGame Arreglo de estructuras de Juegos.
+ * \param gamesLength int Longitud del arreglo de Juegos.
+ * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
+ * \param categoriesLength int Longitud del arreglo de Categorias.
+ * \return float Totales acumulados de precios.
+ *
+ */
+float rents_getTotalPrices(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
+
 /** \brief Impresion con formato tabla de una estructura.
  *
  * \param rental sRental Estructura de Alquiler.

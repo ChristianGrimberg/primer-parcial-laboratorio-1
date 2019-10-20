@@ -17,6 +17,7 @@ int main()
     int indexCategoryFiltered; /**< Indice de la Categoria a filtrar. >*/
     int idCustomerFiltered; /**< ID del Cliente a filtrar. >*/
     int indexCustomerFiltered; /**< Indice del Cliente a filtrar. >*/
+    float totalPricesOfRents; /**< Totales acumulados de Alquileres. >*/
     sCategory categories[CATEGORIES_MAX]; /**< Arreglo de Categorias. >*/
     sGame games[GAMES_MAX];/**< Arreglo de Juegos. >*/
     sGame tableGames[GAMES_MAX]; /**< Arreglo filtrado de Juegos de Mesa. >*/
@@ -299,7 +300,7 @@ int main()
 
                     switch(optionMenu)
                     {
-                    case 1:
+                    case 1: /**< Reporte de Juegos de Mesa. >*/
                         inputs_clearScreen();
 
                         if(games_init(tableGames, GAMES_MAX) == 0
@@ -329,7 +330,8 @@ int main()
                             }
                         }
                         break;
-                    case 2:
+                    case 2: /**< Reporte de Alquileres por Cliente. >*/
+                    case 3: /**< Reporte de costos de Alquileres por Cliente. >*/
                         if(rents_init(rentsByClient, RENTS_MAX) == 0
                            && rents_cloneList(rentsByClient, rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX) == 0)
                         {
@@ -348,7 +350,16 @@ int main()
 
                                     if(quantity > 0)
                                     {
-                                        printf("Existen %d Alquileres del Cliente seleccionado.\n", quantity);
+                                        switch(optionMenu)
+                                        {
+                                        case 2:
+                                            printf("Existen %d Alquileres del Cliente seleccionado.\n", quantity);
+                                            break;
+                                        case 3:
+                                            totalPricesOfRents = rents_getTotalPrices(rentsByClient, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX);
+                                            printf("Total pagado por el cliente seleccionado: $%.2f\n", totalPricesOfRents);
+                                            break;
+                                        }
                                     }
                                     else
                                     {
