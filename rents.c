@@ -29,6 +29,20 @@ static int getNewId(void);
  */
 static int printRental(sRental rental, sCustomer customer, sGame game, sCategory category);
 
+/** \brief Indicador de que el Cliente tiene al menos un Alquiler realizado.
+ *
+ * \param rentsList[] sRental Arreglo de estructuras.
+ * \param rentsLength int Longitud del arreglo.
+ * \param customersList[] sCustomer Arreglo de estructuras de Clientes.
+ * \param customersLength int Longitud del arreglo de Clientes.
+ * \param customerId int ID de Cliente.
+ * \return int
+ *          [0] Si el Cliente no tiene Alquileres.
+ *          [1] Si el Cliente tiene al menos un Alquiler.
+ *
+ */
+static int customerWithRents(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, int customerId);
+
 int rents_isRental(sRental rental, sCustomer customer, sGame game, sCategory category)
 {
     int returnValue = 0;
@@ -570,6 +584,32 @@ float rents_getTotalPrices(sRental rentsList[], int rentsLength, sCustomer custo
     return priceAccumulator;
 }
 
+int rents_getCustomersWithoutRents(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength)
+{
+    int returnValue = -1;
+    int i;
+
+    if(rentsList != NULL && customersList != NULL
+       && rentsLength > 0 && rentsLength <= RENTS_MAX
+       && customersLength > 0 && customersLength <= CUSTOMERS_MAX)
+    {
+        for(i = 0; i < customersLength; i++)
+        {
+            if(customerWithRents(rentsList, rentsLength, customersList, customersLength, customersList[i].id))
+            {
+                customersList[i].isEmpty = 1;
+            }
+        }
+
+        if(i == customersLength)
+        {
+            returnValue = 0;
+        }
+    }
+
+    return returnValue;
+}
+
 void rents_print(sRental rental, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
 {
     int customerIndex;
@@ -693,4 +733,33 @@ static int printRental(sRental rental, sCustomer customer, sGame game, sCategory
     }
 
     return counter;
+}
+
+static int customerWithRents(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, int customerId)
+{
+    int rented = 0;
+    int customerIndex;
+    int i;
+
+    if(rentsList != NULL && customersList != NULL
+       && rentsLength > 0 && rentsLength <= RENTS_MAX
+       && customersLength > 0 && customersLength <= CUSTOMERS_MAX)
+    {
+        customerIndex = customers_getIndexById(customersList, customersLength, customerId);
+
+        if(customerIndex != -1
+           && customers_isCustomer(customersList[customerIndex]))
+        {
+            for(i = 0; i < rentsLength; i++)
+            {
+                if(rentsList[i].customerId == customerId)
+                {
+                    rented = 1;
+                    break;
+                }
+            }
+        }
+    }
+
+    return rented;
 }

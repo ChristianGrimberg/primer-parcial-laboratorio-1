@@ -20,10 +20,11 @@ int main()
     float totalPricesOfRents; /**< Totales acumulados de Alquileres. >*/
     sCategory categories[CATEGORIES_MAX]; /**< Arreglo de Categorias. >*/
     sGame games[GAMES_MAX];/**< Arreglo de Juegos. >*/
-    sGame tableGames[GAMES_MAX]; /**< Arreglo filtrado de Juegos de Mesa. >*/
+    sGame filteredGames[GAMES_MAX]; /**< Arreglo filtrado de Juegos. >*/
     sCustomer customers[CUSTOMERS_MAX]; /**< Arreglo de Clientes. >*/
+    sCustomer filteredCustomers[CUSTOMERS_MAX]; /**< Arreglo de Clientes filtrado. >*/
     sRental rents[RENTS_MAX]; /**< Arreglo de Alquileres. >*/
-    sRental rentsByClient[RENTS_MAX]; /**< Arreglo de Alquileres filtrado por Cliente. >*/
+    sRental filteredRents[RENTS_MAX]; /**< Arreglo de Alquileres filtrado. >*/
     char categoryNameFiltered[CATEGORY_NAME_MAX] = "mesa"; /**< Nombre de la Categoria a filtrar. >*/
 
     if(categories_init(categories, CATEGORIES_MAX) == -1
@@ -303,8 +304,8 @@ int main()
                     case 1: /**< Reporte de Juegos de Mesa. >*/
                         inputs_clearScreen();
 
-                        if(games_init(tableGames, GAMES_MAX) == 0
-                           && games_cloneList(tableGames, games, GAMES_MAX, categories, CATEGORIES_MAX) == 0)
+                        if(games_init(filteredGames, GAMES_MAX) == 0
+                           && games_cloneList(filteredGames, games, GAMES_MAX, categories, CATEGORIES_MAX) == 0)
                         {
                             idCategoryFiltered = categories_getIdByDescription(categories, CATEGORIES_MAX, categoryNameFiltered);
 
@@ -313,10 +314,10 @@ int main()
                                 indexCategoryFiltered = categories_getIndexById(categories, CATEGORIES_MAX, idCategoryFiltered);
 
                                 if(indexCategoryFiltered != -1
-                                   && games_filterListByCategory(tableGames, GAMES_MAX,
+                                   && games_filterListByCategory(filteredGames, GAMES_MAX,
                                         categories, CATEGORIES_MAX, categories[indexCategoryFiltered]) == 0)
                                 {
-                                    quantity = games_printList(tableGames, GAMES_MAX, categories, CATEGORIES_MAX);
+                                    quantity = games_printList(filteredGames, GAMES_MAX, categories, CATEGORIES_MAX);
 
                                     if(quantity > 0)
                                     {
@@ -332,8 +333,8 @@ int main()
                         break;
                     case 2: /**< Reporte de Alquileres por Cliente. >*/
                     case 3: /**< Reporte de costos de Alquileres por Cliente. >*/
-                        if(rents_init(rentsByClient, RENTS_MAX) == 0
-                           && rents_cloneList(rentsByClient, rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX) == 0)
+                        if(rents_init(filteredRents, RENTS_MAX) == 0
+                           && rents_cloneList(filteredRents, rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX) == 0)
                         {
                             idCustomerFiltered = customers_userSelection("Seleccione el Cliente: ", ERROR_MESSAGE, customers, CUSTOMERS_MAX);
 
@@ -344,9 +345,9 @@ int main()
                                 indexCustomerFiltered = customers_getIndexById(customers, CUSTOMERS_MAX, idCustomerFiltered);
 
                                 if(indexCustomerFiltered != -1
-                                   && rents_filterListByCustomer(rentsByClient, RENTS_MAX, customers[indexCustomerFiltered]) == 0)
+                                   && rents_filterListByCustomer(filteredRents, RENTS_MAX, customers[indexCustomerFiltered]) == 0)
                                 {
-                                    quantity = rents_printList(rentsByClient, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX);
+                                    quantity = rents_printList(filteredRents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX);
 
                                     if(quantity > 0)
                                     {
@@ -356,7 +357,7 @@ int main()
                                             printf("Existen %d Alquileres del Cliente seleccionado.\n", quantity);
                                             break;
                                         case 3:
-                                            totalPricesOfRents = rents_getTotalPrices(rentsByClient, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX);
+                                            totalPricesOfRents = rents_getTotalPrices(filteredRents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX);
                                             printf("Total pagado por el cliente seleccionado: $%.2f\n", totalPricesOfRents);
                                             break;
                                         }
@@ -368,6 +369,27 @@ int main()
                                 }
                             }
                         }
+                        break;
+                    case 4:
+                        inputs_clearScreen();
+
+                        if(customers_init(filteredCustomers, CUSTOMERS_MAX) == 0
+                           && customers_cloneList(filteredCustomers, customers, CUSTOMERS_MAX) == 0
+                           && rents_getCustomersWithoutRents(rents, RENTS_MAX, filteredCustomers, CUSTOMERS_MAX) == 0)
+                        {
+                            quantity = customers_printList(filteredCustomers, CUSTOMERS_MAX);
+
+                            if(quantity > 0)
+                            {
+                                printf("Se encontraron %d Clientes sin alquileres.\n", quantity);
+                            }
+                            else
+                            {
+                                printf("Todos los Clientes tienen Juegos alquilados.\n");
+                            }
+                        }
+                        break;
+                    case 5:
                         break;
                     }
                     inputs_pauseScreen(CONTINUE_MESSAGE);

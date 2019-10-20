@@ -168,6 +168,18 @@ int customers_delete(sCustomer customersList[], int customersLength);
  */
 int customers_sort(sCustomer customersList[], int customersLength, int order);
 
+/** \brief Clonacion de arreglos.
+ *
+ * \param customersDestination[] sCustomer Arreglo destino de Clientes.
+ * \param customersOrigin[] sCustomer Arreglo origen de Clientes.
+ * \param customersLength int Longitud del arreglo de Clientes.
+ * \return int
+ *          [-1] Si hubo un error al clonar.
+ *          [0] Si la clonacion fue realizada con exito.
+ *
+ */
+int customers_cloneList(sCustomer customersDestination[], sCustomer customersOrigin[], int customersLength);
+
 /** \brief Impresion con formato tabla de una estructura.
  *
  * \param customer sCustomer Estructura a imprimir.

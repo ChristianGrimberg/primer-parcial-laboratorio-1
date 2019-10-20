@@ -194,7 +194,7 @@ int rents_delete(sRental rentsList[], int rentsLength, sCustomer customersList[]
  */
 int rents_sort(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, int order);
 
-/** \brief Clonacion de arreglos de Alquileres
+/** \brief Clonacion de arreglos.
  *
  * \param rentsDestination[] sRental Arreglo destino de Alquileres.
  * \param rentsOrigin[] sRental Arreglo origen de Alquileres.
@@ -238,6 +238,19 @@ int rents_filterListByCustomer(sRental rentsList[], int rentsLength, sCustomer c
  *
  */
 float rents_getTotalPrices(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
+
+/** \brief Filtrado de arreglo de Clientes sin alquileres.
+ *
+ * \param rentsList[] sRental Arreglo de estructuras de Alquileres.
+ * \param rentsLength int Longitud del arreglo de Alquileres.
+ * \param customersList[] sCustomer Arreglo de estructuras de Clientes.
+ * \param customersLength int Longitud del arreglo de Clientes.
+ * \return int
+ *          [-1] Si hubo un error al filtrar.
+ *          [0] Si el arreglo fue recorrido con exito.
+ *
+ */
+int rents_getCustomersWithoutRents(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength);
 
 /** \brief Impresion con formato tabla de una estructura.
  *

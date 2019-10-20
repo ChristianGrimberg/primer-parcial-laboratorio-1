@@ -471,6 +471,40 @@ int customers_sort(sCustomer customersList[], int customersLength, int order)
     return returnValue;
 }
 
+int customers_cloneList(sCustomer customersDestination[], sCustomer customersOrigin[], int customersLength)
+{
+    int returnValue = -1;
+    int i;
+    int customerIndex;
+
+    if(customersDestination != NULL && customersOrigin != NULL
+       && customersLength > 0 && customersLength <= CUSTOMERS_MAX)
+    {
+        for(i = 0; i < customersLength; i++)
+        {
+            customerIndex = customers_getIndexById(customersOrigin, customersLength, customersOrigin[i].id);
+
+            if(customerIndex != -1
+               && customers_isCustomer(customersOrigin[customerIndex]))
+            {
+                customersDestination[i] = customersOrigin[i];
+
+                if(customers_compare(customersDestination[i], customersOrigin[i]) != 0)
+                {
+                    break;
+                }
+            }
+        }
+
+        if(i == customersLength)
+        {
+            returnValue = 0;
+        }
+    }
+
+    return returnValue;
+}
+
 void customers_print(sCustomer customer)
 {
     if(customers_isCustomer(customer))
