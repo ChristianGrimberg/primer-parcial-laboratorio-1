@@ -292,6 +292,7 @@ int rents_add(sRental rentsList[], int rentsLength, sCustomer customersList[], i
     int returnValue = -1;
     int indexRentalAux;
     int idGameAux;
+    int indexGameAux;
     int idCustomerAux;
     sDate dateAux;
     sDate dateMin = {DAY_MIN, MONTH_MIN, YEAR_MIN};
@@ -309,13 +310,15 @@ int rents_add(sRental rentsList[], int rentsLength, sCustomer customersList[], i
         if(indexRentalAux != -1)
         {
             idGameAux = games_userSelection("Seleccione un Juego: ", ERROR_MESSAGE, gamesList, gamesLength, categoriesList, categoriesLength);
+            indexGameAux = games_getIndexById(gamesList, gamesLength, idGameAux);
 
-            if(idGameAux != -1)
+            if(idGameAux != -1 && indexGameAux != -1)
             {
                 idCustomerAux = customers_userSelection("Seleccione un Cliente: ", ERROR_MESSAGE, customersList, customersLength);
 
                 if(idCustomerAux != -1
-                   && !inputs_getDate(&dateAux, "Ingrese una fecha: ", ERROR_MESSAGE, dateMin, dateMax))
+                   && !inputs_getDate(&dateAux, "Ingrese una fecha: ", ERROR_MESSAGE, dateMin, dateMax)
+                   && games_subtractStock(gamesList[indexGameAux], gamesList, gamesLength, categoriesList, categoriesLength) == 0)
                 {
                     rentsList[indexRentalAux].id = getNewId();
                     rentsList[indexRentalAux].gameId = idGameAux;
@@ -418,7 +421,8 @@ int rents_delete(sRental rentsList[], int rentsLength, sCustomer customersList[]
 {
     int returnValue = -1;
     int id;
-    int index;
+    int rentalIndex;
+    int gameIndex;
 
     if(rentsList != NULL && customersList != NULL
        && gamesList != NULL && categoriesList != NULL
@@ -431,17 +435,19 @@ int rents_delete(sRental rentsList[], int rentsLength, sCustomer customersList[]
 
         if(id != -1)
         {
-            index = rents_getIndexById(rentsList, rentsLength, id);
+            rentalIndex = rents_getIndexById(rentsList, rentsLength, id);
+            gameIndex = games_getIndexById(gamesList, gamesLength, rentsList[rentalIndex].gameId);
 
-            if(index != -1)
+            if(rentalIndex != -1 && gameIndex != -1)
             {
                 inputs_clearScreen();
                 printf("Se esta devolviendo el siguiente Alquiler:\n");
-                rents_print(rentsList[index], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength);
+                rents_print(rentsList[rentalIndex], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength);
 
-                if(inputs_userResponse("ESTA DE ACUERDO? [S] [N]: "))
+                if(inputs_userResponse("ESTA DE ACUERDO? [S] [N]: ")
+                   && games_addStock(gamesList[gameIndex], gamesList, gamesLength, categoriesList, categoriesLength) == 0)
                 {
-                    rentsList[index].isEmpty = 1;
+                    rentsList[rentalIndex].isEmpty = 1;
                     returnValue = 0;
                 }
             }

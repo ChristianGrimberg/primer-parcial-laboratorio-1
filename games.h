@@ -164,6 +164,10 @@ int games_modify(sGame gamesList[], int gamesLength, sCategory categoriesList[],
  */
 int games_delete(sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
 
+int games_addStock(sGame game, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
+
+int games_subtractStock(sGame game, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
+
 /** \brief Ordenamiento de un arreglo de estructuras.
  *
  * \param gamesList[] sGame Arreglo de estructuras de Juegos.

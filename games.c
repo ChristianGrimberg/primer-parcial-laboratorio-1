@@ -409,6 +409,60 @@ int games_delete(sGame gamesList[], int gamesLength, sCategory categoriesList[],
     return returnValue;
 }
 
+int games_addStock(sGame game, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
+{
+    int returnValue = -1;
+    int categoryIndex;
+    int gameIndex;
+
+    categoryIndex = categories_getIndexById(categoriesList, categoriesLength, game.categoryId);
+
+    if(categoryIndex != -1
+       && games_isGame(game, gamesList, gamesLength, categoriesList, categoriesLength)
+       && categories_isCategory(categoriesList[categoryIndex], categoriesList, categoriesLength)
+       && gamesList != NULL && categoriesList != NULL
+       && gamesLength > 0 && gamesLength <= GAMES_MAX
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
+    {
+        gameIndex = games_getIndexById(gamesList, gamesLength, game.id);
+
+        if(gameIndex != -1 && !gamesList[gameIndex].isEmpty)
+        {
+            gamesList[gameIndex].stock++;
+            returnValue = 0;
+        }
+    }
+
+    return returnValue;
+}
+
+int games_subtractStock(sGame game, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
+{
+    int returnValue = -1;
+    int categoryIndex;
+    int gameIndex;
+
+    categoryIndex = categories_getIndexById(categoriesList, categoriesLength, game.categoryId);
+
+    if(categoryIndex != -1
+       && games_isGame(game, gamesList, gamesLength, categoriesList, categoriesLength)
+       && categories_isCategory(categoriesList[categoryIndex], categoriesList, categoriesLength)
+       && gamesList != NULL && categoriesList != NULL
+       && gamesLength > 0 && gamesLength <= GAMES_MAX
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
+    {
+        gameIndex = games_getIndexById(gamesList, gamesLength, game.id);
+
+        if(gameIndex != -1 && !gamesList[gameIndex].isEmpty)
+        {
+            gamesList[gameIndex].stock--;
+            returnValue = 0;
+        }
+    }
+
+    return returnValue;
+}
+
 int games_sort(sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, int order)
 {
     int returnValue = -1;
