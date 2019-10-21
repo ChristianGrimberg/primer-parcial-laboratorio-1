@@ -51,8 +51,8 @@ int customers_isCustomer(sCustomer customer, sCustomer customersList[], int cust
                && strcmp(arrays_stringToCamelCase(customersList[i].lastName, CUSTOMER_NAME_MAX),
                          arrays_stringToCamelCase(customer.lastName, CUSTOMER_NAME_MAX)) == 0
                && customersList[i].sex == customer.sex
-               && strcmp(arrays_stringToCamelCase(customersList[i].phone, CUSTOMER_PHONE_MAX),
-                         arrays_stringToCamelCase(customer.phone, CUSTOMER_PHONE_MAX)) == 0
+               && strcmp(arrays_stringToUppercase(customersList[i].phone, CUSTOMER_PHONE_MAX),
+                         arrays_stringToUppercase(customer.phone, CUSTOMER_PHONE_MAX)) == 0
                && strcmp(arrays_stringToCamelCase(customersList[i].address, CUSTOMER_ADDRESS_MAX),
                          arrays_stringToCamelCase(customer.address, CUSTOMER_ADDRESS_MAX)) == 0)
             {

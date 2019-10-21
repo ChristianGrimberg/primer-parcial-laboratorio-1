@@ -103,15 +103,15 @@ char* arrays_stringToUppercase(char string[], int maxLength)
     char* auxString = string;
     int i = 0;
 
-    if(string != NULL && maxLength < STRING_MAX && maxLength > 0)
+    if(string != NULL && maxLength <= STRING_MAX && maxLength > 0)
     {
-        while(i <= maxLength || auxString[i] == EXIT_BUFFER)
+        while(i < maxLength || auxString[i] == EXIT_BUFFER)
         {
             auxString[i] = toupper((char)auxString[i]);
             i++;
         }
 
-        auxString[maxLength] = EXIT_BUFFER;
+        auxString[maxLength-1] = EXIT_BUFFER;
     }
 
     return auxString;
@@ -122,15 +122,15 @@ char* arrays_stringToLowercase(char string[], int maxLength)
     char* auxString = string;
     int i = 0;
 
-    if(string != NULL && maxLength < STRING_MAX && maxLength > 0)
+    if(string != NULL && maxLength <= STRING_MAX && maxLength > 0)
     {
-        while(i <= maxLength || auxString[i] == EXIT_BUFFER)
+        while(i < maxLength || auxString[i] == EXIT_BUFFER)
         {
             auxString[i] = tolower((char)auxString[i]);
             i++;
         }
 
-        auxString[maxLength] = EXIT_BUFFER;
+        auxString[maxLength-1] = EXIT_BUFFER;
     }
 
     return auxString;
@@ -143,7 +143,7 @@ char* arrays_stringToCamelCase(char string[], int maxLength)
 
     if(string != NULL && maxLength > 0 && maxLength <= STRING_MAX)
     {
-        while(position <= maxLength && auxString[position] != EXIT_BUFFER)
+        while(position < maxLength && auxString[position] != EXIT_BUFFER)
         {
             if((position == 0 && auxString[position] != ' ')
                 || (position > 0 && auxString[position - 1] == ' ' && auxString[position] != ' '))
