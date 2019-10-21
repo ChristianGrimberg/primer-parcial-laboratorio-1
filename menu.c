@@ -9,12 +9,12 @@ int menu_main(int* option)
     printf(" +=======================================================+\n");
     printf(" |           ALQUILER DE JUEGOS INFANTILES               |\n");
     printf(" +=======================================================+\n");
-    printf(" | [1] ABM DE CATEGORIAS DE JUEGOS                       |\n");
-    printf(" | [2] ABM DE JUEGOS INFANTILES                          |\n");
-    printf(" | [3] ABM DE CLIENTES                                   |\n");
-    printf(" | [4] ALQUILER DE JUEGOS INFANTILES                     |\n");
-    printf(" | [5] INFORMES Y REPORTES                               |\n");
-    printf(" | [6] SALIR DEL PROGRAMA                                |\n");
+    printf(" | [1] ABM de Categorias de Juegos                       |\n");
+    printf(" | [2] ABM de Juegos Infantiles                          |\n");
+    printf(" | [3] ABM de Clientes                                   |\n");
+    printf(" | [4] Alquileres                                        |\n");
+    printf(" | [5] Informes y Reportes                               |\n");
+    printf(" | [6] Salir del programa                                |\n");
     printf(" +-------------------------------------------------------+\n\n");
 
     if(!inputs_getInt(option, "Elija una opcion del menu: ", ERROR_MESSAGE, 1, MENU_MAIN_MAX))
@@ -34,12 +34,12 @@ int menu_categories(int* option)
     printf(" +=======================================================+\n");
     printf(" |                 ABM DE CATEGORIAS                     |\n");
     printf(" +=======================================================+\n");
-    printf(" | [1] ALTA DE CATEGORIA                                 |\n");
-    printf(" | [2] BAJA DE CATEGORIA                                 |\n");
-    printf(" | [3] MODIFICACION DE CATEGORIA                         |\n");
-    printf(" | [4] LISTADO DE CATEGORIAS ORDENADAS ASCENDENTEMENTE   |\n");
-    printf(" | [5] LISTADO DE CATEGORIAS ORDENADAS DESCENDENTEMENTE  |\n");
-    printf(" | [6] VOLVER AL MENU PRINCIPAL                          |\n");
+    printf(" | [1] Alta de Categoria                                 |\n");
+    printf(" | [2] Baja de Categoria                                 |\n");
+    printf(" | [3] Modificacion de Categoria                         |\n");
+    printf(" | [4] Listado de Categorias en orden Ascendente         |\n");
+    printf(" | [5] Listado de Categorias en orden Descendente        |\n");
+    printf(" | [6] Volver al menu principal                          |\n");
     printf(" +-------------------------------------------------------+\n\n");
 
     if(!inputs_getInt(option, "Elija una opcion del menu: ", ERROR_MESSAGE, 1, MENU_CATEGORY_MAX))
@@ -59,12 +59,12 @@ int menu_games(int* option)
     printf(" +=======================================================+\n");
     printf(" |                 ABM DE JUEGOS                         |\n");
     printf(" +=======================================================+\n");
-    printf(" | [1] ALTA DE JUEGO                                     |\n");
-    printf(" | [2] BAJA DE JUEGO                                     |\n");
-    printf(" | [3] MODIFICACION DE JUEGO                             |\n");
-    printf(" | [4] LISTADO DE JUEGOS ORDENADOS ASCENDENTEMENTE       |\n");
-    printf(" | [5] LISTADO DE JUEGOS ORDENADOS DESCENDENTEMENTE      |\n");
-    printf(" | [6] VOLVER AL MENU PRINCIPAL                          |\n");
+    printf(" | [1] Alta de Juego                                     |\n");
+    printf(" | [2] Baja de Juego                                     |\n");
+    printf(" | [3] Modificacion de Juego                             |\n");
+    printf(" | [4] Listado de Juegos en orden Ascendente             |\n");
+    printf(" | [5] Listado de Juegos en orden Descendente            |\n");
+    printf(" | [6] Volver al menu principal                          |\n");
     printf(" +-------------------------------------------------------+\n\n");
 
     if(!inputs_getInt(option, "Elija una opcion del menu: ", ERROR_MESSAGE, 1, MENU_GAME_MAX))
@@ -84,12 +84,12 @@ int menu_customers(int* option)
     printf(" +=======================================================+\n");
     printf(" |                 ABM DE CLIENTES                       |\n");
     printf(" +=======================================================+\n");
-    printf(" | [1] ALTA DE CLIENTE                                   |\n");
-    printf(" | [2] BAJA DE CLIENTE                                   |\n");
-    printf(" | [3] MODIFICACION DE CLIENTE                           |\n");
-    printf(" | [4] LISTADO DE CLIENTES ORDENADOS ASCENDENTEMENTE     |\n");
-    printf(" | [5] LISTADO DE CLIENTES ORDENADOS DESCENDENTEMENTE    |\n");
-    printf(" | [6] VOLVER AL MENU PRINCIPAL                          |\n");
+    printf(" | [1] Alta de Cliente                                   |\n");
+    printf(" | [2] Baja de Cliente                                   |\n");
+    printf(" | [3] Modificacion de Cliente                           |\n");
+    printf(" | [4] Listado de Clientes en orden Ascendente           |\n");
+    printf(" | [5] Listado de Clientes en orden Descendente          |\n");
+    printf(" | [6] Volver al menu principal                          |\n");
     printf(" +-------------------------------------------------------+\n\n");
 
     if(!inputs_getInt(option, "Elija una opcion del menu: ", ERROR_MESSAGE, 1, MENU_CUSTOMERS_MAX))
@@ -106,16 +106,16 @@ int menu_rents(int* option)
 
     inputs_clearScreen();
 
-    printf(" +==========================================================+\n");
-    printf(" |                 ALQUILER DE JUEGOS                       |\n");
-    printf(" +==========================================================+\n");
-    printf(" | [1] ALQUILER DE JUEGO                                    |\n");
-    printf(" | [2] ANULACION DE ALQUILER                                |\n");
-    printf(" | [3] MODIFICACION DE ALQUILER                             |\n");
-    printf(" | [4] ALQUILERES REALIZADOS ORDENADOS DE FORMA ASCENDENTE  |\n");
-    printf(" | [5] ALQUILERES REALIZADOS ORDENADOS DE FORMA DESCENDENTE |\n");
-    printf(" | [6] VOLVER AL MENU PRINCIPAL                             |\n");
-    printf(" +----------------------------------------------------------+\n\n");
+    printf(" +=======================================================+\n");
+    printf(" |                 ALQUILER DE JUEGOS                    |\n");
+    printf(" +=======================================================+\n");
+    printf(" | [1] Alquiler de Juego                                 |\n");
+    printf(" | [2] Anulacion de Alquiler                             |\n");
+    printf(" | [3] Modificacion de Alquiler                          |\n");
+    printf(" | [4] Alquileres efectuados en orden Ascendente         |\n");
+    printf(" | [5] Alquileres efectuados en orden Descendente        |\n");
+    printf(" | [6] Volver al menu principal                          |\n");
+    printf(" +-------------------------------------------------------+\n\n");
 
     if(!inputs_getInt(option, "Elija una opcion del menu: ", ERROR_MESSAGE, 1, MENU_RENTS_MAX))
     {
@@ -134,12 +134,12 @@ int menu_reports(int* option)
     printf(" +=======================================================+\n");
     printf(" |             INFORMES Y REPORTES DEL SISTEMA           |\n");
     printf(" +=======================================================+\n");
-    printf(" | [1] JUEGOS DE MESA                                    |\n");
-    printf(" | [2] ALQUILERES POR CLIENTE                            |\n");
-    printf(" | [3] IMPORTES TOTALIZADOS POR CLIENTE                  |\n");
-    printf(" | [4] CLIENTES SIN ALQUILERES                           |\n");
-    printf(" | [5] JUEGOS SIN ALQUILER                               |\n");
-    printf(" | [6] VOLVER AL MENU PRINCIPAL                          |\n");
+    printf(" | [1] Juegos de Mesa                                    |\n");
+    printf(" | [2] Alquileres por Cliente                            |\n");
+    printf(" | [3] Importes totales por Cliente                      |\n");
+    printf(" | [4] Clientes sin Alquileres                           |\n");
+    printf(" | [5] Juegos sin Alquileres                             |\n");
+    printf(" | [6] Volver al menu principal                          |\n");
     printf(" +-------------------------------------------------------+\n\n");
 
     if(!inputs_getInt(option, "Elija una opcion del menu: ", ERROR_MESSAGE, 1, MENU_REPORTS_MAX))
