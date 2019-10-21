@@ -436,6 +436,19 @@ int main()
                             printf("No hay ningun Juego alquilado por la Categoria seleccionada.\n");
                         }
                         break;
+                    case 8:
+                        inputs_clearScreen();
+                        quantity = rents_printListOfTotalPricesByGame(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX);
+
+                        if(quantity > 0)
+                        {
+                            printf("Se encontraron %d Juegos seleccionados.\n", quantity);
+                        }
+                        else
+                        {
+                            printf("No hay ningun Juego alquilado segun lo seleccionado.\n");
+                        }
+                        break;
                     }
                     inputs_pauseScreen(CONTINUE_MESSAGE);
                 }while(lifeCycle == 0);

@@ -904,7 +904,8 @@ int rents_printListByPriceAverage(sRental rentsList[], int rentsLength, sCustome
 
             if(customerIndex != -1 && gameIndex != -1 && categoryIndex != -1
                && rents_isRental(rentsList[i], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength)
-               && gamesList[gameIndex].categoryId == categoryId)
+               && gamesList[gameIndex].categoryId == categoryId
+               && gamesList[gameIndex].price >= priceAverage)
             {
                 itemsCounter++;
 
@@ -931,6 +932,71 @@ int rents_printListByPriceAverage(sRental rentsList[], int rentsLength, sCustome
         {
             printf("+-------+------------+------------------+------------------+-----------+------------------+------------------+\n");
             printf("Promedio de Alquileres por la categoria %s es: $ %.2f\n", categoriesList[categoryIndex].description, priceAverage);
+        }
+    }
+
+    return itemsCounter;
+}
+
+int rents_printListOfTotalPricesByGame(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
+{
+    int itemsCounter = 0;
+    int flag = 0;
+    int customerIndex;
+    int gameId;
+    int gameIndex;
+    int categoryIndex;
+    float totalPrices = 0;
+
+    if(rentsList != NULL && customersList != NULL
+       && gamesList != NULL && categoriesList != NULL
+       && rentsLength > 0 && rentsLength <= RENTS_MAX
+       && customersLength > 0 && customersLength <= CUSTOMERS_MAX
+       && gamesLength >0 && gamesLength <= GAMES_MAX
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
+    {
+        gameId = games_userSelection("Seleccione un Juego: ", ERROR_MESSAGE, gamesList, gamesLength, categoriesList, categoriesLength);
+        gameIndex = games_getIndexById(gamesList, gamesLength, gameId);
+
+        if(gameId != -1 && gameIndex != -1)
+        {
+            for (int i = 0; i < rentsLength; i++)
+            {
+                customerIndex = customers_getIndexById(customersList, customersLength, rentsList[i].customerId);
+                categoryIndex = categories_getIndexById(categoriesList, categoriesLength, gamesList[gameIndex].categoryId);
+
+                if(customerIndex != -1 && gameIndex != -1 && categoryIndex != -1
+                   && rents_isRental(rentsList[i], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength)
+                   && rentsList[i].gameId == gameId)
+                {
+                    itemsCounter++;
+
+                    totalPrices += gamesList[gameIndex].price;
+
+                    if(itemsCounter == 1)
+                    {
+                        printf("+=======+============+==================+==================+===========+==================+==================+\n");
+                        printf("|   ID  |    FECHA   |       JUEGO      |     CATEGORIA    |   PRECIO  |  NOMBRE CLIENTE  | APELLIDO CLIENTE |\n");
+                        printf("+=======+============+==================+==================+===========+==================+==================+\n");
+                    }
+
+                    if(printRental(rentsList[i], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength) == 1)
+                    {
+                        flag = 1;
+                    }
+                    else
+                    {
+                        flag = 0;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if(flag == 1)
+        {
+            printf("+-------+------------+------------------+------------------+-----------+------------------+------------------+\n");
+            printf("El total de precios por el Juego %s es: $ %.2f\n", gamesList[gameIndex].description, totalPrices);
         }
     }
 
