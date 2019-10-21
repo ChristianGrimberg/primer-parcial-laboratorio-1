@@ -35,12 +35,14 @@ typedef struct
 /** \brief Funcion que determina si la estructura es un Cliente.
  *
  * \param customer sCustomer Estructura a evaluar.
+ * \param customersList[] sCustomer Arreglo de estructuras.
+ * \param customersLength int Longitud del arreglo.
  * \return int
  *          [0] Si no es un Cliente.
  *          [1] Si es un Cliente.
  *
  */
-int customers_isCustomer(sCustomer customer);
+int customers_isCustomer(sCustomer customer, sCustomer customersList[], int customersLength);
 
 /** \brief Funcion que compara dos estructuras de Juegos.
  *
@@ -183,10 +185,12 @@ int customers_cloneList(sCustomer customersDestination[], sCustomer customersOri
 /** \brief Impresion con formato tabla de una estructura.
  *
  * \param customer sCustomer Estructura a imprimir.
+ * \param customersList[] sCustomer Arreglo de estructuras.
+ * \param customersLength int Longitud del arreglo.
  * \return void No retorna valores.
  *
  */
-void customers_print(sCustomer customer);
+void customers_print(sCustomer customer, sCustomer customersList[], int customersLength);
 
 /** \brief Impresion con formato tabla de un arreglo de estructuras.
  *

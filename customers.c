@@ -19,24 +19,47 @@ static int getNewId(void);
 /** \brief Imprime en pantalla los valores de la estructura.
  *
  * \param customer sCustomer Estructura a imprimir.
+ * \param customersList[] sCustomer Arreglo de estructuras.
+ * \param customersLength int Longitud del arreglo.
  * \return int
  *          [0] Si la estructura esta vacia.
  *          [1] Si la estructura esta llena y pudo imprimirse.
  *
  */
-static int printCustomer(sCustomer customer);
+static int printCustomer(sCustomer customer, sCustomer customersList[], int customersLength);
 
-int customers_isCustomer(sCustomer customer)
+int customers_isCustomer(sCustomer customer, sCustomer customersList[], int customersLength)
 {
     int returnValue = 0;
+    int i;
 
     if(customer.id != -1
+       && !customer.isEmpty
        && customer.name != NULL
        && customer.lastName != NULL
        && customer.phone != NULL
-       && !customer.isEmpty)
+       && customer.address != NULL
+       && customersList != NULL
+       && customersLength > 0 && customersLength <= CUSTOMERS_MAX)
     {
-        returnValue = 1;
+        for(i = 0; i < customersLength; i++)
+        {
+            if(!customersList[i].isEmpty
+               && customersList[i].id == customer.id
+               && strcmp(arrays_stringToCamelCase(customersList[i].name, CUSTOMER_NAME_MAX),
+                         arrays_stringToCamelCase(customer.name, CUSTOMER_NAME_MAX)) == 0
+               && strcmp(arrays_stringToCamelCase(customersList[i].lastName, CUSTOMER_NAME_MAX),
+                         arrays_stringToCamelCase(customer.lastName, CUSTOMER_NAME_MAX)) == 0
+               && customersList[i].sex == customer.sex
+               && strcmp(arrays_stringToCamelCase(customersList[i].phone, CUSTOMER_PHONE_MAX),
+                         arrays_stringToCamelCase(customer.phone, CUSTOMER_PHONE_MAX)) == 0
+               && strcmp(arrays_stringToCamelCase(customersList[i].address, CUSTOMER_ADDRESS_MAX),
+                         arrays_stringToCamelCase(customer.address, CUSTOMER_ADDRESS_MAX)) == 0)
+            {
+                returnValue = 1;
+                break;
+            }
+        }
     }
 
     return returnValue;
@@ -46,8 +69,8 @@ int customers_compare(sCustomer customer1, sCustomer customer2)
 {
     int compare = -2;
 
-    if(customers_isCustomer(customer1)
-       && customers_isCustomer(customer2))
+    if(!customer1.isEmpty
+       && !customer2.isEmpty)
     {
         if(customer1.id > customer2.id)
         {
@@ -123,7 +146,7 @@ void customers_hardcode(sCustomer customersList[], int customersLength)
         {getNewId(), "marley", "wieber", 'm', "+54 11 8000-5000", "junin 58220", 0},
         {getNewId(), "mirtha", "legrand", 'f', "+54 11 4000-2000", "mitre 1200", 0},
         {getNewId(), "veronica", "lozano", 'f', "+54 11 6000-4000", "santa fe 2820", 0},
-        {getNewId(), "sebastian", "yatra", 'm', "+54 11 7000-6000", "san juan 70",  0}
+        {getNewId(), "sebastian", "yatra", 'm', "+54 11 7000-6000", "san juan 70", 0}
     };
 
     if(customersList != NULL
@@ -396,7 +419,7 @@ int customers_delete(sCustomer customersList[], int customersLength)
             {
                 inputs_clearScreen();
                 printf("ATENCION! ESTA A PUNTO DE DAR DE BAJA AL SIGUIENTE CLIENTE:\n");
-                customers_print(customersList[index]);
+                customers_print(customersList[index], customersList, customersLength);
 
                 if(inputs_userResponse("ESTA DE ACUERDO? [S] [N]: "))
                 {
@@ -422,8 +445,8 @@ int customers_sort(sCustomer customersList[], int customersLength, int order)
         {
             for(int j = i+1; j < customersLength; j++)
             {
-                if(customers_isCustomer(customersList[i])
-                   && customers_isCustomer(customersList[j]))
+                if(customers_isCustomer(customersList[i], customersList, customersLength)
+                   && customers_isCustomer(customersList[j], customersList, customersLength))
                 {
                     if(toupper((char)customersList[i].sex) == toupper((char)customersList[j].sex))
                     {
@@ -452,7 +475,7 @@ int customers_sort(sCustomer customersList[], int customersLength, int order)
                                            arrays_stringToCamelCase(customersList[j].name, CUSTOMER_NAME_MAX)) < 0
                                     && order == DESC))
                                 {
-                                    if(customers_swap(&customersList[i], &customersList[j]) == 0)
+                                    if(customers_swap(&customersList[i], &customersList[j]) == -1)
                                     {
                                         returnValue = -1;
                                         break;
@@ -485,7 +508,7 @@ int customers_cloneList(sCustomer customersDestination[], sCustomer customersOri
             customerIndex = customers_getIndexById(customersOrigin, customersLength, customersOrigin[i].id);
 
             if(customerIndex != -1
-               && customers_isCustomer(customersOrigin[customerIndex]))
+               && customers_isCustomer(customersOrigin[customerIndex], customersOrigin, customersLength))
             {
                 customersDestination[i] = customersOrigin[i];
 
@@ -505,14 +528,14 @@ int customers_cloneList(sCustomer customersDestination[], sCustomer customersOri
     return returnValue;
 }
 
-void customers_print(sCustomer customer)
+void customers_print(sCustomer customer, sCustomer customersList[], int customersLength)
 {
-    if(customers_isCustomer(customer))
+    if(customers_isCustomer(customer, customersList, customersLength))
     {
         printf("+=======+======================+======================+======+======================+======================+\n");
         printf("|   ID  |        NOMBRE        |       APELLIDO       | SEXO |       TELEFONO       |       DIRECCION      |\n");
         printf("+=======+======================+======================+======+======================+======================+\n");
-        if(printCustomer(customer) == 0)
+        if(printCustomer(customer, customersList, customersLength) == 0)
         {
             printf("Categoria vacia.\n");
         }
@@ -530,7 +553,7 @@ int customers_printList(sCustomer customersList[], int customersLength)
     {
         for (int i = 0; i < customersLength; i++)
         {
-            if(customers_isCustomer(customersList[i]))
+            if(customers_isCustomer(customersList[i], customersList, customersLength))
             {
                 itemsCounter++;
 
@@ -541,7 +564,7 @@ int customers_printList(sCustomer customersList[], int customersLength)
                     printf("+=======+======================+======================+======+======================+======================+\n");
                 }
 
-                if(printCustomer(customersList[i]) == 1)
+                if(printCustomer(customersList[i], customersList, customersLength) == 1)
                 {
                     flag = 1;
                 }
@@ -584,17 +607,18 @@ static int getNewId(void)
     return customerId;
 }
 
-static int printCustomer(sCustomer customer)
+static int printCustomer(sCustomer customer, sCustomer customersList[], int customersLength)
 {
     int counter = 0;
 
-    if(customers_isCustomer(customer))
+    if(customers_isCustomer(customer, customersList, customersLength))
     {
         printf("| %5d | %20s | %20s |   %c  | %20s | %20s |\n",
                customer.id, arrays_stringToCamelCase(customer.name, CUSTOMER_NAME_MAX),
                arrays_stringToCamelCase(customer.lastName, CUSTOMER_NAME_MAX),
                toupper((char)customer.sex), customer.phone,
                arrays_stringToCamelCase(customer.address, CUSTOMER_ADDRESS_MAX));
+
         counter = 1;
     }
 

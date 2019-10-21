@@ -19,24 +19,47 @@ static int getNewId(void);
 /** \brief Imprime en pantalla los valores de la estructura.
  *
  * \param game sGame Estructura de Juego.
- * \param category sCategory Estructura de Categoria.
+ * \param gamesList[] sGame Arreglo de estructuras de Juegos.
+ * \param gamesLength int Longitud del arreglo de Juegos.
+ * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
+ * \param categoriesLength int Longitud del arreglo de Categorias.
  * \return int
  *          [0] Si las estructuras estan vacias.
  *          [1] Si la estructuras estan llenas y se imprimieron.
  *
  */
-static int printGame(sGame game, sCategory category);
+static int printGame(sGame game, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
 
-int games_isGame(sGame game, sCategory category)
+int games_isGame(sGame game, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
 {
     int returnValue = 0;
+    int i;
+    int categoryIndex;
 
     if(game.id != -1
+       && !game.isEmpty
        && game.description != NULL
-       && game.isEmpty == 0
-       && categories_isCategory(category) && category.id == game.categoryId)
+       && gamesList != NULL && categoriesList != NULL
+       && gamesLength >0 && gamesLength <= GAMES_MAX
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
     {
-        returnValue = 1;
+        for(i = 0; i < gamesLength; i++)
+        {
+            categoryIndex = categories_getIndexById(categoriesList, categoriesLength, gamesList[i].categoryId);
+
+            if(!gamesList[i].isEmpty
+               && categories_isCategory(categoriesList[categoryIndex], categoriesList, categoriesLength)
+               && categoriesList[categoryIndex].id == game.categoryId
+               && gamesList[i].id == game.id
+               && gamesList[i].categoryId == game.categoryId
+               && strcmp(arrays_stringToCamelCase(gamesList[i].description, CATEGORY_NAME_MAX),
+                         arrays_stringToCamelCase(game.description, CATEGORY_NAME_MAX)) == 0
+               && gamesList[i].price == game.price)
+            {
+                returnValue = 1;
+                break;
+            }
+        }
     }
 
     return returnValue;
@@ -358,7 +381,7 @@ int games_delete(sGame gamesList[], int gamesLength, sCategory categoriesList[],
             {
                 inputs_clearScreen();
                 printf("ATENCION! ESTA A PUNTO DE DAR DE BAJA EL SIGUIENTE JUEGO:\n");
-                games_print(gamesList[index], categoriesList, categoriesLength);
+                games_print(gamesList[index], gamesList, gamesLength, categoriesList, categoriesLength);
 
                 if(inputs_userResponse("ESTA DE ACUERDO? [S] [N]: "))
                 {
@@ -375,8 +398,6 @@ int games_delete(sGame gamesList[], int gamesLength, sCategory categoriesList[],
 int games_sort(sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, int order)
 {
     int returnValue = -1;
-    int categoryIndex1;
-    int categoryIndex2;
 
     if(gamesList != NULL && categoriesList != NULL
        && gamesLength > 0 && gamesLength <= GAMES_MAX
@@ -386,11 +407,8 @@ int games_sort(sGame gamesList[], int gamesLength, sCategory categoriesList[], i
         {
             for(int j = i+1; j < gamesLength; j++)
             {
-                categoryIndex1 = categories_getIndexById(categoriesList, categoriesLength, gamesList[i].categoryId);
-                categoryIndex2 = categories_getIndexById(categoriesList, categoriesLength, gamesList[j].categoryId);
-
-                if(games_isGame(gamesList[i], categoriesList[categoryIndex1])
-                   && games_isGame(gamesList[j], categoriesList[categoryIndex2]))
+                if(games_isGame(gamesList[i], gamesList, gamesLength, categoriesList, categoriesLength)
+                   && games_isGame(gamesList[j], gamesList, gamesLength, categoriesList, categoriesLength))
                 {
                     if((strcmp(arrays_stringToCamelCase(gamesList[i].description, GAME_NAME_MAX),
                                arrays_stringToCamelCase(gamesList[j].description, GAME_NAME_MAX)) > 0
@@ -419,16 +437,13 @@ int games_cloneList(sGame gamesDestination[], sGame gamesOrigin[], int gamesLeng
 {
     int returnValue = -1;
     int i;
-    int index;
 
     if(gamesDestination != NULL && gamesOrigin != NULL
        && gamesLength > 0 && gamesLength <= GAMES_MAX)
     {
         for(i = 0; i < gamesLength; i++)
         {
-            index = categories_getIndexById(categoriesList, categoriesLength, gamesOrigin[i].categoryId);
-
-            if(index != -1 && games_isGame(gamesOrigin[i], categoriesList[index]))
+            if(games_isGame(gamesOrigin[i], gamesOrigin, gamesLength, categoriesList, categoriesLength))
             {
                 gamesDestination[i] = gamesOrigin[i];
 
@@ -456,7 +471,7 @@ int games_filterListByCategory(sGame gamesList[], int gamesLength, sCategory cat
     if(gamesList != NULL && categoriesList != NULL
        && gamesLength > 0 && gamesLength <= GAMES_MAX
        && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX
-       && categories_isCategory(category))
+       && categories_isCategory(category, categoriesList, categoriesLength))
     {
         for(i = 0; i < gamesLength; i++)
         {
@@ -476,20 +491,20 @@ int games_filterListByCategory(sGame gamesList[], int gamesLength, sCategory cat
     return returnValue;
 }
 
-void games_print(sGame game, sCategory categoriesList[], int categoriesLength)
+void games_print(sGame game, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
 {
     int categoryIndex;
 
     categoryIndex = categories_getIndexById(categoriesList, categoriesLength, game.categoryId);
 
-    if(games_isGame(game, categoriesList[categoryIndex])
-       && categories_isCategory(categoriesList[categoryIndex]))
+    if(games_isGame(game, gamesList, gamesLength, categoriesList, categoriesLength)
+       && categories_isCategory(categoriesList[categoryIndex], categoriesList, categoriesLength))
     {
         printf("+=======+======================+===========+======================+\n");
         printf("|   ID  |      DESCRIPCION     |   PRECIO  |       CATEGORIA      |\n");
         printf("+=======+======================+===========+======================+\n");
 
-        if(printGame(game, categoriesList[categoryIndex]) == 0)
+        if(printGame(game, gamesList, gamesLength, categoriesList, categoriesLength) == 0)
         {
             printf("Juego vacio.\n");
         }
@@ -501,7 +516,6 @@ int games_printList(sGame gamesList[], int gamesLength, sCategory categoriesList
 {
     int itemsCounter = 0;
     int flag = 0;
-    int categoryIndex;
 
     if(gamesList != NULL && categoriesList != NULL
        && gamesLength >0 && gamesLength <= GAMES_MAX
@@ -509,10 +523,7 @@ int games_printList(sGame gamesList[], int gamesLength, sCategory categoriesList
     {
         for (int i = 0; i < gamesLength; i++)
         {
-            categoryIndex = categories_getIndexById(categoriesList, categoriesLength, gamesList[i].categoryId);
-
-            if(categoryIndex != -1
-               && games_isGame(gamesList[i], categoriesList[categoryIndex]))
+            if(games_isGame(gamesList[i], gamesList, gamesLength, categoriesList, categoriesLength))
             {
                 itemsCounter++;
 
@@ -523,7 +534,7 @@ int games_printList(sGame gamesList[], int gamesLength, sCategory categoriesList
                     printf("+=======+======================+===========+======================+\n");
                 }
 
-                if(printGame(gamesList[i], categoriesList[categoryIndex]) == 1)
+                if(printGame(gamesList[i], gamesList, gamesLength, categoriesList, categoriesLength) == 1)
                 {
                     flag = 1;
                 }
@@ -564,15 +575,18 @@ static int getNewId(void)
     return gameId;
 }
 
-static int printGame(sGame game, sCategory category)
+static int printGame(sGame game, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
 {
     int counter = 0;
+    int categoryIndex;
 
-    if(games_isGame(game, category))
+    categoryIndex = categories_getIndexById(categoriesList, categoriesLength, game.categoryId);
+
+    if(games_isGame(game, gamesList, gamesLength, categoriesList, categoriesLength))
     {
         printf("| %5d | %20s | %9.2f | %20s |\n",
                game.id, arrays_stringToCamelCase(game.description, GAME_NAME_MAX)
-               ,game.price, arrays_stringToCamelCase(category.description, CATEGORY_NAME_MAX));
+               ,game.price, arrays_stringToCamelCase(categoriesList[categoryIndex].description, CATEGORY_NAME_MAX));
         counter = 1;
     }
 

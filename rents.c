@@ -19,15 +19,20 @@ static int getNewId(void);
 /** \brief Imprime en pantalla los valores de la estructura.
  *
  * \param rental sRental Estructura de Alquiler a imprimir.
- * \param customer sCustomer Estructura de Cliente a imprimir.
- * \param game sGame Estructura de Juego a imprimir.
- * \param category sCategory Estructura de Categoria a imprimir.
+ * \param rentsList[] sRental Arreglo de estructuras de Alquileres.
+ * \param rentsLength int Longitud del arreglo de Alquileres.
+ * \param customersList[] sCustomer Arreglo de estructuras de Clientes.
+ * \param customersLength int Longitud del arreglo de Clientes.
+ * \param gamesList[] sGame Arreglo de estructuras de Juegos.
+ * \param gamesLength int Longitud del arreglo de Juegos.
+ * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
+ * \param categoriesLength int Longitud del arreglo de Categorias.
  * \return int
  *          [0] Si la estructura esta vacia.
  *          [1] Si la estructura esta llena y pudo imprimirse.
  *
  */
-static int printRental(sRental rental, sCustomer customer, sGame game, sCategory category);
+static int printRental(sRental rental, sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
 
 /** \brief Indicador de que el Cliente tiene al menos un Alquiler realizado.
  *
@@ -59,17 +64,42 @@ static int customerWithRents(sRental rentsList[], int rentsLength, sCustomer cus
  */
 static int gameWithRents(sRental rentsList[], int rentsLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, int gameId);
 
-int rents_isRental(sRental rental, sCustomer customer, sGame game, sCategory category)
+int rents_isRental(sRental rental, sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
 {
     int returnValue = 0;
+    int i;
+    int customerIndex;
+    int gameIndex;
+    int categoryIndex;
 
     if(rental.id != -1
-       && customers_isCustomer(customer) && rental.customerId == customer.id
-       && games_isGame(game, category) && rental.gameId == game.id
-       && categories_isCategory(category) && game.categoryId == category.id
-       && !rental.isEmpty)
+       && !rental.isEmpty
+       && rental.customerId != -1
+       && rental.gameId != -1
+       && structs_isDate(rental.date)
+       && rentsList != NULL && gamesList != NULL && categoriesList != NULL
+       && rentsLength > 0 && rentsLength <= RENTS_MAX
+       && gamesLength > 0 && gamesLength <= GAMES_MAX
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
     {
-        returnValue = 1;
+        for(i = 0; i < rentsLength; i++)
+        {
+            customerIndex = customers_getIndexById(customersList, customersLength, rentsList[i].customerId);
+            gameIndex = games_getIndexById(gamesList, gamesLength, rentsList[i].gameId);
+            categoryIndex = categories_getIndexById(categoriesList, categoriesLength, gamesList[gameIndex].categoryId);
+
+            if(!rentsList[i].isEmpty
+               && customers_isCustomer(customersList[customerIndex], customersList, customersLength)
+               && games_isGame(gamesList[gameIndex], gamesList, gamesLength, categoriesList, categoriesLength)
+               && categories_isCategory(categoriesList[categoryIndex], categoriesList, categoriesLength)
+               && rentsList[i].id == rental.id
+               && rentsList[i].customerId == rental.customerId
+               && structs_dateCompare(rentsList[i].date, rental.date) == 0)
+            {
+                returnValue = 1;
+                break;
+            }
+        }
     }
 
     return returnValue;
@@ -407,7 +437,7 @@ int rents_delete(sRental rentsList[], int rentsLength, sCustomer customersList[]
             {
                 inputs_clearScreen();
                 printf("ATENCION! ESTA A PUNTO DE DAR DE BAJA EL SIGUIENTE ALQUILER:\n");
-                rents_print(rentsList[index], customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength);
+                rents_print(rentsList[index], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength);
 
                 if(inputs_userResponse("ESTA DE ACUERDO? [S] [N]: "))
                 {
@@ -453,14 +483,14 @@ int rents_sort(sRental rentsList[], int rentsLength, sCustomer customersList[], 
                 if(customerIndex1 != -1 && customerIndex2 != -1
                    && gameIndex1 != -1 && gameIndex2 != -1
                    && categoryIndex1 != -1 && categoryIndex2 != -1
-                   && customers_isCustomer(customersList[customerIndex1])
-                   && customers_isCustomer(customersList[customerIndex2])
-                   && games_isGame(gamesList[gameIndex1], categoriesList[categoryIndex1])
-                   && games_isGame(gamesList[gameIndex2], categoriesList[categoryIndex2])
-                   && categories_isCategory(categoriesList[categoryIndex1])
-                   && categories_isCategory(categoriesList[categoryIndex2])
-                   && rents_isRental(rentsList[i], customersList[customerIndex1], gamesList[gameIndex1], categoriesList[categoryIndex1])
-                   && rents_isRental(rentsList[j], customersList[customerIndex2], gamesList[gameIndex2], categoriesList[categoryIndex2]))
+                   && customers_isCustomer(customersList[customerIndex1], customersList, customersLength)
+                   && customers_isCustomer(customersList[customerIndex2], customersList, customersLength)
+                   && games_isGame(gamesList[gameIndex1], gamesList, gamesLength, categoriesList, categoriesLength)
+                   && games_isGame(gamesList[gameIndex2], gamesList, gamesLength, categoriesList, categoriesLength)
+                   && categories_isCategory(categoriesList[categoryIndex1], categoriesList, categoriesLength)
+                   && categories_isCategory(categoriesList[categoryIndex2], categoriesList, categoriesLength)
+                   && rents_isRental(rentsList[i], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength)
+                   && rents_isRental(rentsList[j], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength))
                 {
                     if((structs_dateCompare(rentsList[i].date, rentsList[j].date) > 0 && order == ASC)
                         || (structs_dateCompare(rentsList[i].date, rentsList[j].date) < 0 && order == DESC))
@@ -518,10 +548,10 @@ int rents_cloneList(sRental rentsDestination[], sRental rentsOrigin[], int rents
             categoryIndex = categories_getIndexById(categoriesList, categoriesLength, gamesList[gameIndex].categoryId);
 
             if(customerIndex != -1 && gameIndex != -1 && categoryIndex != -1
-               && customers_isCustomer(customersList[customerIndex])
-               && games_isGame(gamesList[gameIndex], categoriesList[categoryIndex])
-               && categories_isCategory(categoriesList[categoryIndex])
-               && rents_isRental(rentsOrigin[i], customersList[customerIndex], gamesList[gameIndex], categoriesList[categoryIndex]))
+               && customers_isCustomer(customersList[customerIndex], customersList, customersLength)
+               && games_isGame(gamesList[gameIndex], gamesList, gamesLength, categoriesList, categoriesLength)
+               && categories_isCategory(categoriesList[categoryIndex], categoriesList, categoriesLength)
+               && rents_isRental(rentsOrigin[i], rentsOrigin, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength))
             {
                 rentsDestination[i] = rentsOrigin[i];
 
@@ -541,14 +571,14 @@ int rents_cloneList(sRental rentsDestination[], sRental rentsOrigin[], int rents
     return returnValue;
 }
 
-int rents_filterListByCustomer(sRental rentsList[], int rentsLength, sCustomer customer)
+int rents_filterListByCustomer(sCustomer customer, sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength)
 {
     int returnValue = -1;
     int i;
 
     if(rentsList != NULL
        && rentsLength > 0 && rentsLength <= RENTS_MAX
-       && customers_isCustomer(customer))
+       && customers_isCustomer(customer, customersList, customersLength))
     {
         for(i = 0; i < rentsLength; i++)
         {
@@ -590,7 +620,7 @@ float rents_getTotalPrices(sRental rentsList[], int rentsLength, sCustomer custo
             categoryIndex = categories_getIndexById(categoriesList, categoriesLength, gamesList[gameIndex].categoryId);
 
             if(customerIndex != -1 && gameIndex != -1 && categoryIndex != -1
-               && rents_isRental(rentsList[i], customersList[customerIndex], gamesList[gameIndex], categoriesList[categoryIndex]))
+               && rents_isRental(rentsList[i], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength))
             {
                 priceAccumulator += gamesList[gameIndex].price;
             }
@@ -653,7 +683,7 @@ int rents_getGamesWithoutRents(sRental rentsList[], int rentsLength, sGame games
     return returnValue;
 }
 
-void rents_print(sRental rental, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
+void rents_print(sRental rental, sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
 {
     int customerIndex;
     int gameIndex;
@@ -669,13 +699,13 @@ void rents_print(sRental rental, sCustomer customersList[], int customersLength,
         categoryIndex = categories_getIndexById(categoriesList, categoriesLength, gamesList[gameIndex].categoryId);
 
         if(customerIndex != -1 && gameIndex != -1 && categoryIndex != -1
-           && rents_isRental(rental, customersList[customerIndex], gamesList[gameIndex], categoriesList[categoryIndex]))
+           && rents_isRental(rental, rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength))
         {
             printf("+=======+============+==================+==================+===========+==================+==================+\n");
             printf("|   ID  |    FECHA   |       JUEGO      |     CATEGORIA    |   PRECIO  |  NOMBRE CLIENTE  | APELLIDO CLIENTE |\n");
             printf("+=======+============+==================+==================+===========+==================+==================+\n");
 
-            if(printRental(rental, customersList[customerIndex], gamesList[gameIndex], categoriesList[categoryIndex]) == 0)
+            if(printRental(rental, rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength) == 0)
             {
                 printf("Alquiler vacio.\n");
             }
@@ -706,7 +736,7 @@ int rents_printList(sRental rentsList[], int rentsLength, sCustomer customersLis
             categoryIndex = categories_getIndexById(categoriesList, categoriesLength, gamesList[gameIndex].categoryId);
 
             if(customerIndex != -1 && gameIndex != -1 && categoryIndex != -1
-               && rents_isRental(rentsList[i], customersList[customerIndex], gamesList[gameIndex], categoriesList[categoryIndex]))
+               && rents_isRental(rentsList[i], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength))
             {
                 itemsCounter++;
 
@@ -717,7 +747,7 @@ int rents_printList(sRental rentsList[], int rentsLength, sCustomer customersLis
                     printf("+=======+============+==================+==================+===========+==================+==================+\n");
                 }
 
-                if(printRental(rentsList[i], customersList[customerIndex], gamesList[gameIndex], categoriesList[categoryIndex]) == 1)
+                if(printRental(rentsList[i], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength) == 1)
                 {
                     flag = 1;
                 }
@@ -758,20 +788,27 @@ static int getNewId(void)
     return rentalId;
 }
 
-static int printRental(sRental rental, sCustomer customer, sGame game, sCategory category)
+static int printRental(sRental rental, sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
 {
     int counter = 0;
+    int customerIndex;
+    int gameIndex;
+    int categoryIndex;
 
-    if(rents_isRental(rental, customer, game, category))
+    if(rents_isRental(rental, rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength))
     {
+        customerIndex = customers_getIndexById(customersList, customersLength,rental.customerId);
+        gameIndex = games_getIndexById(gamesList, gamesLength, rental.gameId);
+        categoryIndex = categories_getIndexById(categoriesList, categoriesLength, gamesList[gameIndex].categoryId);
+
         printf("| %5d | %02d/%02d/%4d | %16s | %16s | %9.2f | %16s | %16s |\n",
                rental.id,
                rental.date.day, rental.date.month, rental.date.year,
-               arrays_stringToCamelCase(game.description, GAME_NAME_MAX),
-               arrays_stringToCamelCase(category.description, CATEGORIES_MAX),
-               game.price,
-               arrays_stringToCamelCase(customer.name, CUSTOMER_NAME_MAX),
-               arrays_stringToCamelCase(customer.lastName, CUSTOMER_NAME_MAX));
+               arrays_stringToCamelCase(gamesList[gameIndex].description, GAME_NAME_MAX),
+               arrays_stringToCamelCase(categoriesList[categoryIndex].description, CATEGORIES_MAX),
+               gamesList[gameIndex].price,
+               arrays_stringToCamelCase(customersList[customerIndex].name, CUSTOMER_NAME_MAX),
+               arrays_stringToCamelCase(customersList[customerIndex].lastName, CUSTOMER_NAME_MAX));
         counter = 1;
     }
 
@@ -791,7 +828,7 @@ static int customerWithRents(sRental rentsList[], int rentsLength, sCustomer cus
         customerIndex = customers_getIndexById(customersList, customersLength, customerId);
 
         if(customerIndex != -1
-           && customers_isCustomer(customersList[customerIndex]))
+           && customers_isCustomer(customersList[customerIndex], customersList, customersLength))
         {
             for(i = 0; i < rentsLength; i++)
             {
@@ -824,7 +861,7 @@ static int gameWithRents(sRental rentsList[], int rentsLength, sGame gamesList[]
         categoryIndex = categories_getIndexById(categoriesList, categoriesLength, gamesList[gameIndex].categoryId);
 
         if(gameIndex != -1 && categoryIndex != -1
-           && games_isGame(gamesList[gameIndex], categoriesList[categoryIndex]))
+           && games_isGame(gamesList[gameIndex], gamesList, gamesLength, categoriesList, categoriesLength))
         {
             for(i = 0; i < rentsLength; i++)
             {

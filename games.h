@@ -30,13 +30,16 @@ typedef struct
 /** \brief Funcion que determina si la estructura es un Juego.
  *
  * \param game sGame Estructura de Juego a evaluar.
- * \param category sCategory Estructura de Categoria a evaluar.
+ * \param gamesList[] sGame Arreglo de estructuras de Juegos.
+ * \param gamesLength int Longitud del arreglo de Juegos.
+ * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
+ * \param categoriesLength int Longitud del arreglo de Categorias.
  * \return int
  *          [0] Si no es un Juego.
  *          [1] Si es un Juego.
  *
  */
-int games_isGame(sGame game, sCategory category);
+int games_isGame(sGame game, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
 
 /** \brief Funcion que compara dos estructuras de Juegos.
  *
@@ -205,12 +208,14 @@ int games_filterListByCategory(sGame gamesList[], int gamesLength, sCategory cat
 /** \brief Impresion con formato tabla de una estructura.
  *
  * \param game sGame Estructura de Juego.
+ * \param gamesList[] sGame Arreglo de estructuras de Juegos.
+ * \param gamesLength int Longitud del arreglo de Juegos.
  * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
  * \param categoriesLength int Longitud del arreglo de Categorias.
  * \return void No retorna valores.
  *
  */
-void games_print(sGame game, sCategory categoriesList[], int categoriesLength);
+void games_print(sGame game, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
 
 /** \brief Impresion con formato tabla de un arreglo de estructuras.
  *

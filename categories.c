@@ -19,22 +19,37 @@ static int getNewId(void);
 /** \brief Imprime en pantalla los valores de la estructura.
  *
  * \param category sCategory Estructura a imprimir.
+ * \param categoriesList[] sCategory Arreglo de estructuras.
+ * \param categoriesLength int Longitud del arreglo.
  * \return int
  *          [0] Si la estructura esta vacia.
  *          [1] Si la estructura esta llena y pudo imprimirse.
  *
  */
-static int printCategory(sCategory category);
+static int printCategory(sCategory category, sCategory categoriesList[], int categoriesLength);
 
-int categories_isCategory(sCategory category)
+int categories_isCategory(sCategory category, sCategory categoriesList[], int categoriesLength)
 {
     int returnValue = 0;
+    int i;
 
     if(category.id != -1
+       && !category.isEmpty
        && category.description != NULL
-       && !category.isEmpty)
+       && categoriesList != NULL
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
     {
-        returnValue = 1;
+        for(i = 0; i < categoriesLength; i++)
+        {
+            if(!categoriesList[i].isEmpty
+               && categoriesList[i].id == category.id
+               && strcmp(arrays_stringToCamelCase(categoriesList[i].description, CATEGORY_NAME_MAX),
+                         arrays_stringToCamelCase(category.description, CATEGORY_NAME_MAX)) == 0)
+            {
+                returnValue = 1;
+                break;
+            }
+        }
     }
 
     return returnValue;
@@ -316,7 +331,7 @@ int categories_delete(sCategory categoriesList[], int categoriesLength)
             {
                 inputs_clearScreen();
                 printf("ATENCION! ESTA A PUNTO DE DAR DE BAJA A LA SIGUIENTE CATEGORIA:\n");
-                categories_print(categoriesList[index]);
+                categories_print(categoriesList[index], categoriesList, categoriesLength);
 
                 if(inputs_userResponse("ESTA DE ACUERDO? [S] [N]: "))
                 {
@@ -342,8 +357,8 @@ int categories_sort(sCategory categoriesList[], int categoriesLength, int order)
         {
             for(int j = i+1; j < categoriesLength; j++)
             {
-                if(categories_isCategory(categoriesList[i])
-                   && categories_isCategory(categoriesList[j]))
+                if(categories_isCategory(categoriesList[i], categoriesList, categoriesLength)
+                   && categories_isCategory(categoriesList[j], categoriesList, categoriesLength))
                 {
                     if((strcmp(arrays_stringToCamelCase(categoriesList[i].description, CATEGORY_NAME_MAX),
                                arrays_stringToCamelCase(categoriesList[j].description, CATEGORY_NAME_MAX)) > 0
@@ -368,14 +383,14 @@ int categories_sort(sCategory categoriesList[], int categoriesLength, int order)
     return returnValue;
 }
 
-void categories_print(sCategory category)
+void categories_print(sCategory category, sCategory categoriesList[], int categoriesLength)
 {
-    if(categories_isCategory(category))
+    if(categories_isCategory(category, categoriesList, categoriesLength))
     {
         printf("+=======+======================+\n");
         printf("|   ID  |      DESCRIPCION     |\n");
         printf("+=======+======================+\n");
-        if(printCategory(category) == 0)
+        if(printCategory(category, categoriesList, categoriesLength) == 0)
         {
             printf("Categoria vacia.\n");
         }
@@ -393,7 +408,7 @@ int categories_printList(sCategory categoriesList[], int categoriesLength)
     {
         for (int i = 0; i < categoriesLength; i++)
         {
-            if(categories_isCategory(categoriesList[i]))
+            if(categories_isCategory(categoriesList[i], categoriesList, categoriesLength))
             {
                 itemsCounter++;
 
@@ -404,7 +419,7 @@ int categories_printList(sCategory categoriesList[], int categoriesLength)
                     printf("+=======+======================+\n");
                 }
 
-                if(printCategory(categoriesList[i]) == 1)
+                if(printCategory(categoriesList[i], categoriesList, categoriesLength) == 1)
                 {
                     flag = 1;
                 }
@@ -443,11 +458,11 @@ static int getNewId()
     return categoryId;
 }
 
-static int printCategory(sCategory category)
+static int printCategory(sCategory category, sCategory categoriesList[], int categoriesLength)
 {
     int counter = 0;
 
-    if(categories_isCategory(category))
+    if(categories_isCategory(category, categoriesList, categoriesLength))
     {
         printf("| %5d | %20s |\n", category.id, arrays_stringToCamelCase(category.description, CATEGORY_NAME_MAX));
         counter = 1;

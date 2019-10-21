@@ -345,7 +345,7 @@ int main()
                                 indexCustomerFiltered = customers_getIndexById(customers, CUSTOMERS_MAX, idCustomerFiltered);
 
                                 if(indexCustomerFiltered != -1
-                                   && rents_filterListByCustomer(filteredRents, RENTS_MAX, customers[indexCustomerFiltered]) == 0)
+                                   && rents_filterListByCustomer(customers[indexCustomerFiltered], filteredRents, RENTS_MAX, customers, CUSTOMERS_MAX) == 0)
                                 {
                                     quantity = rents_printList(filteredRents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX);
 

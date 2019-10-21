@@ -25,12 +25,14 @@ typedef struct
 /** \brief Funcion que determina si la estructura es una Categoria.
  *
  * \param category sCategory Estructura a evaluar.
+ * \param categoriesList[] sCategory Arreglo de estructuras.
+ * \param categoriesLength int Longitud del arreglo.
  * \return int
  *          [0] Si no es una Categoria.
  *          [1] Si es una Categoria.
  *
  */
-int categories_isCategory(sCategory category);
+int categories_isCategory(sCategory category, sCategory categoriesList[], int categoriesLength);
 
 /** \brief Funcion que compara dos estructuras de Categorias.
  *
@@ -173,10 +175,12 @@ int categories_sort(sCategory categoriesList[], int categoriesLength, int order)
 /** \brief Impresion con formato tabla de una estructura.
  *
  * \param category sCategory Estructura a imprimir.
+ * \param categoriesList[] sCategory Arreglo de estructuras.
+ * \param categoriesLength int Longitud del arreglo.
  * \return void No retorna valores.
  *
  */
-void categories_print(sCategory category);
+void categories_print(sCategory category, sCategory categoriesList[], int categoriesLength);
 
 /** \brief Impresion con formato tabla de un arreglo de estructuras.
  *

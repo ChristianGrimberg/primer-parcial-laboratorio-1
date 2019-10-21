@@ -28,15 +28,20 @@ typedef struct
 /** \brief Funcion que determina si la estructura es un Alquiler.
  *
  * \param rental sRental Estructura de Alquiler a evaluar.
- * \param customer sCustomer Estructura de Cliente a evaluar.
- * \param game sGame Estructura de Juego a evaluar.
- * \param category sCategory Estructura de Categoria a evaluar.
+ * \param rentsList[] sRental Arreglo de estructuras de Alquileres.
+ * \param rentsLength int Longitud del arreglo de Alquileres.
+ * \param customersList[] sCustomer Arreglo de estructuras de Clientes.
+ * \param customersLength int Longitud del arreglo de Clientes.
+ * \param gamesList[] sGame Arreglo de estructuras de Juegos.
+ * \param gamesLength int Longitud del arreglo de Juegos.
+ * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
+ * \param categoriesLength int Longitud del arreglo de Categorias.
  * \return int
  *          [0] Si no es un Alquiler.
  *          [1] Si es un Alquiler.
  *
  */
-int rents_isRental(sRental rental, sCustomer customer, sGame game, sCategory category);
+int rents_isRental(sRental rental, sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
 
 /** \brief Funcion que compara dos estructuras de Juegos.
  *
@@ -214,15 +219,17 @@ int rents_cloneList(sRental rentsDestination[], sRental rentsOrigin[], int rents
 
 /** \brief Filtrado de Alquileres por Cliente.
  *
+ * \param customer sCustomer Cliente a filtrar.
  * \param rentsList[] sRental Arreglo de estructuras de Alquileres.
  * \param rentsLength int Longitud del arreglo de Alquileres.
- * \param customer sCustomer Cliente a filtrar.
+ * \param customersList[] sCustomer Arreglo de estructuras de Clientes.
+ * \param customersLength int Longitud del arreglo de Clientes.
  * \return int
  *          [-1] Si hubo un error al filtrar.
  *          [0] Si el arreglo fue recorrido con exito.
  *
  */
-int rents_filterListByCustomer(sRental rentsList[], int rentsLength, sCustomer customer);
+int rents_filterListByCustomer(sCustomer customer, sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength);
 
 /** \brief Funcion que totaliza los costos de un arreglo de Alquileres.
  *
@@ -270,6 +277,8 @@ int rents_getGamesWithoutRents(sRental rentsList[], int rentsLength, sGame games
 /** \brief Impresion con formato tabla de una estructura.
  *
  * \param rental sRental Estructura de Alquiler.
+ * \param rentsList[] sRental Arreglo de estructuras de Alquileres.
+ * \param rentsLength int Longitud del arreglo de Alquileres.
  * \param customersList[] sCustomer Arreglo de estructuras de Clientes.
  * \param customersLength int Longitud del arreglo de Clientes.
  * \param gamesList[] sGame Arreglo de estructuras de Juegos.
@@ -279,7 +288,7 @@ int rents_getGamesWithoutRents(sRental rentsList[], int rentsLength, sGame games
  * \return void No retorna valores.
  *
  */
-void rents_print(sRental rental, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
+void rents_print(sRental rental, sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
 
 /** \brief Impresion con formato tabla de un arreglo de estructuras.
  *
