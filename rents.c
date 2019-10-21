@@ -427,7 +427,7 @@ int rents_delete(sRental rentsList[], int rentsLength, sCustomer customersList[]
        && gamesLength >0 && gamesLength <= GAMES_MAX
        && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
     {
-        id = rents_userSelection("Ingrese el ID del Alquiler a dar de baja: ", ERROR_MESSAGE, rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength);
+        id = rents_userSelection("Ingrese el ID del Alquiler a devolver: ", ERROR_MESSAGE, rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength);
 
         if(id != -1)
         {
@@ -436,7 +436,7 @@ int rents_delete(sRental rentsList[], int rentsLength, sCustomer customersList[]
             if(index != -1)
             {
                 inputs_clearScreen();
-                printf("ATENCION! ESTA A PUNTO DE DAR DE BAJA EL SIGUIENTE ALQUILER:\n");
+                printf("Se esta devolviendo el siguiente Alquiler:\n");
                 rents_print(rentsList[index], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength);
 
                 if(inputs_userResponse("ESTA DE ACUERDO? [S] [N]: "))

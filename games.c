@@ -267,7 +267,7 @@ int games_add(sGame gamesList[], int gamesLength, sCategory categoriesList[], in
         if(indexGameAux != -1
            && !inputs_getString(descriptionAux, "Ingrese la descripcion del Juego: ", ERROR_MESSAGE, 1, GAME_NAME_MAX)
            && !inputs_getFloat(&priceAux, "Ingrese el precio: ", ERROR_MESSAGE, 0, GAMES_PRICE_MAX)
-           && !inputs_getInt(&stockAux, "Ingrese el stock mayor a cero: ", ERROR_MESSAGE, 1, GAMES_STOCK_MAX))
+           && !inputs_getInt(&stockAux, "Ingrese el stock [1-500]: ", ERROR_MESSAGE, 1, GAMES_STOCK_MAX))
         {
             idCategoryAux = categories_userSelection("Seleccione un Categoria: ", ERROR_MESSAGE, categoriesList, categoriesLength);
 
@@ -295,6 +295,7 @@ int games_modify(sGame gamesList[], int gamesLength, sCategory categoriesList[],
     int option;
     int categoryIdAux;
     float priceAux;
+    int stockAux;
     char descriptionAux[CATEGORY_NAME_MAX];
 
     if(gamesList != NULL && categoriesList != NULL
@@ -326,36 +327,44 @@ int games_modify(sGame gamesList[], int gamesLength, sCategory categoriesList[],
                 {
                     switch(option)
                     {
-                        case 1:
-                            if(!inputs_getString(descriptionAux, "Ingrese una nueva descripcion: ", ERROR_MESSAGE, 1, GAME_NAME_MAX))
-                            {
-                                strcpy(gamesList[index].description, descriptionAux);
-                                printf("Descripcion modificada con exito.\n");
-                                returnValue = 0;
-                            }
-                            break;
-                        case 2:
-                            if(!inputs_getFloat(&priceAux, "Ingrese el nuevo precio: ", ERROR_MESSAGE, 0, GAMES_PRICE_MAX))
-                            {
-                                gamesList[index].price = priceAux;
-                                printf("Precio modificado con exito.\n");
-                                returnValue = 0;
-                            }
-                            break;
-                        case 3:
-                            categoryIdAux = categories_userSelection("Elija una nueva Categoria: ", ERROR_MESSAGE, categoriesList, categoriesLength);
-
-                            if(categoryIdAux != -1)
-                            {
-                                gamesList[index].categoryId = categoryIdAux;
-                                printf("Categoria modificada con exito.\n");
-                                returnValue = 0;
-                            }
-                            break;
-                        case 4:
-                            printf("Operacion cancelada.\n");
+                    case 1: /**< Modificar la Descripcion. >*/
+                        if(!inputs_getString(descriptionAux, "Ingrese una nueva descripcion: ", ERROR_MESSAGE, 1, GAME_NAME_MAX))
+                        {
+                            strcpy(gamesList[index].description, descriptionAux);
+                            printf("Descripcion modificada con exito.\n");
                             returnValue = 0;
-                            break;
+                        }
+                        break;
+                    case 2: /**< Modificar el Precio. >*/
+                        if(!inputs_getFloat(&priceAux, "Ingrese el nuevo precio: ", ERROR_MESSAGE, 0, GAMES_PRICE_MAX))
+                        {
+                            gamesList[index].price = priceAux;
+                            printf("Precio modificado con exito.\n");
+                            returnValue = 0;
+                        }
+                        break;
+                    case 3: /**< Modificar el Stock. >*/
+                        if(!inputs_getInt(&stockAux, "Ingrese el nuevo stock [1-500]: ", ERROR_MESSAGE, 1, GAMES_STOCK_MAX))
+                        {
+                            gamesList[index].stock = stockAux;
+                            printf("Stock modificado con exito.\n");
+                            returnValue = 0;
+                        }
+                        break;
+                    case 4: /**< Modificar la Categoria. >*/
+                        categoryIdAux = categories_userSelection("Elija una nueva Categoria: ", ERROR_MESSAGE, categoriesList, categoriesLength);
+
+                        if(categoryIdAux != -1)
+                        {
+                            gamesList[index].categoryId = categoryIdAux;
+                            printf("Categoria modificada con exito.\n");
+                            returnValue = 0;
+                        }
+                        break;
+                    case 5: /**< Volver al menu principal. >*/
+                        printf("Operacion cancelada.\n");
+                        returnValue = 0;
+                        break;
                     }
                 }
             }
@@ -505,15 +514,16 @@ void games_print(sGame game, sGame gamesList[], int gamesLength, sCategory categ
     if(games_isGame(game, gamesList, gamesLength, categoriesList, categoriesLength)
        && categories_isCategory(categoriesList[categoryIndex], categoriesList, categoriesLength))
     {
-        printf("+=======+======================+===========+=======+======================+\n");
-        printf("|   ID  |      DESCRIPCION     |   PRECIO  | STOCK |       CATEGORIA      |\n");
-        printf("+=======+======================+===========+=======+======================+\n");
+        printf("+=======+======================+===========+======================+=======+\n");
+        printf("|   ID  |      DESCRIPCION     |   PRECIO  |       CATEGORIA      | STOCK |\n");
+        printf("+=======+======================+===========+======================+=======+\n");
 
         if(printGame(game, gamesList, gamesLength, categoriesList, categoriesLength) == 0)
         {
             printf("Juego vacio.\n");
         }
-        printf("+-------+----------------------+-----------+-------+----------------------+\n");
+
+        printf("+-------+----------------------+-----------+----------------------+-------+\n");
     }
 }
 
@@ -534,9 +544,9 @@ int games_printList(sGame gamesList[], int gamesLength, sCategory categoriesList
 
                 if(itemsCounter == 1)
                 {
-                    printf("+=======+======================+===========+=======+======================+\n");
-                    printf("|   ID  |      DESCRIPCION     |   PRECIO  | STOCK |       CATEGORIA      |\n");
-                    printf("+=======+======================+===========+=======+======================+\n");
+                    printf("+=======+======================+===========+======================+=======+\n");
+                    printf("|   ID  |      DESCRIPCION     |   PRECIO  |       CATEGORIA      | STOCK |\n");
+                    printf("+=======+======================+===========+======================+=======+\n");
                 }
 
                 if(printGame(gamesList[i], gamesList, gamesLength, categoriesList, categoriesLength) == 1)
@@ -553,7 +563,7 @@ int games_printList(sGame gamesList[], int gamesLength, sCategory categoriesList
 
         if(flag == 1)
         {
-            printf("+-------+----------------------+-----------+-------+----------------------+\n");
+            printf("+-------+----------------------+-----------+----------------------+-------+\n");
         }
     }
 
@@ -590,10 +600,11 @@ static int printGame(sGame game, sGame gamesList[], int gamesLength, sCategory c
 
     if(games_isGame(game, gamesList, gamesLength, categoriesList, categoriesLength))
     {
-        printf("| %5d | %20s | %9.2f | %5d | %20s |\n",
+        printf("| %5d | %20s | %9.2f | %20s | %5d |\n",
                game.id, arrays_stringToCamelCase(game.description, GAME_NAME_MAX),
-               game.price, game.stock,
-               arrays_stringToCamelCase(categoriesList[categoryIndex].description, CATEGORY_NAME_MAX));
+               game.price,
+               arrays_stringToCamelCase(categoriesList[categoryIndex].description, CATEGORY_NAME_MAX),
+               game.stock);
         counter = 1;
     }
 

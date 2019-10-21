@@ -413,11 +413,11 @@ int main()
 
                         if(quantity > 0)
                         {
-                            printf("Se encontraron %d Juegos.\n", quantity);
+                            printf("Se encontraron %d Juegos del Clientes del genero seleccionado.\n", quantity);
                         }
                         else
                         {
-                            printf("No hay ningun juego alquilado.\n");
+                            printf("No hay ningun juego alquilado por el genero indicado.\n");
                         }
                         break;
                     }

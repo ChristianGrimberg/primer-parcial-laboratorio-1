@@ -305,6 +305,19 @@ void rents_print(sRental rental, sRental rentsList[], int rentsLength, sCustomer
  */
 int rents_printList(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
 
+/** \brief Impresion con formato tabla de un arreglo de estructuras filtrado por el usuario.
+ *
+ * \param rentsList[] sRental Arreglo de estructuras de Alquileres.
+ * \param rentsLength int Longitud del arreglo de Alquileres.
+ * \param customersList[] sCustomer Arreglo de estructuras de Clientes.
+ * \param customersLength int Longitud del arreglo de Clientes.
+ * \param gamesList[] sGame Arreglo de estructuras de Juegos.
+ * \param gamesLength int Longitud del arreglo de Juegos.
+ * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
+ * \param categoriesLength int Longitud del arreglo de Categorias.
+ * \return int Cantidad de estructuras impresas.
+ *
+ */
 int rents_printListBySex(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
 
 #endif // RENTS_H_INCLUDED

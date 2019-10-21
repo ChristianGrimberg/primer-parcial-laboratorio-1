@@ -109,11 +109,11 @@ int menu_rents(int* option)
     printf(" +=======================================================+\n");
     printf(" |                 ALQUILER DE JUEGOS                    |\n");
     printf(" +=======================================================+\n");
-    printf(" | [1] Alquiler de Juego                                 |\n");
-    printf(" | [2] Anulacion de Alquiler                             |\n");
-    printf(" | [3] Modificacion de Alquiler                          |\n");
-    printf(" | [4] Alquileres efectuados en orden Ascendente         |\n");
-    printf(" | [5] Alquileres efectuados en orden Descendente        |\n");
+    printf(" | [1] Alquiler de un Juego                              |\n");
+    printf(" | [2] Devolucion de un Alquiler                         |\n");
+    printf(" | [3] Modificacion de un Alquiler                       |\n");
+    printf(" | [4] Alquileres actuales en orden Ascendente           |\n");
+    printf(" | [5] Alquileres actuales en orden Descendente          |\n");
     printf(" | [6] Volver al menu principal                          |\n");
     printf(" +-------------------------------------------------------+\n\n");
 
