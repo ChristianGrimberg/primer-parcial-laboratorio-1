@@ -179,13 +179,13 @@ void rents_hardcode(sRental rentsList[], int rentsLength)
     int indexHardcodeMax = 6;
 
     sRental rentsAux[] = {
-        {getNewId(), 201, 301, {1, 1, 2019}, 0},
-        {getNewId(), 205, 303, {12, 10, 2019},0},
+        {getNewId(), 201, 301, {1, 1, 2012}, 0},
+        {getNewId(), 205, 303, {12, 10, 2010},0},
         {getNewId(), 202, 305, {21, 5, 2019}, 0},
-        {getNewId(), 203, 302, {5, 3, 2019}, 0},
-        {getNewId(), 204, 304, {8, 9, 2019}, 0},
-        {getNewId(), 209, 305, {15, 6, 2019}, 0},
-        {getNewId(), 206, 305, {12, 3, 2019}, 0}
+        {getNewId(), 203, 302, {5, 3, 2014}, 0},
+        {getNewId(), 204, 304, {8, 9, 2016}, 0},
+        {getNewId(), 209, 305, {15, 6, 2017}, 0},
+        {getNewId(), 206, 305, {12, 3, 2016}, 0}
     };
 
     if(rentsList != NULL
@@ -997,6 +997,62 @@ int rents_printListOfTotalPricesByGame(sRental rentsList[], int rentsLength, sCu
         {
             printf("+-------+------------+------------------+------------------+-----------+------------------+------------------+\n");
             printf("El total de precios por el Juego %s es: $ %.2f\n", gamesList[gameIndex].description, totalPrices);
+        }
+    }
+
+    return itemsCounter;
+}
+
+int rents_printListGamesAfter2015(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
+{
+    int itemsCounter = 0;
+    int flag = 0;
+    int customerIndex;
+    int gameIndex;
+    int categoryIndex;
+    sDate dateAux = {1, 1, 2015};
+
+    if(rentsList != NULL && customersList != NULL
+       && gamesList != NULL && categoriesList != NULL
+       && rentsLength > 0 && rentsLength <= RENTS_MAX
+       && customersLength > 0 && customersLength <= CUSTOMERS_MAX
+       && gamesLength >0 && gamesLength <= GAMES_MAX
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
+    {
+        for (int i = 0; i < rentsLength; i++)
+        {
+            customerIndex = customers_getIndexById(customersList, customersLength, rentsList[i].customerId);
+            gameIndex = games_getIndexById(gamesList, gamesLength, rentsList[i].gameId);
+            categoryIndex = categories_getIndexById(categoriesList, categoriesLength, gamesList[gameIndex].categoryId);
+
+            if(customerIndex != -1 && gameIndex != -1 && categoryIndex != -1
+               && rents_isRental(rentsList[i], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength)
+               && structs_dateCompare(rentsList[i].date, dateAux) >= 0)
+            {
+                itemsCounter++;
+
+                if(itemsCounter == 1)
+                {
+                    printf("+=======+============+==================+==================+===========+==================+==================+\n");
+                    printf("|   ID  |    FECHA   |       JUEGO      |     CATEGORIA    |   PRECIO  |  NOMBRE CLIENTE  | APELLIDO CLIENTE |\n");
+                    printf("+=======+============+==================+==================+===========+==================+==================+\n");
+                }
+
+                if(printRental(rentsList[i], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength) == 1)
+                {
+                    flag = 1;
+                }
+                else
+                {
+                    flag = 0;
+                    break;
+                }
+            }
+        }
+
+        if(flag == 1)
+        {
+            printf("+-------+------------+------------------+------------------+-----------+------------------+------------------+\n");
         }
     }
 

@@ -142,6 +142,7 @@ int menu_reports(int* option)
     printf(" | [6] Alquileres por sexo                               |\n");
     printf(" | [7] Promedio por encima de Alquileres por Categoria   |\n");
     printf(" | [8] Costo total de Juegos Alquilados                  |\n");
+    printf(" | [9] Juegos Alquilados a partir de 2015                |\n");
     printf(" |[11] Volver al menu principal                          |\n");
     printf(" +-------------------------------------------------------+\n\n");
 
