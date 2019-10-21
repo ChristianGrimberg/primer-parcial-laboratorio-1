@@ -40,7 +40,7 @@ int games_isGame(sGame game, sGame gamesList[], int gamesLength, sCategory categ
        && !game.isEmpty
        && game.description != NULL
        && game.price >= 0
-       && game.stock > 0
+       && game.stock >= 0
        && gamesList != NULL && categoriesList != NULL
        && gamesLength >0 && gamesLength <= GAMES_MAX
        && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
@@ -145,7 +145,7 @@ void games_hardcode(sGame gamesList[], int gamesLength)
         {getNewId(), "monopoly", 300.0, 5, 101, 0},
         {getNewId(), "quien es quien", 150.0, 3, 101, 0},
         {getNewId(), "age of empires", 990.0, 8, 103, 0},
-        {getNewId(), "truco", 12.50, 10, 104, 0},
+        {getNewId(), "truco", 12.50, GAMES_STOCK_MAX, 104, 0},
         {getNewId(), "cartas de magia", 65.0, 15, 105, 0},
         {getNewId(), "ruleta", 1200.0, 1, 102, 0},
         {getNewId(), "bingo", 96.30, 2, 102, 0},
@@ -428,8 +428,15 @@ int games_addStock(sGame game, sGame gamesList[], int gamesLength, sCategory cat
 
         if(gameIndex != -1 && !gamesList[gameIndex].isEmpty)
         {
-            gamesList[gameIndex].stock++;
-            returnValue = 0;
+            if(gamesList[gameIndex].stock >= GAMES_STOCK_MAX)
+            {
+                printf("Ya no se puede agregar stock del Juego porque esta al limite.\n");
+            }
+            else
+            {
+                gamesList[gameIndex].stock--;
+                returnValue = 0;
+            }
         }
     }
 
@@ -455,8 +462,15 @@ int games_subtractStock(sGame game, sGame gamesList[], int gamesLength, sCategor
 
         if(gameIndex != -1 && !gamesList[gameIndex].isEmpty)
         {
-            gamesList[gameIndex].stock--;
-            returnValue = 0;
+            if(gamesList[gameIndex].stock <= 0)
+            {
+                printf("Ya no se puede quitar Stock del Juego porque se encuentra en cero.\n");
+            }
+            else
+            {
+                gamesList[gameIndex].stock--;
+                returnValue = 0;
+            }
         }
     }
 
