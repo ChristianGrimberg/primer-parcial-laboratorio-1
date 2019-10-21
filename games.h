@@ -7,6 +7,7 @@
 #define ID_INIT_GAME 200 /**< Numeracion inicial de un Juego. >*/
 #define GAMES_MAX 99 /**< Cantidad maxima de Juegos en un arreglo. >*/
 #define GAMES_PRICE_MAX 10000000 /** Precio maximo de un Juego. >*/
+#define GAMES_STOCK_MAX 500 /**< Stock maximo de Juegos. >*/
 
 /*! \struct sGame
  * \brief Tipo de dato de un Juego.
@@ -14,6 +15,7 @@
  * \field id int Campo ID de la estructura.
  * \field description[] char Descripcion de la estructura.
  * \field price float Importe de la estructura.
+ * \field stock int Stock del Juego.
  * \field categoryId int Clave foranea del ID de Categoria.
  * \field isEmpty int Indicador de posicion llena o vacia..
  *
@@ -23,6 +25,7 @@ typedef struct
     int id; /**< Campo ID de la estructura. >*/
     char description[GAME_NAME_MAX]; /**< Descripcion de la estructura. >*/
     float price; /**< Importe de la estructura. >*/
+    int stock; /**< Stock del Juego. >*/
     int categoryId; /**< Clave foranea del ID de Categoria. >*/
     int isEmpty; /**< Indicador de posicion llena o vacia. >*/
 } sGame;

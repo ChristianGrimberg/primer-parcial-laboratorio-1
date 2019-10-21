@@ -408,6 +408,18 @@ int main()
                             }
                         }
                         break;
+                    case 6:
+                        quantity = rents_printListBySex(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX);
+
+                        if(quantity > 0)
+                        {
+                            printf("Se encontraron %d Juegos.\n", quantity);
+                        }
+                        else
+                        {
+                            printf("No hay ningun juego alquilado.\n");
+                        }
+                        break;
                     }
                     inputs_pauseScreen(CONTINUE_MESSAGE);
                 }while(lifeCycle == 0);

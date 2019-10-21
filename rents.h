@@ -305,4 +305,6 @@ void rents_print(sRental rental, sRental rentsList[], int rentsLength, sCustomer
  */
 int rents_printList(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
 
+int rents_printListBySex(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
+
 #endif // RENTS_H_INCLUDED

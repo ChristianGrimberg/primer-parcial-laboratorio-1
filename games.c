@@ -39,6 +39,8 @@ int games_isGame(sGame game, sGame gamesList[], int gamesLength, sCategory categ
     if(game.id != -1
        && !game.isEmpty
        && game.description != NULL
+       && game.price >= 0
+       && game.stock > 0
        && gamesList != NULL && categoriesList != NULL
        && gamesLength >0 && gamesLength <= GAMES_MAX
        && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
@@ -54,7 +56,8 @@ int games_isGame(sGame game, sGame gamesList[], int gamesLength, sCategory categ
                && gamesList[i].categoryId == game.categoryId
                && strcmp(arrays_stringToCamelCase(gamesList[i].description, CATEGORY_NAME_MAX),
                          arrays_stringToCamelCase(game.description, CATEGORY_NAME_MAX)) == 0
-               && gamesList[i].price == game.price)
+               && gamesList[i].price == game.price
+               && gamesList[i].stock == game.stock)
             {
                 returnValue = 1;
                 break;
@@ -139,16 +142,16 @@ void games_hardcode(sGame gamesList[], int gamesLength)
     int indexHardcodeMax = 9;
 
     sGame gamesAux[] = {
-        {getNewId(), "monopoly", 300.0, 101, 0},
-        {getNewId(), "quien es quien", 150.0, 101, 0},
-        {getNewId(), "age of empires", 990.0, 103, 0},
-        {getNewId(), "truco", 12.50, 104, 0},
-        {getNewId(), "cartas de magia", 65.0, 105, 0},
-        {getNewId(), "ruleta", 1200.0, 102, 0},
-        {getNewId(), "bingo", 96.30, 102, 0},
-        {getNewId(), "uno", 16.0, 104, 0},
-        {getNewId(), "poker", 53.75, 104, 0},
-        {getNewId(), "set de magia", 1800.0, 105, 0},
+        {getNewId(), "monopoly", 300.0, 5, 101, 0},
+        {getNewId(), "quien es quien", 150.0, 3, 101, 0},
+        {getNewId(), "age of empires", 990.0, 8, 103, 0},
+        {getNewId(), "truco", 12.50, 10, 104, 0},
+        {getNewId(), "cartas de magia", 65.0, 15, 105, 0},
+        {getNewId(), "ruleta", 1200.0, 1, 102, 0},
+        {getNewId(), "bingo", 96.30, 2, 102, 0},
+        {getNewId(), "uno", 16.0, 12, 104, 0},
+        {getNewId(), "poker", 53.75, 7, 104, 0},
+        {getNewId(), "set de magia", 1800.0, 3, 105, 0},
     };
 
     if(gamesList != NULL
@@ -252,6 +255,7 @@ int games_add(sGame gamesList[], int gamesLength, sCategory categoriesList[], in
     int indexGameAux;
     int idCategoryAux;
     float priceAux;
+    int stockAux;
     char descriptionAux[CATEGORY_NAME_MAX];
 
     if(gamesList != NULL && categoriesList != NULL
@@ -261,10 +265,9 @@ int games_add(sGame gamesList[], int gamesLength, sCategory categoriesList[], in
         indexGameAux = games_getEmptyIndex(gamesList, gamesLength);
 
         if(indexGameAux != -1
-           && !inputs_getString(descriptionAux,
-                                "Ingrese la descripcion del Juego: ", ERROR_MESSAGE, 1, GAME_NAME_MAX)
-           && !inputs_getFloat(&priceAux,
-                               "Ingrese el precio: ", ERROR_MESSAGE, 0, GAMES_PRICE_MAX))
+           && !inputs_getString(descriptionAux, "Ingrese la descripcion del Juego: ", ERROR_MESSAGE, 1, GAME_NAME_MAX)
+           && !inputs_getFloat(&priceAux, "Ingrese el precio: ", ERROR_MESSAGE, 0, GAMES_PRICE_MAX)
+           && !inputs_getInt(&stockAux, "Ingrese el stock mayor a cero: ", ERROR_MESSAGE, 1, GAMES_STOCK_MAX))
         {
             idCategoryAux = categories_userSelection("Seleccione un Categoria: ", ERROR_MESSAGE, categoriesList, categoriesLength);
 
@@ -273,6 +276,7 @@ int games_add(sGame gamesList[], int gamesLength, sCategory categoriesList[], in
                 gamesList[indexGameAux].id = getNewId();
                 strcpy(gamesList[indexGameAux].description, descriptionAux);
                 gamesList[indexGameAux].price = priceAux;
+                gamesList[indexGameAux].stock = stockAux;
                 gamesList[indexGameAux].categoryId = idCategoryAux;
                 gamesList[indexGameAux].isEmpty = 0;
                 returnValue = 0;
@@ -308,16 +312,17 @@ int games_modify(sGame gamesList[], int gamesLength, sCategory categoriesList[],
             {
                 inputs_clearScreen();
 
-                printf("=======================================================\n");
-                printf("                MODIFICAR JUEGO\n");
-                printf("=======================================================\n");
-                printf("    1 - Modificar la Descripcion\n");
-                printf("    2 - Modificar el Precio\n");
-                printf("    3 - Modificar la Categoria\n");
-                printf("    4 - Volver al menu principal\n");
-                printf("=======================================================\n");
+                printf(" +=======================================================+\n");
+                printf(" |                  MODIFICAR JUEGO                      |\n");
+                printf(" +=======================================================+\n");
+                printf(" | [1] Modificar la Descripcion                          |\n");
+                printf(" | [2] Modificar el Precio                               |\n");
+                printf(" | [3] Modificar el Stock                                |\n");
+                printf(" | [4] Modificar la Categoria                            |\n");
+                printf(" | [5] Volver al menu principal                          |\n");
+                printf(" +-------------------------------------------------------+\n\n");
 
-                if(!inputs_getInt(&option, "Ingrese la opcion deseada: ", ERROR_MESSAGE, 1, 4))
+                if(!inputs_getInt(&option, "Ingrese la opcion deseada: ", ERROR_MESSAGE, 1, 5))
                 {
                     switch(option)
                     {
@@ -500,15 +505,15 @@ void games_print(sGame game, sGame gamesList[], int gamesLength, sCategory categ
     if(games_isGame(game, gamesList, gamesLength, categoriesList, categoriesLength)
        && categories_isCategory(categoriesList[categoryIndex], categoriesList, categoriesLength))
     {
-        printf("+=======+======================+===========+======================+\n");
-        printf("|   ID  |      DESCRIPCION     |   PRECIO  |       CATEGORIA      |\n");
-        printf("+=======+======================+===========+======================+\n");
+        printf("+=======+======================+===========+=======+======================+\n");
+        printf("|   ID  |      DESCRIPCION     |   PRECIO  | STOCK |       CATEGORIA      |\n");
+        printf("+=======+======================+===========+=======+======================+\n");
 
         if(printGame(game, gamesList, gamesLength, categoriesList, categoriesLength) == 0)
         {
             printf("Juego vacio.\n");
         }
-        printf("+-------+----------------------+-----------+----------------------+\n");
+        printf("+-------+----------------------+-----------+-------+----------------------+\n");
     }
 }
 
@@ -529,9 +534,9 @@ int games_printList(sGame gamesList[], int gamesLength, sCategory categoriesList
 
                 if(itemsCounter == 1)
                 {
-                    printf("+=======+======================+===========+======================+\n");
-                    printf("|   ID  |      DESCRIPCION     |   PRECIO  |       CATEGORIA      |\n");
-                    printf("+=======+======================+===========+======================+\n");
+                    printf("+=======+======================+===========+=======+======================+\n");
+                    printf("|   ID  |      DESCRIPCION     |   PRECIO  | STOCK |       CATEGORIA      |\n");
+                    printf("+=======+======================+===========+=======+======================+\n");
                 }
 
                 if(printGame(gamesList[i], gamesList, gamesLength, categoriesList, categoriesLength) == 1)
@@ -548,7 +553,7 @@ int games_printList(sGame gamesList[], int gamesLength, sCategory categoriesList
 
         if(flag == 1)
         {
-            printf("+-------+----------------------+-----------+----------------------+\n");
+            printf("+-------+----------------------+-----------+-------+----------------------+\n");
         }
     }
 
@@ -562,6 +567,7 @@ static sGame nullGame()
     aux.id = -1;
     strcpy(aux.description, "NULL");
     aux.price = 0.0f;
+    aux.stock = 0;
     aux.categoryId = -1;
     aux.isEmpty = 1;
 
@@ -584,9 +590,10 @@ static int printGame(sGame game, sGame gamesList[], int gamesLength, sCategory c
 
     if(games_isGame(game, gamesList, gamesLength, categoriesList, categoriesLength))
     {
-        printf("| %5d | %20s | %9.2f | %20s |\n",
-               game.id, arrays_stringToCamelCase(game.description, GAME_NAME_MAX)
-               ,game.price, arrays_stringToCamelCase(categoriesList[categoryIndex].description, CATEGORY_NAME_MAX));
+        printf("| %5d | %20s | %9.2f | %5d | %20s |\n",
+               game.id, arrays_stringToCamelCase(game.description, GAME_NAME_MAX),
+               game.price, game.stock,
+               arrays_stringToCamelCase(categoriesList[categoryIndex].description, CATEGORY_NAME_MAX));
         counter = 1;
     }
 
