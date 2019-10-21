@@ -8,7 +8,7 @@
 #define MENU_GAME_MAX 6 /**< Opcion maxima del menu de Juegos. >*/
 #define MENU_CUSTOMERS_MAX 6 /**< Opcion maxima del menu de Juegos. >*/
 #define MENU_RENTS_MAX 6 /**< Opcion maxima del menu de Alquileres. >*/
-#define MENU_REPORTS_MAX 11 /**< Opcion maxima del menu de Reportes. >*/
+#define MENU_REPORTS_MAX 6 /**< Opcion maxima del menu de Reportes. >*/
 
 /** \brief Funcion que imprime el menu principal del programa.
  *

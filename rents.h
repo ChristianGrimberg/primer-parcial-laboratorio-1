@@ -3,7 +3,7 @@
 
 #include "customers.h"
 
-#define ID_INIT_RENTAL 300 /**< Numeracion inicial de un Alquiler. >*/
+#define ID_INIT_RENTAL 400 /**< Numeracion inicial de un Alquiler. >*/
 #define RENTS_MAX 999 /**< Cantidad maxima de Alquileres en un arreglo. >*/
 
 /*! \struct sRental
@@ -274,23 +274,6 @@ int rents_getCustomersWithoutRents(sRental rentsList[], int rentsLength, sCustom
  */
 int rents_getGamesWithoutRents(sRental rentsList[], int rentsLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
 
-/** \brief Funcion promedio de precios por categoria de juegos alquilados.
- *
- * \param
- * \param rental sRental Estructura de Alquiler.
- * \param rentsList[] sRental Arreglo de estructuras de Alquileres.
- * \param rentsLength int Longitud del arreglo de Alquileres.
- * \param customersList[] sCustomer Arreglo de estructuras de Clientes.
- * \param customersLength int Longitud del arreglo de Clientes.
- * \param gamesList[] sGame Arreglo de estructuras de Juegos.
- * \param gamesLength int Longitud del arreglo de Juegos.
- * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
- * \param categoriesLength int Longitud del arreglo de Categorias.
- * \return float Promedio de precios alquilados por una categoria seleccionada.
- *
- */
-float rents_priceAverageOfRentsByCategory(sCategory category, sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
-
 /** \brief Impresion con formato tabla de una estructura.
  *
  * \param rental sRental Estructura de Alquiler.
@@ -321,80 +304,5 @@ void rents_print(sRental rental, sRental rentsList[], int rentsLength, sCustomer
  *
  */
 int rents_printList(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
-
-/** \brief Impresion con formato tabla de un arreglo de estructuras filtrado por el usuario.
- *
- * \param rentsList[] sRental Arreglo de estructuras de Alquileres.
- * \param rentsLength int Longitud del arreglo de Alquileres.
- * \param customersList[] sCustomer Arreglo de estructuras de Clientes.
- * \param customersLength int Longitud del arreglo de Clientes.
- * \param gamesList[] sGame Arreglo de estructuras de Juegos.
- * \param gamesLength int Longitud del arreglo de Juegos.
- * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
- * \param categoriesLength int Longitud del arreglo de Categorias.
- * \return int Cantidad de estructuras impresas.
- *
- */
-int rents_printListBySex(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
-
-/** \brief Impresion con formato tabla de un arreglo de estructuras filtrado por el usuario.
- *
- * \param rentsList[] sRental Arreglo de estructuras de Alquileres.
- * \param rentsLength int Longitud del arreglo de Alquileres.
- * \param customersList[] sCustomer Arreglo de estructuras de Clientes.
- * \param customersLength int Longitud del arreglo de Clientes.
- * \param gamesList[] sGame Arreglo de estructuras de Juegos.
- * \param gamesLength int Longitud del arreglo de Juegos.
- * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
- * \param categoriesLength int Longitud del arreglo de Categorias.
- * \return int Cantidad de estructuras impresas.
- *
- */
-int rents_printListByPriceAverage(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
-
-/** \brief Impresion con formato tabla de un arreglo de estructuras filtrado por el usuario.
- *
- * \param rentsList[] sRental Arreglo de estructuras de Alquileres.
- * \param rentsLength int Longitud del arreglo de Alquileres.
- * \param customersList[] sCustomer Arreglo de estructuras de Clientes.
- * \param customersLength int Longitud del arreglo de Clientes.
- * \param gamesList[] sGame Arreglo de estructuras de Juegos.
- * \param gamesLength int Longitud del arreglo de Juegos.
- * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
- * \param categoriesLength int Longitud del arreglo de Categorias.
- * \return int Cantidad de estructuras impresas.
- *
- */
-int rents_printListOfTotalPricesByGame(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
-
-/** \brief Impresion con formato tabla de un arreglo de estructuras filtrado a posterior de 2015.
- *
- * \param rentsList[] sRental Arreglo de estructuras de Alquileres.
- * \param rentsLength int Longitud del arreglo de Alquileres.
- * \param customersList[] sCustomer Arreglo de estructuras de Clientes.
- * \param customersLength int Longitud del arreglo de Clientes.
- * \param gamesList[] sGame Arreglo de estructuras de Juegos.
- * \param gamesLength int Longitud del arreglo de Juegos.
- * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
- * \param categoriesLength int Longitud del arreglo de Categorias.
- * \return int Cantidad de estructuras impresas.
- *
- */
-int rents_printListGamesAfter2015(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
-
-/** \brief Impresion con formato tabla de un arreglo de estructuras filtrado a categoria de azar y genero femenino.
- *
- * \param rentsList[] sRental Arreglo de estructuras de Alquileres.
- * \param rentsLength int Longitud del arreglo de Alquileres.
- * \param customersList[] sCustomer Arreglo de estructuras de Clientes.
- * \param customersLength int Longitud del arreglo de Clientes.
- * \param gamesList[] sGame Arreglo de estructuras de Juegos.
- * \param gamesLength int Longitud del arreglo de Juegos.
- * \param categoriesList[] sCategory Arreglo de estructuras de Categorias.
- * \param categoriesLength int Longitud del arreglo de Categorias.
- * \return int Cantidad de estructuras impresas.
- *
- */
-int rents_printListOfGamesByFemaleAndRamdomCategory(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength);
 
 #endif // RENTS_H_INCLUDED

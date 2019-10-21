@@ -179,13 +179,13 @@ void rents_hardcode(sRental rentsList[], int rentsLength)
     int indexHardcodeMax = 6;
 
     sRental rentsAux[] = {
-        {getNewId(), 201, 301, {1, 1, 2012}, 0},
-        {getNewId(), 205, 303, {12, 10, 2010},0},
+        {getNewId(), 201, 301, {1, 1, 2019}, 0},
+        {getNewId(), 205, 303, {12, 10, 2019},0},
         {getNewId(), 202, 305, {21, 5, 2019}, 0},
-        {getNewId(), 203, 302, {5, 3, 2014}, 0},
-        {getNewId(), 204, 304, {8, 9, 2016}, 0},
-        {getNewId(), 209, 305, {15, 6, 2017}, 0},
-        {getNewId(), 206, 305, {12, 3, 2016}, 0}
+        {getNewId(), 203, 302, {5, 3, 2019}, 0},
+        {getNewId(), 204, 304, {8, 9, 2019}, 0},
+        {getNewId(), 209, 305, {15, 6, 2019}, 0},
+        {getNewId(), 206, 305, {12, 3, 2019}, 0}
     };
 
     if(rentsList != NULL
@@ -292,7 +292,6 @@ int rents_add(sRental rentsList[], int rentsLength, sCustomer customersList[], i
     int returnValue = -1;
     int indexRentalAux;
     int idGameAux;
-    int indexGameAux;
     int idCustomerAux;
     sDate dateAux;
     sDate dateMin = {DAY_MIN, MONTH_MIN, YEAR_MIN};
@@ -310,15 +309,13 @@ int rents_add(sRental rentsList[], int rentsLength, sCustomer customersList[], i
         if(indexRentalAux != -1)
         {
             idGameAux = games_userSelection("Seleccione un Juego: ", ERROR_MESSAGE, gamesList, gamesLength, categoriesList, categoriesLength);
-            indexGameAux = games_getIndexById(gamesList, gamesLength, idGameAux);
 
-            if(idGameAux != -1 && indexGameAux != -1)
+            if(idGameAux != -1)
             {
                 idCustomerAux = customers_userSelection("Seleccione un Cliente: ", ERROR_MESSAGE, customersList, customersLength);
 
                 if(idCustomerAux != -1
-                   && !inputs_getDate(&dateAux, "Ingrese una fecha: ", ERROR_MESSAGE, dateMin, dateMax)
-                   && games_subtractStock(gamesList[indexGameAux], gamesList, gamesLength, categoriesList, categoriesLength) == 0)
+                   && !inputs_getDate(&dateAux, "Ingrese una fecha: ", ERROR_MESSAGE, dateMin, dateMax))
                 {
                     rentsList[indexRentalAux].id = getNewId();
                     rentsList[indexRentalAux].gameId = idGameAux;
@@ -421,8 +418,7 @@ int rents_delete(sRental rentsList[], int rentsLength, sCustomer customersList[]
 {
     int returnValue = -1;
     int id;
-    int rentalIndex;
-    int gameIndex;
+    int index;
 
     if(rentsList != NULL && customersList != NULL
        && gamesList != NULL && categoriesList != NULL
@@ -431,23 +427,21 @@ int rents_delete(sRental rentsList[], int rentsLength, sCustomer customersList[]
        && gamesLength >0 && gamesLength <= GAMES_MAX
        && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
     {
-        id = rents_userSelection("Ingrese el ID del Alquiler a devolver: ", ERROR_MESSAGE, rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength);
+        id = rents_userSelection("Ingrese el ID del Alquiler a dar de baja: ", ERROR_MESSAGE, rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength);
 
         if(id != -1)
         {
-            rentalIndex = rents_getIndexById(rentsList, rentsLength, id);
-            gameIndex = games_getIndexById(gamesList, gamesLength, rentsList[rentalIndex].gameId);
+            index = rents_getIndexById(rentsList, rentsLength, id);
 
-            if(rentalIndex != -1 && gameIndex != -1)
+            if(index != -1)
             {
                 inputs_clearScreen();
-                printf("Se esta devolviendo el siguiente Alquiler:\n");
-                rents_print(rentsList[rentalIndex], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength);
+                printf("ATENCION! ESTA A PUNTO DE DAR DE BAJA EL SIGUIENTE ALQUILER:\n");
+                rents_print(rentsList[index], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength);
 
-                if(inputs_userResponse("ESTA DE ACUERDO? [S] [N]: ")
-                   && games_addStock(gamesList[gameIndex], gamesList, gamesLength, categoriesList, categoriesLength) == 0)
+                if(inputs_userResponse("ESTA DE ACUERDO? [S] [N]: "))
                 {
-                    rentsList[rentalIndex].isEmpty = 1;
+                    rentsList[index].isEmpty = 1;
                     returnValue = 0;
                 }
             }
@@ -689,40 +683,6 @@ int rents_getGamesWithoutRents(sRental rentsList[], int rentsLength, sGame games
     return returnValue;
 }
 
-float rents_priceAverageOfRentsByCategory(sCategory category, sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
-{
-    float priceAverage = 0;
-    int counter = 0;
-    int gameIndex;
-
-    if(customersList != NULL && gamesList != NULL && categoriesList != NULL
-       && customersLength > 0 && customersLength <= CUSTOMERS_MAX
-       && gamesLength >0 && gamesLength <= GAMES_MAX
-       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
-    {
-        for(int i = 0; i < rentsLength; i++)
-        {
-            gameIndex = games_getIndexById(gamesList, gamesLength, rentsList[i].gameId);
-
-            if(gameIndex != -1
-               && rents_isRental(rentsList[i], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength)
-               && categories_isCategory(category, categoriesList, categoriesLength)
-               && gamesList[gameIndex].categoryId == category.id)
-            {
-                counter++;
-                priceAverage += gamesList[gameIndex].price;
-            }
-        }
-
-        if(priceAverage > 0)
-        {
-            priceAverage = priceAverage / counter;
-        }
-    }
-
-    return priceAverage;
-}
-
 void rents_print(sRental rental, sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
 {
     int customerIndex;
@@ -777,316 +737,6 @@ int rents_printList(sRental rentsList[], int rentsLength, sCustomer customersLis
 
             if(customerIndex != -1 && gameIndex != -1 && categoryIndex != -1
                && rents_isRental(rentsList[i], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength))
-            {
-                itemsCounter++;
-
-                if(itemsCounter == 1)
-                {
-                    printf("+=======+============+==================+==================+===========+==================+==================+\n");
-                    printf("|   ID  |    FECHA   |       JUEGO      |     CATEGORIA    |   PRECIO  |  NOMBRE CLIENTE  | APELLIDO CLIENTE |\n");
-                    printf("+=======+============+==================+==================+===========+==================+==================+\n");
-                }
-
-                if(printRental(rentsList[i], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength) == 1)
-                {
-                    flag = 1;
-                }
-                else
-                {
-                    flag = 0;
-                    break;
-                }
-            }
-        }
-
-        if(flag == 1)
-        {
-            printf("+-------+------------+------------------+------------------+-----------+------------------+------------------+\n");
-        }
-    }
-
-    return itemsCounter;
-}
-
-int rents_printListBySex(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
-{
-    int itemsCounter = 0;
-    int flag = 0;
-    int customerIndex;
-    int gameIndex;
-    int categoryIndex;
-    char sexAux;
-
-    if(rentsList != NULL && customersList != NULL
-       && gamesList != NULL && categoriesList != NULL
-       && rentsLength > 0 && rentsLength <= RENTS_MAX
-       && customersLength > 0 && customersLength <= CUSTOMERS_MAX
-       && gamesLength >0 && gamesLength <= GAMES_MAX
-       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
-    {
-        do
-        {
-            if(!inputs_getChar(&sexAux, "Ingrese el Sexo [F] o [M]: ", ERROR_MESSAGE, 'A', 'z'))
-            {
-                sexAux = toupper((char)sexAux);
-            }
-        }while(sexAux != 'F' && sexAux != 'M');
-
-        for (int i = 0; i < rentsLength; i++)
-        {
-            customerIndex = customers_getIndexById(customersList, customersLength, rentsList[i].customerId);
-            gameIndex = games_getIndexById(gamesList, gamesLength, rentsList[i].gameId);
-            categoryIndex = categories_getIndexById(categoriesList, categoriesLength, gamesList[gameIndex].categoryId);
-
-            if(customerIndex != -1 && gameIndex != -1 && categoryIndex != -1
-               && rents_isRental(rentsList[i], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength)
-               && tolower((char)customersList[customerIndex].sex) == tolower((char)sexAux))
-            {
-                itemsCounter++;
-
-                if(itemsCounter == 1)
-                {
-                    printf("+=======+============+==================+==================+===========+==================+==================+\n");
-                    printf("|   ID  |    FECHA   |       JUEGO      |     CATEGORIA    |   PRECIO  |  NOMBRE CLIENTE  | APELLIDO CLIENTE |\n");
-                    printf("+=======+============+==================+==================+===========+==================+==================+\n");
-                }
-
-                if(printRental(rentsList[i], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength) == 1)
-                {
-                    flag = 1;
-                }
-                else
-                {
-                    flag = 0;
-                    break;
-                }
-            }
-        }
-
-        if(flag == 1)
-        {
-            printf("+-------+------------+------------------+------------------+-----------+------------------+------------------+\n");
-        }
-    }
-
-    return itemsCounter;
-}
-
-int rents_printListByPriceAverage(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
-{
-    int itemsCounter = 0;
-    int flag = 0;
-    int customerIndex;
-    int gameIndex;
-    int categoryIndex;
-    int categoryId;
-    float priceAverage;
-
-    if(rentsList != NULL && customersList != NULL
-       && gamesList != NULL && categoriesList != NULL
-       && rentsLength > 0 && rentsLength <= RENTS_MAX
-       && customersLength > 0 && customersLength <= CUSTOMERS_MAX
-       && gamesLength >0 && gamesLength <= GAMES_MAX
-       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
-    {
-        categoryId = categories_userSelection("Seleccione la Categoria: ", ERROR_MESSAGE, categoriesList, categoriesLength);
-        categoryIndex = categories_getIndexById(categoriesList, categoriesLength, categoryId);
-
-        if(categoryId != -1 && categoryIndex != -1)
-        {
-            priceAverage = rents_priceAverageOfRentsByCategory(categoriesList[categoryIndex], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength);
-        }
-
-        for (int i = 0; i < rentsLength; i++)
-        {
-            customerIndex = customers_getIndexById(customersList, customersLength, rentsList[i].customerId);
-            gameIndex = games_getIndexById(gamesList, gamesLength, rentsList[i].gameId);
-
-            if(customerIndex != -1 && gameIndex != -1 && categoryIndex != -1
-               && rents_isRental(rentsList[i], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength)
-               && gamesList[gameIndex].categoryId == categoryId
-               && gamesList[gameIndex].price >= priceAverage)
-            {
-                itemsCounter++;
-
-                if(itemsCounter == 1)
-                {
-                    printf("+=======+============+==================+==================+===========+==================+==================+\n");
-                    printf("|   ID  |    FECHA   |       JUEGO      |     CATEGORIA    |   PRECIO  |  NOMBRE CLIENTE  | APELLIDO CLIENTE |\n");
-                    printf("+=======+============+==================+==================+===========+==================+==================+\n");
-                }
-
-                if(printRental(rentsList[i], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength) == 1)
-                {
-                    flag = 1;
-                }
-                else
-                {
-                    flag = 0;
-                    break;
-                }
-            }
-        }
-
-        if(flag == 1)
-        {
-            printf("+-------+------------+------------------+------------------+-----------+------------------+------------------+\n");
-            printf("Promedio de Alquileres por la categoria %s es: $ %.2f\n", categoriesList[categoryIndex].description, priceAverage);
-        }
-    }
-
-    return itemsCounter;
-}
-
-int rents_printListOfTotalPricesByGame(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
-{
-    int itemsCounter = 0;
-    int flag = 0;
-    int customerIndex;
-    int gameId;
-    int gameIndex;
-    int categoryIndex;
-    float totalPrices = 0;
-
-    if(rentsList != NULL && customersList != NULL
-       && gamesList != NULL && categoriesList != NULL
-       && rentsLength > 0 && rentsLength <= RENTS_MAX
-       && customersLength > 0 && customersLength <= CUSTOMERS_MAX
-       && gamesLength >0 && gamesLength <= GAMES_MAX
-       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
-    {
-        gameId = games_userSelection("Seleccione un Juego: ", ERROR_MESSAGE, gamesList, gamesLength, categoriesList, categoriesLength);
-        gameIndex = games_getIndexById(gamesList, gamesLength, gameId);
-
-        if(gameId != -1 && gameIndex != -1)
-        {
-            for (int i = 0; i < rentsLength; i++)
-            {
-                customerIndex = customers_getIndexById(customersList, customersLength, rentsList[i].customerId);
-                categoryIndex = categories_getIndexById(categoriesList, categoriesLength, gamesList[gameIndex].categoryId);
-
-                if(customerIndex != -1 && gameIndex != -1 && categoryIndex != -1
-                   && rents_isRental(rentsList[i], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength)
-                   && rentsList[i].gameId == gameId)
-                {
-                    itemsCounter++;
-
-                    totalPrices += gamesList[gameIndex].price;
-
-                    if(itemsCounter == 1)
-                    {
-                        printf("+=======+============+==================+==================+===========+==================+==================+\n");
-                        printf("|   ID  |    FECHA   |       JUEGO      |     CATEGORIA    |   PRECIO  |  NOMBRE CLIENTE  | APELLIDO CLIENTE |\n");
-                        printf("+=======+============+==================+==================+===========+==================+==================+\n");
-                    }
-
-                    if(printRental(rentsList[i], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength) == 1)
-                    {
-                        flag = 1;
-                    }
-                    else
-                    {
-                        flag = 0;
-                        break;
-                    }
-                }
-            }
-        }
-
-        if(flag == 1)
-        {
-            printf("+-------+------------+------------------+------------------+-----------+------------------+------------------+\n");
-            printf("El total de precios por el Juego %s es: $ %.2f\n", gamesList[gameIndex].description, totalPrices);
-        }
-    }
-
-    return itemsCounter;
-}
-
-int rents_printListGamesAfter2015(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
-{
-    int itemsCounter = 0;
-    int flag = 0;
-    int customerIndex;
-    int gameIndex;
-    int categoryIndex;
-    sDate dateAux = {1, 1, 2015};
-
-    if(rentsList != NULL && customersList != NULL
-       && gamesList != NULL && categoriesList != NULL
-       && rentsLength > 0 && rentsLength <= RENTS_MAX
-       && customersLength > 0 && customersLength <= CUSTOMERS_MAX
-       && gamesLength >0 && gamesLength <= GAMES_MAX
-       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
-    {
-        for (int i = 0; i < rentsLength; i++)
-        {
-            customerIndex = customers_getIndexById(customersList, customersLength, rentsList[i].customerId);
-            gameIndex = games_getIndexById(gamesList, gamesLength, rentsList[i].gameId);
-            categoryIndex = categories_getIndexById(categoriesList, categoriesLength, gamesList[gameIndex].categoryId);
-
-            if(customerIndex != -1 && gameIndex != -1 && categoryIndex != -1
-               && rents_isRental(rentsList[i], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength)
-               && structs_dateCompare(rentsList[i].date, dateAux) >= 0)
-            {
-                itemsCounter++;
-
-                if(itemsCounter == 1)
-                {
-                    printf("+=======+============+==================+==================+===========+==================+==================+\n");
-                    printf("|   ID  |    FECHA   |       JUEGO      |     CATEGORIA    |   PRECIO  |  NOMBRE CLIENTE  | APELLIDO CLIENTE |\n");
-                    printf("+=======+============+==================+==================+===========+==================+==================+\n");
-                }
-
-                if(printRental(rentsList[i], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength) == 1)
-                {
-                    flag = 1;
-                }
-                else
-                {
-                    flag = 0;
-                    break;
-                }
-            }
-        }
-
-        if(flag == 1)
-        {
-            printf("+-------+------------+------------------+------------------+-----------+------------------+------------------+\n");
-        }
-    }
-
-    return itemsCounter;
-}
-
-int rents_printListOfGamesByFemaleAndRamdomCategory(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
-{
-    int itemsCounter = 0;
-    int flag = 0;
-    int customerIndex;
-    int gameIndex;
-    int categoryIndex;
-    char categoryDescription[CATEGORY_NAME_MAX] = "azar";
-    char customerSex = 'f';
-
-    if(rentsList != NULL && customersList != NULL
-       && gamesList != NULL && categoriesList != NULL
-       && rentsLength > 0 && rentsLength <= RENTS_MAX
-       && customersLength > 0 && customersLength <= CUSTOMERS_MAX
-       && gamesLength >0 && gamesLength <= GAMES_MAX
-       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
-    {
-        for (int i = 0; i < rentsLength; i++)
-        {
-            customerIndex = customers_getIndexById(customersList, customersLength, rentsList[i].customerId);
-            gameIndex = games_getIndexById(gamesList, gamesLength, rentsList[i].gameId);
-            categoryIndex = categories_getIndexById(categoriesList, categoriesLength, gamesList[gameIndex].categoryId);
-
-            if(customerIndex != -1 && gameIndex != -1 && categoryIndex != -1
-               && rents_isRental(rentsList[i], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength)
-               && strcmp(arrays_stringToCamelCase(categoriesList[categoryIndex].description, CATEGORY_NAME_MAX),
-                         arrays_stringToCamelCase(categoryDescription, CATEGORY_NAME_MAX)) == 0
-               && toupper((char)customersList[customerIndex].sex) == toupper((char)customerSex))
             {
                 itemsCounter++;
 

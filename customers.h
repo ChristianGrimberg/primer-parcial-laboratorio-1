@@ -6,8 +6,17 @@
 #define CUSTOMER_NAME_MAX 51 /**< Longitud maxima de la descripcion de un Cliente. >*/
 #define CUSTOMER_PHONE_MAX 21 /**< Se define la cantidad maxima de caracteres telefonicos. >*/
 #define CUSTOMER_ADDRESS_MAX 51 /**< Longitud maxima de la direccion de un Cliente. >*/
+#define LOCATION_NAME_MAX 51 /**< Longitud maxima de la Localidad de un Cliente. >*/
 #define ID_INIT_CUSTOMER 300 /**< Numeracion inicial de un Cliente. >*/
+#define ID_INIT_LOCATION 500
 #define CUSTOMERS_MAX 99 /**< Cantidad maxima de Clientes en un arreglo. >*/
+#define LOCATIONS_MAX 5
+
+typedef struct
+{
+    int id;
+    char name[LOCATION_NAME_MAX];
+} sLocation;
 
 /*! \struct sCustomer
  * \brief Tipo de dato de un Cliente.
@@ -29,6 +38,7 @@ typedef struct
     char sex; /**< Genero de la estructura. >*/
     char phone[PHONE_MAX]; /**< Telefono de la estructura. >*/
     char address[CUSTOMER_ADDRESS_MAX]; /**< Direccion de la estructura. >*/
+    sLocation location; /**< Estructura de localidad. >*/
     int isEmpty; /**< Indicador de posicion llena o vacia. >*/
 } sCustomer;
 
@@ -87,6 +97,15 @@ int customers_init(sCustomer customersList[], int customersLength);
  */
 void customers_hardcode(sCustomer customersList[], int customersLength);
 
+/** \brief Hardcodeo de Estructuras de ejemplo
+ *
+ * \param locationsList[] sLocation Arreglo de Localidades.
+ * \param locationsLength int Longitud del arreglo.
+ * \return void No retorna valores.
+ *
+ */
+void customers_locationsHardcode(sLocation locationsList[], int locationsLength);
+
 /** \brief Obtiene el primer indice vacio del arreglo
  *
  * \param customersList[] sCustomer Arreglo de estructuras.
@@ -110,6 +129,18 @@ int customers_getEmptyIndex(sCustomer customersList[], int customersLength);
  */
 int customers_getIndexById(sCustomer customersList[], int customersLength, int id);
 
+/** \brief Obtiene el indice de la estructura buscada por el ID.
+ *
+ * \param locationsList[] sLocation Arreglo de Localidades.
+ * \param locationsLength int Longitud del arreglo.
+ * \param id int ID a buscar.
+ * \return int
+ *          Indice del ID buscado.
+ *          [-1] Si el ID buscado no existe o esta inactivo.
+ *
+ */
+int customers_getLocationIndexById(sLocation locationsList[], int locationsLength, int id);
+
 /** \brief Seleccion de una estructura consultando por pantalla al usuario.
  *
  * \param message[] char Mensaje de solicitud al usuario.
@@ -123,27 +154,44 @@ int customers_getIndexById(sCustomer customersList[], int customersLength, int i
  */
 int customers_userSelection(char message[], char eMessage[], sCustomer customersList[], int customersLength);
 
+/** \brief Seleccion de una estructura consultando por pantalla al usuario.
+ *
+ * \param message[] char Mensaje de solicitud al usuario.
+ * \param eMessage[] char Mensaje ante error del valor ingresado por el usuario.
+ * \param locationsList[] sLocation Arreglo de Localidades.
+ * \param locationsLength int Longitud del arreglo.
+ * \return int
+ *          ID de la estructura elegida por el usuario.
+ *          [-1] Si la estructura elegida no se encuentra.
+ *
+ */
+int customers_userSelectionOfLocations(char message[], char eMessage[], sLocation locationsList[], int locationsLength);
+
 /** \brief Agregar una nueva estructura en una posicion vacia del arreglo.
  *
  * \param customersList[] sCustomer Arreglo de estructuras.
  * \param customersLength int Longitud del arreglo.
+ * \param locationsList[] sLocation Arreglo de Localidades.
+ * \param locationsLength int Longitud del arreglo.
  * \return int
  *          [-1] Si hubo un error al cargar la estructura.
  *          [0] Si pudo cargarse correctamente la estructura.
  *
  */
-int customers_add(sCustomer customersList[], int customersLength);
+int customers_add(sCustomer customersList[], int customersLength, sLocation locationsList[], int locationsLength);
 
 /** \brief Modificacion de la descripcion de la estructura.
  *
  * \param customersList[] sCustomer Arreglo de estructuras.
  * \param customersLength int Longitud del arreglo.
+ * \param locationsList[] sLocation Arreglo de Localidades.
+ * \param locationsLength int Longitud del arreglo.
  * \return int
  *          [-1] Si hubo un error al modificar la estructura.
  *          [0] Si pudo modificarse correctamente la estructura.
  *
  */
-int customers_modify(sCustomer customersList[], int customersLength);
+int customers_modify(sCustomer customersList[], int customersLength, sLocation locationsList[], int locationsLength);
 
 /** \brief Inactivacion de una estructura dentro de un arreglo.
  *
@@ -200,5 +248,14 @@ void customers_print(sCustomer customer, sCustomer customersList[], int customer
  *
  */
 int customers_printList(sCustomer customersList[], int customersLength);
+
+/** \brief Impresion con formato tabla de un arreglo de estructuras.
+ *
+ * \param locationsList[] sLocation Arreglo de Localidades.
+ * \param locationsLength int Longitud del arreglo.
+ * \return int Cantidad de estructuras impresas.
+ *
+ */
+int customers_printListOfLocations(sLocation locationsList[], int locationsLength);
 
 #endif // CUSTOMERS_H_INCLUDED

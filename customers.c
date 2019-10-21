@@ -139,14 +139,14 @@ void customers_hardcode(sCustomer customersList[], int customersLength)
     int indexHardcodeMax = 7;
 
     sCustomer customersAux[] = {
-        {getNewId(), "marcelo", "tinelli", 'm', "+54 11 2000-3000", "carlos calvo 2820", 0},
-        {getNewId(), "susana", "gimenez", 'f', "+54 11 1000-9000", "cordoba 1560", 0},
-        {getNewId(), "ricardo", "darin", 'm', "+54 11 5000-7000", "corrientes 960", 0},
-        {getNewId(), "moria", "casan", 'f', "+54 11 3000-1000", "tilcara 150", 0},
-        {getNewId(), "marley", "wieber", 'm', "+54 11 8000-5000", "junin 58220", 0},
-        {getNewId(), "mirtha", "legrand", 'f', "+54 11 4000-2000", "mitre 1200", 0},
-        {getNewId(), "veronica", "lozano", 'f', "+54 11 6000-4000", "santa fe 2820", 0},
-        {getNewId(), "sebastian", "yatra", 'm', "+54 11 7000-6000", "san juan 70", 0}
+        {getNewId(), "marcelo", "tinelli", 'm', "+54 11 2000-3000", "carlos calvo 2820", {501, "CABA"}, 0},
+        {getNewId(), "susana", "gimenez", 'f', "+54 11 1000-9000", "cordoba 1560", {502, "La Plata"}, 0},
+        {getNewId(), "ricardo", "darin", 'm', "+54 11 5000-7000", "corrientes 960", {501, "CABA"}, 0},
+        {getNewId(), "moria", "casan", 'f', "+54 11 3000-1000", "tilcara 150", {505, "Lanus"}, 0},
+        {getNewId(), "marley", "wieber", 'm', "+54 11 8000-5000", "junin 58220", {503, "Avellaneda"}, 0},
+        {getNewId(), "mirtha", "legrand", 'f', "+54 11 4000-2000", "mitre 1200", {504, "Quilmes"}, 0},
+        {getNewId(), "veronica", "lozano", 'f', "+54 11 6000-4000", "santa fe 2820", {504, "Quilmes"}, 0},
+        {getNewId(), "sebastian", "yatra", 'm', "+54 11 7000-6000", "san juan 70", {502, "La Plata"}, 0}
     };
 
     if(customersList != NULL
@@ -161,6 +161,36 @@ void customers_hardcode(sCustomer customersList[], int customersLength)
             else
             {
                 customersList[i] = nullCustomer();
+            }
+        }
+    }
+}
+
+void customers_locationsHardcode(sLocation locationsList[], int locationsLength)
+{
+    int indexHardcodeMax = 4;
+
+    sLocation locationsAux[] = {
+        {501, "CABA"},
+        {502, "La Plata"},
+        {503, "Avellaneda"},
+        {504, "Quilmes"},
+        {505, "Lanus"}
+    };
+
+    if(locationsList != NULL
+       && locationsLength > 0 && locationsLength <= LOCATIONS_MAX)
+    {
+        for (int i = 0; i < locationsLength; i++)
+        {
+            if(i <= indexHardcodeMax)
+            {
+                locationsList[i] = locationsAux[i];
+            }
+            else
+            {
+                locationsList[i].id = -1;
+                strcpy(locationsList[i].name, "NULL");
             }
         }
     }
@@ -208,6 +238,26 @@ int customers_getIndexById(sCustomer customersList[], int customersLength, int i
     return returnValue;
 }
 
+int customers_getLocationIndexById(sLocation locationsList[], int locationsLength, int id)
+{
+    int returnValue = -1;
+
+    if(locationsList != NULL
+       && locationsLength > 0 && locationsLength <= LOCATIONS_MAX)
+    {
+        for (int i = 0; i < locationsLength; i++)
+        {
+            if(locationsList[i].id == id)
+            {
+                returnValue = i;
+                break;
+            }
+        }
+    }
+
+    return returnValue;
+}
+
 int customers_userSelection(char message[], char eMessage[], sCustomer customersList[], int customersLength)
 {
     int returnValue = -1;
@@ -243,10 +293,37 @@ int customers_userSelection(char message[], char eMessage[], sCustomer customers
     return returnValue;
 }
 
-int customers_add(sCustomer customersList[], int customersLength)
+int customers_userSelectionOfLocations(char message[], char eMessage[], sLocation locationsList[], int locationsLength)
+{
+    int returnValue = -1;
+    int auxId = 0;
+
+    if(message != NULL && eMessage != NULL
+       && locationsList != NULL
+       && locationsLength > 0 && locationsLength <= LOCATIONS_MAX)
+    {
+        if(customers_printListOfLocations(locationsList, locationsLength) == 0)
+        {
+            printf("No hay Localidades ingresadas.\n");
+        }
+        else
+        {
+            if(!inputs_getInt(&auxId, message, eMessage, ID_INIT_LOCATION+1, ID_INIT_LOCATION+LOCATIONS_MAX))
+            {
+                returnValue = auxId;
+            }
+        }
+    }
+
+    return returnValue;
+}
+
+int customers_add(sCustomer customersList[], int customersLength, sLocation locationsList[], int locationsLength)
 {
     int returnValue = -1;
     int indexAux;
+    int locationId;
+    int locationIndex;
     char nameAux[CUSTOMER_NAME_MAX];
     char lastNameAux[CUSTOMER_NAME_MAX];
     char sexAux;
@@ -276,14 +353,23 @@ int customers_add(sCustomer customersList[], int customersLength)
                && !inputs_getString(addressAux, "Ingrese la Direccion: ",
                                    ERROR_MESSAGE, 1, CUSTOMER_ADDRESS_MAX))
             {
-                customersList[indexAux].id = getNewId();
-                strcpy(customersList[indexAux].name, nameAux);
-                strcpy(customersList[indexAux].lastName, lastNameAux);
-                customersList[indexAux].sex = sexAux;
-                strcpy(customersList[indexAux].phone, phoneAux);
-                strcpy(customersList[indexAux].address, addressAux);
-                customersList[indexAux].isEmpty = 0;
-                returnValue = 0;
+                locationId = customers_userSelectionOfLocations("Elija el ID de la Localidad: ", ERROR_MESSAGE, locationsList, locationsLength);
+
+                locationIndex = customers_getLocationIndexById(locationsList, locationsLength, locationId);
+
+                if(locationId != -1 && locationIndex != -1)
+                {
+                    customersList[indexAux].id = getNewId();
+                    strcpy(customersList[indexAux].name, nameAux);
+                    strcpy(customersList[indexAux].lastName, lastNameAux);
+                    customersList[indexAux].sex = sexAux;
+                    strcpy(customersList[indexAux].phone, phoneAux);
+                    strcpy(customersList[indexAux].address, addressAux);
+                    customersList[indexAux].location.id = locationId;
+                    strcpy(customersList[indexAux].location.name, locationsList[locationIndex].name);
+                    customersList[indexAux].isEmpty = 0;
+                    returnValue = 0;
+                }
             }
         }
     }
@@ -291,12 +377,14 @@ int customers_add(sCustomer customersList[], int customersLength)
     return returnValue;
 }
 
-int customers_modify(sCustomer customersList[], int customersLength)
+int customers_modify(sCustomer customersList[], int customersLength, sLocation locationsList[], int locationsLength)
 {
     int returnValue = -1;
     int idAux;
     int indexAux;
     int option;
+    int locationId;
+    int locationIndex;
     char nameAux[CUSTOMER_NAME_MAX];
     char lastNameAux[CUSTOMER_NAME_MAX];
     char sexAux;
@@ -317,79 +405,93 @@ int customers_modify(sCustomer customersList[], int customersLength)
             {
                 inputs_clearScreen();
 
-                printf("=======================================================\n");
-                printf("                MODIFICAR CLIENTE\n");
-                printf("=======================================================\n");
-                printf("    1 - Modificar el Nombre\n");
-                printf("    2 - Modificar el Apellido\n");
-                printf("    3 - Modificar el Sexo\n");
-                printf("    4 - Modificar el Telefono\n");
-                printf("    5 - Modificar la Direccion\n");
-                printf("    6 - Volver al menu principal\n");
-                printf("=======================================================\n");
+                printf(" +=======================================================+\n");
+                printf(" |              MODIFICAR CLIENTE                        |\n");
+                printf(" +=======================================================+\n");
+                printf(" | [1] Modificar el Nombre                               |\n");
+                printf(" | [2] Modificar el Apellido                             |\n");
+                printf(" | [3] Modificar el Sexo                                 |\n");
+                printf(" | [4] Modificar el Telefono                             |\n");
+                printf(" | [5] Modificar la Direccion                            |\n");
+                printf(" | [6] Modificar la Localidad                            |\n");
+                printf(" | [7] Volver al menu principal                          |\n");
+                printf(" +-------------------------------------------------------+\n\n");
 
-                if(!inputs_getInt(&option, "Ingrese la opcion deseada: ", ERROR_MESSAGE, 1, 6))
+                if(!inputs_getInt(&option, "Ingrese la opcion deseada: ", ERROR_MESSAGE, 1, 7))
                 {
                     switch(option)
                     {
-                        case 1:
-                            if(!inputs_getString(nameAux, "Ingrese el nuevo Nombre: ",
-                                                 ERROR_MESSAGE, 1, CUSTOMER_NAME_MAX))
-                            {
-                                strcpy(customersList[indexAux].name, nameAux);
-                                printf("Nombre modificado con exito.\n");
-                                returnValue = 0;
-                            }
-                            break;
-                        case 2:
-                            if(!inputs_getString(lastNameAux, "Ingrese el nuevo Apellido: ",
-                                                 ERROR_MESSAGE, 1, CUSTOMER_NAME_MAX))
-                            {
-                                strcpy(customersList[indexAux].lastName, lastNameAux);
-                                printf("Apellido modificado con exito.\n");
-                                returnValue = 0;
-                            }
-                            break;
-                        case 3:
-                            do
-                            {
-                                if(!inputs_getChar(&sexAux, "Ingrese el nuevo Sexo [F] o [M]: ",
-                                                   ERROR_MESSAGE, 'a', 'Z'))
-                                {
-                                    sexAux = toupper((char)sexAux);
-                                }
-                            }while(sexAux != 'F' && sexAux != 'M');
-
-                            if(sexAux == 'F' || sexAux == 'M')
-                            {
-                                customersList[indexAux].sex = sexAux;
-                                printf("Sexo modificado con exito.\n");
-                                returnValue = 0;
-                            }
-                            break;
-                        case 4:
-                            if(!inputs_getString(phoneAux,
-                                                 "Ingrese el nuevo Telefono [Formato: +54 11 1111-1111]: ",
-                                                 ERROR_MESSAGE, 1, CUSTOMER_PHONE_MAX))
-                            {
-                                strcpy(customersList[indexAux].phone, phoneAux);
-                                printf("Telefono modificado con exito.\n");
-                                returnValue = 0;
-                            }
-                            break;
-                        case 5:
-                            if(!inputs_getString(addressAux, "Ingrese la nueva Direccion: ",
-                                                 ERROR_MESSAGE, 1, CUSTOMER_ADDRESS_MAX))
-                            {
-                                strcpy(customersList[indexAux].address, addressAux);
-                                printf("Direccion modificada con exito.\n");
-                                returnValue = 0;
-                            }
-                            break;
-                        case 6:
-                            printf("Operacion cancelada.\n");
+                    case 1:
+                        if(!inputs_getString(nameAux, "Ingrese el nuevo Nombre: ",
+                                             ERROR_MESSAGE, 1, CUSTOMER_NAME_MAX))
+                        {
+                            strcpy(customersList[indexAux].name, nameAux);
+                            printf("Nombre modificado con exito.\n");
                             returnValue = 0;
-                            break;
+                        }
+                        break;
+                    case 2:
+                        if(!inputs_getString(lastNameAux, "Ingrese el nuevo Apellido: ",
+                                             ERROR_MESSAGE, 1, CUSTOMER_NAME_MAX))
+                        {
+                            strcpy(customersList[indexAux].lastName, lastNameAux);
+                            printf("Apellido modificado con exito.\n");
+                            returnValue = 0;
+                        }
+                        break;
+                    case 3:
+                        do
+                        {
+                            if(!inputs_getChar(&sexAux, "Ingrese el nuevo Sexo [F] o [M]: ",
+                                               ERROR_MESSAGE, 'a', 'Z'))
+                            {
+                                sexAux = toupper((char)sexAux);
+                            }
+                        }while(sexAux != 'F' && sexAux != 'M');
+
+                        if(sexAux == 'F' || sexAux == 'M')
+                        {
+                            customersList[indexAux].sex = sexAux;
+                            printf("Sexo modificado con exito.\n");
+                            returnValue = 0;
+                        }
+                        break;
+                    case 4:
+                        if(!inputs_getString(phoneAux,
+                                             "Ingrese el nuevo Telefono [Formato: +54 11 1111-1111]: ",
+                                             ERROR_MESSAGE, 1, CUSTOMER_PHONE_MAX))
+                        {
+                            strcpy(customersList[indexAux].phone, phoneAux);
+                            printf("Telefono modificado con exito.\n");
+                            returnValue = 0;
+                        }
+                        break;
+                    case 5:
+                        if(!inputs_getString(addressAux, "Ingrese la nueva Direccion: ",
+                                             ERROR_MESSAGE, 1, CUSTOMER_ADDRESS_MAX))
+                        {
+                            strcpy(customersList[indexAux].address, addressAux);
+                            printf("Direccion modificada con exito.\n");
+                            returnValue = 0;
+                        }
+                        break;
+                    case 6:
+                        locationId = customers_userSelectionOfLocations("Elija el nuevo ID de la Localidad: ", ERROR_MESSAGE, locationsList, locationsLength);
+
+                        locationIndex = customers_getLocationIndexById(locationsList, locationsLength, locationId);
+
+                        if(locationId != -1 && locationIndex != -1)
+                        {
+                            customersList[indexAux].location.id = locationId;
+                            strcpy(customersList[indexAux].location.name, locationsList[locationIndex].name);
+                            printf("Localidad modificada con exito.\n");
+                            returnValue = 0;
+                        }
+                        break;
+                    case 7:
+                        printf("Operacion cancelada.\n");
+                        returnValue = 0;
+                        break;
                     }
                 }
             }
@@ -532,14 +634,14 @@ void customers_print(sCustomer customer, sCustomer customersList[], int customer
 {
     if(customers_isCustomer(customer, customersList, customersLength))
     {
-        printf("+=======+======================+======================+======+======================+======================+\n");
-        printf("|   ID  |        NOMBRE        |       APELLIDO       | SEXO |       TELEFONO       |       DIRECCION      |\n");
-        printf("+=======+======================+======================+======+======================+======================+\n");
+        printf("+=======+======================+======================+======+======================+======================+======================+\n");
+        printf("|   ID  |        NOMBRE        |       APELLIDO       | SEXO |       TELEFONO       |       DIRECCION      |       LOCALIDAD      |\n");
+        printf("+=======+======================+======================+======+======================+======================+======================+\n");
         if(printCustomer(customer, customersList, customersLength) == 0)
         {
             printf("Categoria vacia.\n");
         }
-        printf("+-------+----------------------+----------------------+------+----------------------+----------------------+\n");
+        printf("+-------+----------------------+----------------------+------+----------------------+----------------------+----------------------+\n");
     }
 }
 
@@ -559,9 +661,9 @@ int customers_printList(sCustomer customersList[], int customersLength)
 
                 if(itemsCounter == 1)
                 {
-                    printf("+=======+======================+======================+======+======================+======================+\n");
-                    printf("|   ID  |        NOMBRE        |       APELLIDO       | SEXO |       TELEFONO       |       DIRECCION      |\n");
-                    printf("+=======+======================+======================+======+======================+======================+\n");
+                    printf("+=======+======================+======================+======+======================+======================+======================+\n");
+                    printf("|   ID  |        NOMBRE        |       APELLIDO       | SEXO |       TELEFONO       |       DIRECCION      |       LOCALIDAD      |\n");
+                    printf("+=======+======================+======================+======+======================+======================+======================+\n");
                 }
 
                 if(printCustomer(customersList[i], customersList, customersLength) == 1)
@@ -578,8 +680,35 @@ int customers_printList(sCustomer customersList[], int customersLength)
 
         if(flag == 1)
         {
-            printf("+-------+----------------------+----------------------+------+----------------------+----------------------+\n");
+            printf("+-------+----------------------+----------------------+------+----------------------+----------------------+----------------------+\n");
         }
+    }
+
+    return itemsCounter;
+}
+
+int customers_printListOfLocations(sLocation locationsList[], int locationsLength)
+{
+    int itemsCounter = 0;
+
+    if(locationsList != NULL
+       && locationsLength > 0 && locationsLength <= CUSTOMERS_MAX)
+    {
+        for (int i = 0; i < locationsLength; i++)
+        {
+            itemsCounter++;
+
+            if(itemsCounter == 1)
+            {
+                printf("+=======+======================+\n");
+                printf("|   ID  |        NOMBRE        |\n");
+                printf("+=======+======================+\n");
+            }
+
+            printf("| %5d | %20s |\n", locationsList[i].id, locationsList[i].name);
+        }
+
+        printf("+-------+----------------------+\n");
     }
 
     return itemsCounter;
@@ -613,11 +742,12 @@ static int printCustomer(sCustomer customer, sCustomer customersList[], int cust
 
     if(customers_isCustomer(customer, customersList, customersLength))
     {
-        printf("| %5d | %20s | %20s |   %c  | %20s | %20s |\n",
+        printf("| %5d | %20s | %20s |   %c  | %20s | %20s | %20s |\n",
                customer.id, arrays_stringToCamelCase(customer.name, CUSTOMER_NAME_MAX),
                arrays_stringToCamelCase(customer.lastName, CUSTOMER_NAME_MAX),
                toupper((char)customer.sex), customer.phone,
-               arrays_stringToCamelCase(customer.address, CUSTOMER_ADDRESS_MAX));
+               arrays_stringToCamelCase(customer.address, CUSTOMER_ADDRESS_MAX),
+               arrays_stringToCamelCase(customer.location.name, LOCATION_NAME_MAX));
 
         counter = 1;
     }

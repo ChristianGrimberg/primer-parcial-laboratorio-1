@@ -109,11 +109,11 @@ int menu_rents(int* option)
     printf(" +=======================================================+\n");
     printf(" |                 ALQUILER DE JUEGOS                    |\n");
     printf(" +=======================================================+\n");
-    printf(" | [1] Alquiler de un Juego                              |\n");
-    printf(" | [2] Devolucion de un Alquiler                         |\n");
-    printf(" | [3] Modificacion de un Alquiler                       |\n");
-    printf(" | [4] Alquileres actuales en orden Ascendente           |\n");
-    printf(" | [5] Alquileres actuales en orden Descendente          |\n");
+    printf(" | [1] Alquiler de Juego                                 |\n");
+    printf(" | [2] Anulacion de Alquiler                             |\n");
+    printf(" | [3] Modificacion de Alquiler                          |\n");
+    printf(" | [4] Alquileres efectuados en orden Ascendente         |\n");
+    printf(" | [5] Alquileres efectuados en orden Descendente        |\n");
     printf(" | [6] Volver al menu principal                          |\n");
     printf(" +-------------------------------------------------------+\n\n");
 
@@ -139,12 +139,7 @@ int menu_reports(int* option)
     printf(" | [3] Importes totales por Cliente                      |\n");
     printf(" | [4] Clientes sin Alquileres                           |\n");
     printf(" | [5] Juegos sin Alquileres                             |\n");
-    printf(" | [6] Alquileres por sexo                               |\n");
-    printf(" | [7] Promedio por encima de Alquileres por Categoria   |\n");
-    printf(" | [8] Costo total de Juegos Alquilados                  |\n");
-    printf(" | [9] Juegos Alquilados a partir de 2015                |\n");
-    printf(" |[10] Juegos Alquilados de Azar y por Mujeres           |\n");
-    printf(" |[11] Volver al menu principal                          |\n");
+    printf(" | [6] Volver al menu principal                          |\n");
     printf(" +-------------------------------------------------------+\n\n");
 
     if(!inputs_getInt(option, "Elija una opcion del menu: ", ERROR_MESSAGE, 1, MENU_REPORTS_MAX))

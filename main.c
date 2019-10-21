@@ -21,6 +21,7 @@ int main()
     sCategory categories[CATEGORIES_MAX]; /**< Arreglo de Categorias. >*/
     sGame games[GAMES_MAX];/**< Arreglo de Juegos. >*/
     sGame filteredGames[GAMES_MAX]; /**< Arreglo filtrado de Juegos. >*/
+    sLocation locations[LOCATIONS_MAX];
     sCustomer customers[CUSTOMERS_MAX]; /**< Arreglo de Clientes. >*/
     sCustomer filteredCustomers[CUSTOMERS_MAX]; /**< Arreglo de Clientes filtrado. >*/
     sRental rents[RENTS_MAX]; /**< Arreglo de Alquileres. >*/
@@ -43,6 +44,7 @@ int main()
         if(HARDCODE)
         {
             games_hardcode(games, GAMES_MAX);
+            customers_locationsHardcode(locations, LOCATIONS_MAX);
             customers_hardcode(customers, CUSTOMERS_MAX);
             rents_hardcode(rents, RENTS_MAX);
         }
@@ -186,7 +188,7 @@ int main()
                     switch(optionMenu)
                     {
                     case 1: /**< Agregar nuevo Cliente. >*/
-                        if(customers_add(customers, CUSTOMERS_MAX) == 0)
+                        if(customers_add(customers, CUSTOMERS_MAX, locations, LOCATIONS_MAX) == 0)
                         {
                             printf("Cliente agregado con exito.\n");
                         }
@@ -202,7 +204,7 @@ int main()
                     case 3: /**< Modificar un Cliente. >*/
                         inputs_clearScreen();
 
-                        if(customers_modify(customers, CUSTOMERS_MAX) == 0)
+                        if(customers_modify(customers, CUSTOMERS_MAX, locations, LOCATIONS_MAX) == 0)
                         {
                             printf("Cliente modificado con exito.\n");
                         }
@@ -396,8 +398,6 @@ int main()
                            && games_cloneList(filteredGames, games, GAMES_MAX, categories, CATEGORIES_MAX) == 0
                            && rents_getGamesWithoutRents(rents, RENTS_MAX, filteredGames, GAMES_MAX, categories, CATEGORIES_MAX) == 0)
                         {
-                            inputs_clearScreen();
-
                             quantity = games_printList(filteredGames, GAMES_MAX, categories, CATEGORIES_MAX);
 
                             if(quantity > 0)
@@ -408,71 +408,6 @@ int main()
                             {
                                 printf("Todos los Juegos estan alquilados.\n");
                             }
-                        }
-                        break;
-                    case 6:
-                        inputs_clearScreen();
-                        quantity = rents_printListBySex(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX);
-
-                        if(quantity > 0)
-                        {
-                            printf("Se encontraron %d Juegos del Clientes del genero seleccionado.\n", quantity);
-                        }
-                        else
-                        {
-                            printf("No hay ningun Juego alquilado por el genero indicado.\n");
-                        }
-                        break;
-                    case 7:
-                        inputs_clearScreen();
-                        quantity = rents_printListByPriceAverage(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX);
-
-                        if(quantity > 0)
-                        {
-                            printf("Se encontraron %d Juegos con la Categoria seleccionada.\n", quantity);
-                        }
-                        else
-                        {
-                            printf("No hay ningun Juego alquilado por la Categoria seleccionada.\n");
-                        }
-                        break;
-                    case 8:
-                        inputs_clearScreen();
-                        quantity = rents_printListOfTotalPricesByGame(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX);
-
-                        if(quantity > 0)
-                        {
-                            printf("Se encontraron %d Juegos seleccionados.\n", quantity);
-                        }
-                        else
-                        {
-                            printf("No hay ningun Juego alquilado segun lo seleccionado.\n");
-                        }
-                        break;
-                    case 9:
-                        inputs_clearScreen();
-                        quantity = rents_printListGamesAfter2015(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX);
-
-                        if(quantity > 0)
-                        {
-                            printf("Se encontraron %d Juegos Alquilados a partir de 2015.\n", quantity);
-                        }
-                        else
-                        {
-                            printf("No hay ningun Juego alquilado a partir d 2015.\n");
-                        }
-                        break;
-                    case 10:
-                        inputs_clearScreen();
-                        quantity = rents_printListOfGamesByFemaleAndRamdomCategory(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX);
-
-                        if(quantity > 0)
-                        {
-                            printf("Se encontraron %d Juegos Alquilados.\n", quantity);
-                        }
-                        else
-                        {
-                            printf("No hay ningun Juego alquilado bajo el criterio definido.\n");
                         }
                         break;
                     }
