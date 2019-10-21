@@ -140,7 +140,8 @@ int menu_reports(int* option)
     printf(" | [4] Clientes sin Alquileres                           |\n");
     printf(" | [5] Juegos sin Alquileres                             |\n");
     printf(" | [6] Alquileres por sexo                               |\n");
-    printf(" | [7] Volver al menu principal                          |\n");
+    printf(" | [7] Promedio por encima de Alquileres por Categoria   |\n");
+    printf(" |[11] Volver al menu principal                          |\n");
     printf(" +-------------------------------------------------------+\n\n");
 
     if(!inputs_getInt(option, "Elija una opcion del menu: ", ERROR_MESSAGE, 1, MENU_REPORTS_MAX))

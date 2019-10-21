@@ -396,6 +396,8 @@ int main()
                            && games_cloneList(filteredGames, games, GAMES_MAX, categories, CATEGORIES_MAX) == 0
                            && rents_getGamesWithoutRents(rents, RENTS_MAX, filteredGames, GAMES_MAX, categories, CATEGORIES_MAX) == 0)
                         {
+                            inputs_clearScreen();
+
                             quantity = games_printList(filteredGames, GAMES_MAX, categories, CATEGORIES_MAX);
 
                             if(quantity > 0)
@@ -409,6 +411,7 @@ int main()
                         }
                         break;
                     case 6:
+                        inputs_clearScreen();
                         quantity = rents_printListBySex(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX);
 
                         if(quantity > 0)
@@ -417,7 +420,20 @@ int main()
                         }
                         else
                         {
-                            printf("No hay ningun juego alquilado por el genero indicado.\n");
+                            printf("No hay ningun Juego alquilado por el genero indicado.\n");
+                        }
+                        break;
+                    case 7:
+                        inputs_clearScreen();
+                        quantity = rents_printListByPriceAverage(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX);
+
+                        if(quantity > 0)
+                        {
+                            printf("Se encontraron %d Juegos con la Categoria seleccionada.\n", quantity);
+                        }
+                        else
+                        {
+                            printf("No hay ningun Juego alquilado por la Categoria seleccionada.\n");
                         }
                         break;
                     }
