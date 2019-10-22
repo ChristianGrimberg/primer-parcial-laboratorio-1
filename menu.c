@@ -162,6 +162,8 @@ int menu_complementary(int* option)
     printf(" +=======================================================+\n");
     printf(" | [1] Clientes por Localidad                            |\n");
     printf(" | [3] Monto de Alquiler por Localidad                   |\n");
+    printf(" | [4] Alquileres por Juego                              |\n");
+    printf(" | [7] Alquileres de Juegos por Mujeres                  |\n");
     printf(" |[11] Volver al menu principal                          |\n");
     printf(" +-------------------------------------------------------+\n\n");
 

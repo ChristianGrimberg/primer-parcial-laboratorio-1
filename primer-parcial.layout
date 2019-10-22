@@ -2,39 +2,14 @@
 <CodeBlocks_layout_file>
 	<FileVersion major="1" minor="0" />
 	<ActiveTarget name="Debug" />
-	<File name="menu.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="5982" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="customers.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="4975" topLine="125" />
-		</Cursor>
-	</File>
-	<File name="categories.h" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="6838" topLine="164" />
-		</Cursor>
-	</File>
-	<File name="games.c" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="1273" topLine="6" />
-		</Cursor>
-	</File>
-	<File name="inputs.h" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="693" topLine="0" />
-		</Cursor>
-	</File>
 	<File name="structs.c" open="1" top="0" tabpos="17" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
 			<Cursor1 position="3019" topLine="96" />
 		</Cursor>
 	</File>
-	<File name="customers.c" open="1" top="1" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="customers.c" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="24887" topLine="679" />
+			<Cursor1 position="26304" topLine="715" />
 		</Cursor>
 	</File>
 	<File name="inputs.c" open="1" top="0" tabpos="13" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -47,19 +22,19 @@
 			<Cursor1 position="1176" topLine="9" />
 		</Cursor>
 	</File>
-	<File name="rents.c" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="rents.c" open="1" top="1" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="4091" topLine="78" />
+			<Cursor1 position="35067" topLine="856" />
 		</Cursor>
 	</File>
 	<File name="rents.h" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="104" topLine="0" />
+			<Cursor1 position="15913" topLine="308" />
 		</Cursor>
 	</File>
 	<File name="menu.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="498" topLine="25" />
+			<Cursor1 position="2151" topLine="65" />
 		</Cursor>
 	</File>
 	<File name="arrays.h" open="1" top="0" tabpos="14" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -84,7 +59,32 @@
 	</File>
 	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="5985" topLine="130" />
+			<Cursor1 position="22363" topLine="454" />
+		</Cursor>
+	</File>
+	<File name="menu.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="6846" topLine="153" />
+		</Cursor>
+	</File>
+	<File name="customers.h" open="1" top="0" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="10201" topLine="254" />
+		</Cursor>
+	</File>
+	<File name="categories.h" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="6838" topLine="164" />
+		</Cursor>
+	</File>
+	<File name="games.c" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="15934" topLine="561" />
+		</Cursor>
+	</File>
+	<File name="inputs.h" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="693" topLine="0" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

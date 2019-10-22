@@ -454,8 +454,35 @@ int main()
                             printf("No se encontraron Alquileres para la Localidad seleccionada.\n");
                         }
                         break;
-                    }
+                    case 4:
+                        inputs_clearScreen();
 
+                        quantity = rents_printListByGame(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX);
+
+                        if(quantity > 0)
+                        {
+                            printf("Se encontraron %d Alquileres del Juego seleccionado.\n", quantity);
+                        }
+                        else
+                        {
+                            printf("No se encontraron Alquileres para el Juego seleccionado.\n");
+                        }
+                        break;
+                    case 7:
+                        inputs_clearScreen();
+
+                        quantity = rents_printListByFemale(rents, RENTS_MAX, customers, CUSTOMERS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX);
+
+                        if(quantity > 0)
+                        {
+                            printf("Se encontraron %d Alquileres de Juegos realizados por mujeres.\n", quantity);
+                        }
+                        else
+                        {
+                            printf("No se encontraron Alquileres de Juegos realizados por mujeres.\n");
+                        }
+                        break;
+                    }
                     inputs_pauseScreen(CONTINUE_MESSAGE);
                 }while(lifeCycle == 0);
                 break;
