@@ -714,6 +714,54 @@ int customers_printListOfLocations(sLocation locationsList[], int locationsLengt
     return itemsCounter;
 }
 
+int customers_printListByLocation(sCustomer customersList[], int customersLength, sLocation locationsList[], int locationsLength)
+{
+    int itemsCounter = 0;
+    int flag = 0;
+    int locationId;
+
+    if(customersList != NULL
+       && customersLength > 0 && customersLength <= CUSTOMERS_MAX)
+    {
+        locationId = customers_userSelectionOfLocations("Elija el ID de la Localidad: ", ERROR_MESSAGE, locationsList, locationsLength);
+        if(locationId != -1)
+        {
+            for (int i = 0; i < customersLength; i++)
+            {
+                if(customers_isCustomer(customersList[i], customersList, customersLength)
+                   && customersList[i].location.id == locationId)
+                {
+                    itemsCounter++;
+
+                    if(itemsCounter == 1)
+                    {
+                        printf("+=======+======================+======================+======+======================+======================+======================+\n");
+                        printf("|   ID  |        NOMBRE        |       APELLIDO       | SEXO |       TELEFONO       |       DIRECCION      |       LOCALIDAD      |\n");
+                        printf("+=======+======================+======================+======+======================+======================+======================+\n");
+                    }
+
+                    if(printCustomer(customersList[i], customersList, customersLength) == 1)
+                    {
+                        flag = 1;
+                    }
+                    else
+                    {
+                        flag = 0;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if(flag == 1)
+        {
+            printf("+-------+----------------------+----------------------+------+----------------------+----------------------+----------------------+\n");
+        }
+    }
+
+    return itemsCounter;
+}
+
 static sCustomer nullCustomer()
 {
     sCustomer aux;

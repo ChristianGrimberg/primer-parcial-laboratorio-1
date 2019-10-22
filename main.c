@@ -414,6 +414,51 @@ int main()
                     inputs_pauseScreen(CONTINUE_MESSAGE);
                 }while(lifeCycle == 0);
                 break;
+            case 6:
+                do
+                {
+                    lifeCycle = menu_complementary(&optionMenu);
+
+                    if(optionMenu == MENU_COMPLEMENTARY_MAX || optionMenu == -1)
+                    {
+                        break;
+                    }
+
+                    switch(optionMenu)
+                    {
+                    case 1:
+                        inputs_clearScreen();
+
+                        quantity = customers_printListByLocation(customers, CUSTOMERS_MAX, locations, LOCATIONS_MAX);
+
+                        if(quantity > 0)
+                        {
+                            printf("Se encontraron %d Clientes en la Localidad seleccionada.\n", quantity);
+                        }
+                        else
+                        {
+                            printf("No se encontraron Clientes para la Localidad seleccionada.\n");
+                        }
+                        break;
+                    case 3:
+                        inputs_clearScreen();
+
+                        quantity = rents_printListTotalPricesByLocation(rents, RENTS_MAX, customers, CUSTOMERS_MAX, locations, LOCATIONS_MAX, games, GAMES_MAX, categories, CATEGORIES_MAX);
+
+                        if(quantity > 0)
+                        {
+                            printf("Se encontraron %d Alquileres en la Localidad seleccionada.\n", quantity);
+                        }
+                        else
+                        {
+                            printf("No se encontraron Alquileres para la Localidad seleccionada.\n");
+                        }
+                        break;
+                    }
+
+                    inputs_pauseScreen(CONTINUE_MESSAGE);
+                }while(lifeCycle == 0);
+                break;
             }
             inputs_pauseScreen(CONTINUE_MESSAGE);
         }while(lifeCycle == 0);

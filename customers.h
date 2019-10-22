@@ -258,4 +258,15 @@ int customers_printList(sCustomer customersList[], int customersLength);
  */
 int customers_printListOfLocations(sLocation locationsList[], int locationsLength);
 
+/** \brief Impresion con formato tabla de Clientes por Localidad.
+ *
+ * \param customersList[] sCustomer Arreglo de estructuras.
+ * \param customersLength int Longitud del arreglo.
+ * \param locationsList[] sLocation Arreglo de Localidades.
+ * \param locationsLength int Longitud del arreglo.
+ * \return int Cantidad de estructuras impresas.
+ *
+ */
+int customers_printListByLocation(sCustomer customersList[], int customersLength, sLocation locationsList[], int locationsLength);
+
 #endif // CUSTOMERS_H_INCLUDED

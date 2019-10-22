@@ -14,7 +14,8 @@ int menu_main(int* option)
     printf(" | [3] ABM de Clientes                                   |\n");
     printf(" | [4] Alquileres                                        |\n");
     printf(" | [5] Informes y Reportes                               |\n");
-    printf(" | [6] Salir del programa                                |\n");
+    printf(" | [6] Informes Complementarios                          |\n");
+    printf(" | [7] Salir del programa                                |\n");
     printf(" +-------------------------------------------------------+\n\n");
 
     if(!inputs_getInt(option, "Elija una opcion del menu: ", ERROR_MESSAGE, 1, MENU_MAIN_MAX))
@@ -143,6 +144,28 @@ int menu_reports(int* option)
     printf(" +-------------------------------------------------------+\n\n");
 
     if(!inputs_getInt(option, "Elija una opcion del menu: ", ERROR_MESSAGE, 1, MENU_REPORTS_MAX))
+    {
+        returnValue = 0;
+    }
+
+    return returnValue;
+}
+
+int menu_complementary(int* option)
+{
+    int returnValue = -1;
+
+    inputs_clearScreen();
+
+    printf(" +=======================================================+\n");
+    printf(" |             INFORMES COMPLEMENTARIOS                  |\n");
+    printf(" +=======================================================+\n");
+    printf(" | [1] Clientes por Localidad                            |\n");
+    printf(" | [3] Monto de Alquiler por Localidad                   |\n");
+    printf(" |[11] Volver al menu principal                          |\n");
+    printf(" +-------------------------------------------------------+\n\n");
+
+    if(!inputs_getInt(option, "Elija una opcion del menu: ", ERROR_MESSAGE, 1, MENU_COMPLEMENTARY_MAX))
     {
         returnValue = 0;
     }

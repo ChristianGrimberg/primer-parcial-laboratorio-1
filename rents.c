@@ -64,6 +64,20 @@ static int customerWithRents(sRental rentsList[], int rentsLength, sCustomer cus
  */
 static int gameWithRents(sRental rentsList[], int rentsLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength, int gameId);
 
+/** \brief Funcion que obtiene el total de precios de Alquileres por Localidad
+ *
+ * \param location sLocation Estructura de Localidad
+ * \param rentsList[] sRental Arreglo de estructuras.
+ * \param rentsLength int Longitud del arreglo.
+ * \param customersList[] sCustomer Arreglo de estructuras de Clientes.
+ * \param customersLength int Longitud del arreglo de Clientes.
+ * \param gamesList[] sGame Arreglo de estructuras de Juegos.
+ * \param gamesLength int Longitud del arreglo de Juegos.
+ * \return float Sumatoria de precios.
+ *
+ */
+static float getSumOfPriceByLocation(sLocation location, sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength);
+
 int rents_isRental(sRental rental, sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
 {
     int returnValue = 0;
@@ -768,6 +782,73 @@ int rents_printList(sRental rentsList[], int rentsLength, sCustomer customersLis
     return itemsCounter;
 }
 
+int rents_printListTotalPricesByLocation(sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sLocation locationsList[], int locationsLength, sGame gamesList[], int gamesLength, sCategory categoriesList[], int categoriesLength)
+{
+    int itemsCounter = 0;
+    int flag = 0;
+    int customerIndex;
+    int gameIndex;
+    int categoryIndex;
+    int locationId;
+    int locationIndex;
+    float sumOfPrices;
+
+    if(rentsList != NULL && customersList != NULL
+       && gamesList != NULL && categoriesList != NULL
+       && rentsLength > 0 && rentsLength <= RENTS_MAX
+       && customersLength > 0 && customersLength <= CUSTOMERS_MAX
+       && gamesLength >0 && gamesLength <= GAMES_MAX
+       && categoriesLength > 0 && categoriesLength <= CATEGORIES_MAX)
+    {
+        locationId = customers_userSelectionOfLocations("Elija el ID de la Localidad: ", ERROR_MESSAGE, locationsList, locationsLength);
+        locationIndex = customers_getLocationIndexById(locationsList, locationsLength, locationId);
+        sumOfPrices = getSumOfPriceByLocation(locationsList[locationIndex], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength);
+
+        if(locationId != -1 && locationIndex != -1)
+        {
+            for (int i = 0; i < rentsLength; i++)
+            {
+                customerIndex = customers_getIndexById(customersList, customersLength, rentsList[i].customerId);
+                gameIndex = games_getIndexById(gamesList, gamesLength, rentsList[i].gameId);
+                categoryIndex = categories_getIndexById(categoriesList, categoriesLength, gamesList[gameIndex].categoryId);
+
+                if(customerIndex != -1 && gameIndex != -1 && categoryIndex != -1
+                   && rents_isRental(rentsList[i], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength)
+                   && customersList[customerIndex].location.id ==  locationId)
+                {
+                    itemsCounter++;
+
+                    if(itemsCounter == 1)
+                    {
+                        printf("+=======+============+==================+==================+===========+==================+==================+\n");
+                        printf("|   ID  |    FECHA   |       JUEGO      |     CATEGORIA    |   PRECIO  |  NOMBRE CLIENTE  | APELLIDO CLIENTE |\n");
+                        printf("+=======+============+==================+==================+===========+==================+==================+\n");
+                    }
+
+                    if(printRental(rentsList[i], rentsList, rentsLength, customersList, customersLength, gamesList, gamesLength, categoriesList, categoriesLength) == 1)
+                    {
+                        flag = 1;
+                    }
+                    else
+                    {
+                        flag = 0;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if(flag == 1)
+        {
+            printf("+-------+------------+------------------+------------------+-----------+------------------+------------------+\n");
+            printf("El total recaudado en la Localidad %s es de: $ %.2f\n",
+                   arrays_stringToCamelCase(locationsList[locationIndex].name, LOCATION_NAME_MAX), sumOfPrices);
+        }
+    }
+
+    return itemsCounter;
+}
+
 static sRental nullRental()
 {
     sRental aux;
@@ -876,4 +957,31 @@ static int gameWithRents(sRental rentsList[], int rentsLength, sGame gamesList[]
     }
 
     return rented;
+}
+
+static float getSumOfPriceByLocation(sLocation location, sRental rentsList[], int rentsLength, sCustomer customersList[], int customersLength, sGame gamesList[], int gamesLength)
+{
+    float sumOfPrices = 0;
+    int customerIndex;
+    int gameIndex;
+
+    if(rentsList != NULL && gamesList != NULL
+       && rentsLength > 0 && rentsLength <= RENTS_MAX
+       && gamesLength > 0 && gamesLength <= GAMES_MAX)
+    {
+        for(int i = 0; i < rentsLength; i++)
+        {
+            customerIndex = customers_getIndexById(customersList, customersLength, rentsList[i].customerId);
+            gameIndex = games_getIndexById(gamesList, gamesLength, rentsList[i].gameId);
+
+            if(customerIndex != -1 && gameIndex != -1
+               && customersList[customerIndex].location.id == location.id)
+            {
+                sumOfPrices += gamesList[gameIndex].price;
+            }
+
+        }
+    }
+
+    return sumOfPrices;
 }
